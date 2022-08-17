@@ -56,6 +56,20 @@ public class Dados {
 		return pessos.get(0);
 	}
 	
+	public void adicionarUser(Usuario usuario) {
+		usuarios.add(usuario);
+	}
+	
+	public void editarUser(int id, Usuario usuario) {
+		for(int i = 0; i<usuarios.size(); i++) {
+			Usuario user = usuarios.get(i);
+			if(user.getId() == id) {
+				int index = usuarios.indexOf(user);
+				usuarios.set(index, usuario);
+			};
+		};
+	}
+	
 	public static void main(String[] args) {
 		Dados d = new Dados();
 		d.inserirDados();
