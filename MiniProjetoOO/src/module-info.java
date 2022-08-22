@@ -1,3 +1,3 @@
-module MiniProjetoOO {
+module NewTest {
 	requires java.desktop;
 }
