@@ -1,22 +1,21 @@
 package modelo;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import modelo.Pagamento.FormaPagamento;
 
 public class Transacao {
-	private static int nextId = 0;
+	private static int nextId = -1;
 	private final int id;
 	private String titulo;
 	private double valor;
-	private Date vencimento;
+	private String vencimento;
 	private Pessoa credor;
 	private Pessoa devedor;
 	private List<Pagamento> pagamentos;
 
-	public Transacao(String titulo, double valor, Date vencimento, Pessoa credor, Pessoa devedor) {
+	public Transacao(String titulo, double valor, String vencimento, Pessoa credor, Pessoa devedor) {
 		this.id = nextId++;
 		this.titulo = titulo;
 		this.valor = valor;
@@ -49,11 +48,11 @@ public class Transacao {
 		this.valor = valor;
 	}
 
-	public Date getVencimento() {
+	public String getVencimento() {
 		return vencimento;
 	}
 
-	public void setVencimento(Date vencimento) {
+	public void setVencimento(String vencimento) {
 		this.vencimento = vencimento;
 	}
 
@@ -65,7 +64,7 @@ public class Transacao {
 		return devedor;
 	}
 	
-	public void addPagamento(double valor, FormaPagamento forma_pagamento, Date data) {
+	public void addPagamento(double valor, FormaPagamento forma_pagamento, String data) {
 		pagamentos.add(new Pagamento(valor, forma_pagamento, data, this));
 	}
 	

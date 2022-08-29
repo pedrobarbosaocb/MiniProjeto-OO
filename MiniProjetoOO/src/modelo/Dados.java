@@ -1,7 +1,6 @@
 package modelo;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.UUID;
 
 import modelo.Pagamento.FormaPagamento;
@@ -9,7 +8,6 @@ import modelo.Pagamento.FormaPagamento;
 public class Dados {
 	private ArrayList<Amigo> amigos = new ArrayList<Amigo>();
 	private ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
-	private ArrayList<Grupo> grupos = new ArrayList<Grupo>();
 	private ArrayList<Transacao> transacoes = new ArrayList<Transacao>();
 	
 	public static int gerarId() {
@@ -20,16 +18,16 @@ public class Dados {
 	
 	public void inserirDados() {
 		for(int i = 0; i < 10; i++) {
-			usuarios.add(new Usuario("User"+i, "User"+i+"@gmail.com", new Date(), "123456"));
+			usuarios.add(new Usuario("User"+i, "User"+i+"@gmail.com", "26/05/2000", "123456"));
 		}
 		
 		usuarios.forEach(user -> {
-			int contador = Integer.parseInt(String.valueOf(String.valueOf(user.getId()).charAt(0)));
+			int contador = user.getId();
 			Amigo amigo = new Amigo("Amigo"+contador, "Amigo"+contador+"@gmail.com", "123456789");
 			amigo.addAmigoDe(user);
 			amigos.add(amigo);
 			user.addAmigo(amigo);
-			Transacao transacao = new Transacao("transação"+contador, (contador*100)/2, new Date(393939409), user, user.getAmigos().get(0));
+			Transacao transacao = new Transacao("transação"+contador, (contador*100)/2, "26/05/2000", user, user.getAmigos().get(0));
 			transacoes.add(transacao);
 			user.addCredito(transacao);
 			amigo.addDebito(transacao);
@@ -37,9 +35,9 @@ public class Dados {
 		
 		for(int a = 0; a < 10; a++) {
 			if(a % 2 == 0 ) {
-				transacoes.get(a).addPagamento(100, FormaPagamento.Pix, new Date());
+				transacoes.get(a).addPagamento(100, FormaPagamento.Pix, "26/05/2000");
 			} else {
-				transacoes.get(a).addPagamento(transacoes.get(a).getValor(), FormaPagamento.Pix, new Date());
+				transacoes.get(a).addPagamento(transacoes.get(a).getValor(), FormaPagamento.Pix, "26/05/2000");
 			}	
 		}
 	}
@@ -56,28 +54,23 @@ public class Dados {
 		return pessos.get(0);
 	}
 	
-	public void adicionarUser(Usuario usuario) {
+	public void addUsuario(Usuario usuario) {
 		usuarios.add(usuario);
 	}
 	
-	public void editarUser(int id, Usuario usuario) {
-		for(int i = 0; i<usuarios.size(); i++) {
-			Usuario user = usuarios.get(i);
-			if(user.getId() == id) {
-				int index = usuarios.indexOf(user);
-				usuarios.set(index, usuario);
-			};
-		};
+	public void removerUsuario(int id) {
+		usuarios.remove(id);
 	}
 	
-	public static void main(String[] args) {
-		Dados d = new Dados();
-		d.inserirDados();
-		d.usuarios.forEach(user -> {
-			System.out.println(user.getAmigos().get(0).getEmail() + user.getId());
-		});
-		d.transacoes.forEach(tra -> {
-			System.out.println("Valor:"+tra.getValor() + "Aberto:"+tra.isQuitado());
-		});
+	public ArrayList<Usuario> getUsuarios() {
+		return usuarios;
+	}
+	
+	public ArrayList<Amigo> getAmigos() {
+		return amigos;
+	}
+	
+	public ArrayList<Transacao> getTransacoes() {
+		return transacoes;
 	}
 }

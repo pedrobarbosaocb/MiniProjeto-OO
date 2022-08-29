@@ -1,28 +1,35 @@
 package modelo;
 
-import java.util.Date;
 import java.util.List;
 import java.util.ArrayList;
 
 public class Usuario extends Pessoa {
-	private Date aniversario;
+	
+	private static int nextId = -1;
+	private final int id;
+	private String aniversario;
 	private String senha;
 	private List<Amigo> amigos;
 	private List<Grupo> grupos;
 	
-	public Usuario(String nome, String email, Date niver, String senha) {
+	public Usuario(String nome, String email, String niver, String senha) {
 		super(nome, email);
+		this.id = nextId++;
 		this.setAniversario(niver);
 		this.setSenha(senha);
 		this.amigos = new ArrayList<Amigo>();
 		this.grupos = new ArrayList<Grupo>();
 	}
+	
+	public int getId() {
+		return id;
+	}
 
-	public Date getAniversario() {
+	public String getAniversario() {
 		return aniversario;
 	}
 
-	public void setAniversario(Date aniversario) {
+	public void setAniversario(String aniversario) {
 		this.aniversario = aniversario;
 	}
 

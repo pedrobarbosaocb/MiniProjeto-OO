@@ -8,6 +8,7 @@ import javax.swing.*;
 
 public class TelaMenuEntrada extends JFrame implements ActionListener {
 	
+	private static final long serialVersionUID = 1L;
 	private static JFrame menu_frame = new JFrame("Acesso");
 	private static JPanel login_panel = new JPanel();
 	private static JPanel btn_panel = new JPanel();
@@ -44,7 +45,7 @@ public class TelaMenuEntrada extends JFrame implements ActionListener {
 
 	public static void main(String[] args) {
 		TelaMenuEntrada menu = new TelaMenuEntrada();
-
+		
 		login_btn.addActionListener(menu);
 		cadastro_btn.addActionListener(menu);
 	}

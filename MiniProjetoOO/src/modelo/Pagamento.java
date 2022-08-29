@@ -1,7 +1,5 @@
 package modelo;
 
-import java.util.Date;
-
 public class Pagamento {
 	
 	public enum FormaPagamento{Cartao, Dinheiro, Pix};
@@ -9,10 +7,10 @@ public class Pagamento {
 	private final int id;
 	private double valor;
 	private FormaPagamento forma_pagamento;
-	private Date data;
+	private String data;
 	private Transacao transacao;
 	
-	public Pagamento(double valor, FormaPagamento forma_pagamento, Date data, Transacao transacao) {
+	public Pagamento(double valor, FormaPagamento forma_pagamento, String data, Transacao transacao) {
 		this.id = nextId++;
 		this.valor = valor;
 		this.forma_pagamento = forma_pagamento;
@@ -32,7 +30,7 @@ public class Pagamento {
 		return forma_pagamento;
 	}
 
-	public Date getData() {
+	public String getData() {
 		return data;
 	}
 
