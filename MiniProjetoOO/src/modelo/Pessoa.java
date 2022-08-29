@@ -4,23 +4,17 @@ import java.util.List;
 import java.util.ArrayList;
 
 public abstract class Pessoa {
-	private static int nextId = 0;
-	private final int id;
+	
 	private String nome;
 	private String email;
 	private List<Transacao> debitos;
 	private List<Transacao> creditos;
 	
 	protected Pessoa(String nome, String email) {
-		this.id = nextId++;
 		this.setNome(nome);
 		this.setEmail(email);
 		this.debitos = new ArrayList<Transacao>();
 		this.creditos = new ArrayList<Transacao>();
-	}
-	
-	public int getId() {
-		return id;
 	}
 
 	public String getNome() {

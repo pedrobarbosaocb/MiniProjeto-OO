@@ -3,17 +3,22 @@ package view;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
 
 import javax.swing.JButton;
+import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+import javax.swing.text.MaskFormatter;
 
 import controle.ControleDados;
 
 public class TelaCadastro extends JFrame implements ActionListener {
 	
+	private static final long serialVersionUID = 1L;
 	private static JFrame cadastro_frame = new JFrame("Cadastro");
 	private static JPanel btn_panel = new JPanel();
 	private static JButton cancel_btn = new JButton("Cancelar");
@@ -28,9 +33,9 @@ public class TelaCadastro extends JFrame implements ActionListener {
 	private static JTextField txt_nome = new JTextField(200);
 	private static JTextField txt_email = new JTextField(200);
 	private static JTextField txt_telefone = new JTextField(200);
-	private static JTextField txt_dt_nascimento = new JTextField(200);
-	private static JTextField txt_senha = new JTextField(200);
-	private static JTextField txt_confirm_senha = new JTextField(200);
+	private static JFormattedTextField txt_dt_nascimento;
+	private static JTextField txt_senha = new JPasswordField(200);
+	private static JTextField txt_confirm_senha = new JPasswordField(200);
 	
 	
 	public TelaCadastro() {
@@ -43,7 +48,18 @@ public class TelaCadastro extends JFrame implements ActionListener {
 		info_panel.add(telefone);
 		info_panel.add(txt_telefone);
 		info_panel.add(dt_nascimento);
-		info_panel.add(txt_dt_nascimento);
+		
+		try {
+			MaskFormatter formatoData = new MaskFormatter("##/##/####");
+			formatoData.setPlaceholder("_");
+			txt_dt_nascimento = new JFormattedTextField(formatoData);
+			info_panel.add(txt_dt_nascimento);
+		} catch(ParseException err) {
+			System.err.println("Erro na formatação: " + err.getMessage());
+            System.exit(-1);
+		}
+		
+		
 		info_panel.add(senha);
 		info_panel.add(txt_senha);
 		info_panel.add(confirm_senha);
