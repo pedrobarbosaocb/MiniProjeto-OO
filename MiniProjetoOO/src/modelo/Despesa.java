@@ -16,7 +16,7 @@ import modelo.Pagamento.FormaPagamento;
 
 public class Despesa {
 
-	private static int nextId = -1;
+	private static int nextId = 0;
 	private final int id;
 	private String titulo;
 	private double valor;

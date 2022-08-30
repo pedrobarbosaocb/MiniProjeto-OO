@@ -14,7 +14,7 @@ import java.util.ArrayList;
 
 public class Amigo extends Pessoa {
 	
-	private static int nextId = -1;
+	private static int nextId = 0;
 	private final int id;
 	private String telefone;
 	private ArrayList<Usuario> amigosDe;
