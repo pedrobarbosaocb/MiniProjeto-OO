@@ -1,24 +1,38 @@
 package modelo;
 
-import java.util.List;
 import java.util.ArrayList;
 
+/**
+ * Classe responsável por armazenar informações de um usuario e suas operações, extende a classe @Pessoa
+ * 
+ * @author Carlos Eduardo & Pedro Barbosa
+ * @version 1.0
+ * 
+ * @see Pessoa
+ * @see Amigo
+**/
 public class Usuario extends Pessoa {
 	
 	private static int nextId = -1;
 	private final int id;
 	private String aniversario;
 	private String senha;
-	private List<Amigo> amigos;
-	private List<Grupo> grupos;
+	private ArrayList<Amigo> amigos;
 	
+	/**
+	 * Construtor Despesa
+	 * 
+	 * @param nome  String
+	 * @param email String
+	 * @param niver String
+	 * @param senha String
+	 * **/
 	public Usuario(String nome, String email, String niver, String senha) {
 		super(nome, email);
 		this.id = nextId++;
 		this.setAniversario(niver);
 		this.setSenha(senha);
 		this.amigos = new ArrayList<Amigo>();
-		this.grupos = new ArrayList<Grupo>();
 	}
 	
 	public int getId() {
@@ -41,16 +55,15 @@ public class Usuario extends Pessoa {
 		this.senha = senha;
 	}
 
-	public List<Amigo> getAmigos() {
+	public ArrayList<Amigo> getAmigos() {
 		return amigos;
 	}
 	
+	public void setAmigos(ArrayList<Amigo> amigos) {
+		this.amigos = amigos;
+	}
 	public void addAmigo(Amigo amigo) {
 		this.amigos.add(amigo);
-	}
-
-	public List<Grupo> getGrupos() {
-		return grupos;
 	}
 
 }

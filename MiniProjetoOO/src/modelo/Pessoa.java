@@ -1,20 +1,34 @@
 package modelo;
 
-import java.util.List;
 import java.util.ArrayList;
 
+/**
+ * Classe abstrata para que seus atributos e métodos possam ser utilizados por outras clases
+ * 
+ * @author Carlos Eduardo & Pedro Barbosa
+ * @version 1.0
+ * 
+ * @see Amigo
+ * @see Usuario
+**/
 public abstract class Pessoa {
 	
 	private String nome;
 	private String email;
-	private List<Transacao> debitos;
-	private List<Transacao> creditos;
+	private ArrayList<Despesa> debitos;
+	private ArrayList<Despesa> creditos;
 	
-	protected Pessoa(String nome, String email) {
+	/**
+	 * Construtor Pessoa
+	 * 
+	 * @param nome  String
+	 * @param email String
+	 */
+	public Pessoa(String nome, String email) {
 		this.setNome(nome);
 		this.setEmail(email);
-		this.debitos = new ArrayList<Transacao>();
-		this.creditos = new ArrayList<Transacao>();
+		this.debitos = new ArrayList<Despesa>();
+		this.creditos = new ArrayList<Despesa>();
 	}
 
 	public String getNome() {
@@ -33,19 +47,29 @@ public abstract class Pessoa {
 		this.email = email;
 	}
 	
-	public List<Transacao> getDebitos(){
+	public ArrayList<Despesa> getDebitos(){
 		return debitos;
 	}
 	
-	public void addDebito(Transacao transacao) {
-		this.debitos.add(transacao);
+	/**
+	 * Método adiciona uma despesa na lista de debitos da pessoa
+	 * 
+	 * @param despesa Despesa
+	 */
+	public void addDebito(Despesa despesa) {
+		this.debitos.add(despesa);
 	}
 	
-	public List<Transacao> getCreditos(){
+	public ArrayList<Despesa> getCreditos(){
 		return creditos;
 	}
 	
-	public void addCredito(Transacao transacao) {
-		this.creditos.add(transacao);
+	/**
+	 * Método adiciona uma despesa na lista de creditos da pessoa
+	 * 
+	 * @param despesa Despesa
+	 */
+	public void addCredito(Despesa despesa) {
+		this.creditos.add(despesa);
 	}
 }

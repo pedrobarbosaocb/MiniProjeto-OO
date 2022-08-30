@@ -46,6 +46,9 @@ public class TelaMenuEntrada extends JFrame implements ActionListener {
 	public static void main(String[] args) {
 		TelaMenuEntrada menu = new TelaMenuEntrada();
 		
+		dados.getDados().inserirDados();
+		dados.criarUsuario("carlos", "kdu@gmail.com", "26/05/2003", "minhasenhaforte");
+		
 		login_btn.addActionListener(menu);
 		cadastro_btn.addActionListener(menu);
 	}
@@ -56,6 +59,8 @@ public class TelaMenuEntrada extends JFrame implements ActionListener {
 		if (src == login_btn) {
 			new TelaMain();
 			menu_frame.setVisible(false);
+			ControleUsuarios controleUser = new ControleUsuarios(dados);
+			System.out.println(controleUser.verificarUsuario("kdu@gmail.com", "minhasenhaforte"));
 		}
 
 		if (src == cadastro_btn) {
