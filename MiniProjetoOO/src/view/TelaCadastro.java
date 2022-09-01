@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import java.text.ParseException;
 
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -16,10 +17,10 @@ import javax.swing.text.MaskFormatter;
 
 import controle.ControleDados;
 
-public class TelaCadastro extends JFrame implements ActionListener {
-	
+public class TelaCadastro extends JDialog implements ActionListener {
+
 	private static final long serialVersionUID = 1L;
-	private static JFrame cadastro_frame = new JFrame("Cadastro");
+	
 	private static JPanel btn_panel = new JPanel();
 	private static JButton cancel_btn = new JButton("Cancelar");
 	private static JButton save_btn = new JButton("Salvar");
@@ -36,11 +37,12 @@ public class TelaCadastro extends JFrame implements ActionListener {
 	private static JFormattedTextField txt_dt_nascimento;
 	private static JTextField txt_senha = new JPasswordField(200);
 	private static JTextField txt_confirm_senha = new JPasswordField(200);
-	
-	
+	private static boolean has_txt_dt_nascimento = false;
+
 	public TelaCadastro() {
-		
-		info_panel.setLayout(new GridLayout(6,2));
+		setModal(true);
+		info_panel.removeAll();
+		info_panel.setLayout(new GridLayout(6, 2));
 		info_panel.add(nome);
 		info_panel.add(txt_nome);
 		info_panel.add(email);
@@ -48,54 +50,53 @@ public class TelaCadastro extends JFrame implements ActionListener {
 		info_panel.add(telefone);
 		info_panel.add(txt_telefone);
 		info_panel.add(dt_nascimento);
-		
+
 		try {
 			MaskFormatter formatoData = new MaskFormatter("##/##/####");
 			formatoData.setPlaceholder("_");
 			txt_dt_nascimento = new JFormattedTextField(formatoData);
 			info_panel.add(txt_dt_nascimento);
-		} catch(ParseException err) {
+
+		} catch (ParseException err) {
 			System.err.println("Erro na formatação: " + err.getMessage());
-            System.exit(-1);
+			System.exit(-1);
 		}
-		
-		
+
 		info_panel.add(senha);
 		info_panel.add(txt_senha);
 		info_panel.add(confirm_senha);
 		info_panel.add(txt_confirm_senha);
-		
+
 		btn_panel.setLayout(new FlowLayout());
 		btn_panel.add(cancel_btn);
-		btn_panel.add(save_btn);
 		cancel_btn.addActionListener(this);
-		
-		cadastro_frame.setLayout(new BorderLayout());
-		cadastro_frame.add(info_panel, BorderLayout.CENTER);
-		cadastro_frame.add(btn_panel, BorderLayout.SOUTH);
-		
+		btn_panel.add(save_btn);
+		save_btn.addActionListener(this);
+
+		setLayout(new BorderLayout());
+		add(info_panel, BorderLayout.CENTER);
+		add(btn_panel, BorderLayout.SOUTH);
+
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		double width = screenSize.getWidth();
 		double height = screenSize.getHeight();
 
-		cadastro_frame.setBounds((int) (width / 2) - 200, (int) (height / 2) - 125, 400, 250);
-		cadastro_frame.setVisible(true);
+		setBounds((int) (width / 2) - 200, (int) (height / 2) - 125, 400, 250);
+		setVisible(true);
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		Object src = e.getSource();
 		if (src == cancel_btn) {
-			cadastro_frame.setVisible(false);
-			cadastro_frame.dispose();
+			setVisible(false);
+			dispose();
 		}
-		
-		if (src == cancel_btn) {
-			cadastro_frame.setVisible(false);
-			cadastro_frame.dispose();
-		}
-		
-		
-	}
 
+		if (src == save_btn) {
+
+			System.out.println(txt_nome.getText() + "\n" + txt_email.getText() + "\n" + txt_telefone.getText() + "\n"
+					+ txt_dt_nascimento.getText() + "\n" + txt_senha.getText() + "\n" + txt_confirm_senha.getText());
+		}
+	}
 }
