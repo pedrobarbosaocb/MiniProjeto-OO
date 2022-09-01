@@ -50,6 +50,7 @@ public class TelaMenuEntrada extends JFrame implements ActionListener {
 
 		titulo.setFont(new Font("Arial", Font.BOLD, 20));
 		titulo.setSize(150, 30);
+		
 
 		/* adicionando os botões */
 
@@ -97,7 +98,8 @@ public class TelaMenuEntrada extends JFrame implements ActionListener {
 			ControleUsuarios controleUser = new ControleUsuarios(dados);
 			
 			// por algum motivo quando verifica usando txt_login.getText() e txt_senha.getText() da false
-			if(controleUser.verificarUsuario("kdu@gmail.com", "minhasenhaforte")) {
+			if(controleUser.verificarUsuario(txt_login.getText(), txt_senha.getText())) {
+				controleUser.getUsuarioPorEmail(txt_login.getText());
 				new TelaMain();
 			} else {
 				JOptionPane.showMessageDialog(null,

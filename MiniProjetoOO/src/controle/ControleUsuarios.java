@@ -67,15 +67,17 @@ public class ControleUsuarios {
 	}
 	
 	public boolean verificarUsuario(String email, String senha) {
+		boolean verificado = false;
+		
 		for(int i = 0; i<usuarios.size(); i++) {
 			Usuario user = usuarios.get(i);
-			if(user.getEmail() == email) {
-				if(user.getSenha() == senha) {
-					return true;
+			if(user.getEmail().equals(email)) {
+				if(user.getSenha().equals(senha)) {
+					verificado = true;
 				}
 			}
 		}
-		return false;
+		return verificado;
 	}
 	
 	public boolean usuarioExiste(String email) {

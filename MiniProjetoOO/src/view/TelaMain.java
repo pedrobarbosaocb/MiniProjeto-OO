@@ -73,7 +73,7 @@ public class TelaMain extends JDialog implements ActionListener {
 			historico.setVisible(false);
 			despesas.setVisible(true);
 			center_panel.removeAll();
-			center_panel.add(despesas);
+			center_panel.add(despesas, BorderLayout.CENTER);
 			
 			despesas_btn.setEnabled(false);
 			hist_btn.setEnabled(true);
