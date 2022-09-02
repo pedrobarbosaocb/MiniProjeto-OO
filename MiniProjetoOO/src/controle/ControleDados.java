@@ -13,6 +13,7 @@ import modelo.*;
 **/
 public class ControleDados {
 	private Dados dados = new Dados();
+	private static Usuario usuarioSessao;
 	
 	public ControleDados() {
 		dados.inserirDados();
@@ -20,6 +21,14 @@ public class ControleDados {
 	
 	public Dados getDados() {
 		return dados;
+	}
+	
+	public static Usuario getUsuarioSessao() {
+		return usuarioSessao;
+	}
+	
+	public static void setUsuarioSessao(Usuario user) {
+		usuarioSessao = user;
 	}
 	
 	public ArrayList<Usuario> getUsuarios() {
