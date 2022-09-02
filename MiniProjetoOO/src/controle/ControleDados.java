@@ -117,12 +117,12 @@ public class ControleDados {
 	 * @param telefone String
 	 * @return true caso consiga alterar as informções, e false caso receba alguma informação errada
 	 */
-	public boolean editarUsuario(int id, String nome, String email, String telefone) {
+	public boolean editarAmigo(int id, String nome, String email, String telefone) {
 		if(nome.length() < 4 || email.length() < 10 || telefone.length() <= 11) {
 			return false;
 		}
 		try {
-			Amigo amigo = dados.getAmigos().get(id);
+			Amigo amigo = dados.getAmigoPorId(id);
 			amigo.setNome(nome);
 			amigo.setEmail(email);
 			amigo.setTelefone(telefone);

@@ -111,6 +111,22 @@ public class Dados {
 	}
 	
 	/**
+	 * Método percorre a lista de amigos e verifica se o id é igual ao fornecido como parâmetro
+	 * 
+	 * @param id int
+	 * @return amigo com o id igual ao fornecido
+	 */
+	public Amigo getAmigoPorId(int id) {
+		Amigo amigo = amigos.get(0);
+		for(int i = 0; i<usuarios.size(); i++) {
+			if(usuarios.get(i).getId() == id) {
+				amigo = amigos.get(i);
+			}
+		}
+		return amigo;
+	}
+	
+	/**
 	 * Método para adicionar amigo na lista de amigos
 	 * 
 	 * @param amigo Amigo

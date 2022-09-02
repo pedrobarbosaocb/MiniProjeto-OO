@@ -55,7 +55,7 @@ public class ControleAmigos {
 		public Amigo getAmigoPorEmail(String email) {
 			Amigo amigo = amigos.get(0);
 			for(int i = 0; i<amigos.size(); i++) {
-				if(amigos.get(i).getEmail() == email) {
+				if(amigos.get(i).getEmail().equals(email)) {
 					amigo = amigos.get(i);
 				}
 			}
@@ -88,7 +88,7 @@ public class ControleAmigos {
 		 */
 		public boolean amigoExiste(String email) {
 			for(int i = 0; i<amigos.size(); i++) {
-				if(amigos.get(i).getEmail() == email) {
+				if(amigos.get(i).getEmail().equals(email)) {
 					return true;
 				}
 			}
