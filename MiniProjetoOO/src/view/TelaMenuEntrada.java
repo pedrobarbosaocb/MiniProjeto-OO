@@ -10,7 +10,7 @@ public class TelaMenuEntrada extends JFrame implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
 
-	private static JLabel titulo = new JLabel("Olá, faça seu login ou crie uma conta");
+	private static JLabel titulo = new JLabel("Bem vinda(o) ao melhor auxiliador de divisão de despesas");
 
 	private static JPanel login_panel = new JPanel();
 	private static JPanel btn_panel = new JPanel();
@@ -18,7 +18,6 @@ public class TelaMenuEntrada extends JFrame implements ActionListener {
 	private static JLabel login = new JLabel("Usuário");
 	private static JLabel senha = new JLabel("Senha");
 	private static JTextField txt_login = new JTextField();
-	// private static JPasswordField txt_senha = new JPasswordField();
 	private static JTextField txt_senha = new JPasswordField();
 
 	private static JButton login_btn = new JButton("Login");
@@ -48,7 +47,7 @@ public class TelaMenuEntrada extends JFrame implements ActionListener {
 		login_panel.add(senha);
 		login_panel.add(txt_senha);
 
-		titulo.setFont(new Font("Arial", Font.BOLD, 20));
+		titulo.setFont(new Font("Arial", Font.BOLD, 12));
 		titulo.setSize(150, 30);
 		
 
@@ -85,7 +84,6 @@ public class TelaMenuEntrada extends JFrame implements ActionListener {
 
 		login_btn.addActionListener(menu);
 		cadastro_btn.addActionListener(menu);
-
 	}
 
 	public void actionPerformed(ActionEvent e) {
@@ -93,32 +91,20 @@ public class TelaMenuEntrada extends JFrame implements ActionListener {
 
 		if (src == login_btn) {
 			
-			
-			//setVisible(false);
 			ControleUsuarios controleUser = new ControleUsuarios(dados);
 			
-			// por algum motivo quando verifica usando txt_login.getText() e txt_senha.getText() da false
 			if(controleUser.verificarUsuario(txt_login.getText(), txt_senha.getText())) {
 				controleUser.getUsuarioPorEmail(txt_login.getText());
 				new TelaMain();
 			} else {
 				JOptionPane.showMessageDialog(null,
-						"O nome de usuário ou a senha estão incorretos\n" + "caso não possua uma conta crie uma nova clicando no botão Cadastro",
+						"O nome de usuário ou a senha estão incorretos\n" + "caso não possua uma conta crie uma nova \nclicando no botão \"Criar Conta\".",
 						null, JOptionPane.INFORMATION_MESSAGE);
 			}
-			
 		}
 
 		if (src == cadastro_btn) {
 			new TelaCadastro();
-			//setVisible(false);
-			
-			/*
-			JOptionPane.showMessageDialog(null,
-					"Ainda precisam ser implementadas as funcionalidades\n" + "relacionadas a curso e a matrícula",
-					null, JOptionPane.INFORMATION_MESSAGE);
-			menu_frame.setVisible(false);
-			*/
 		}
 	}
 }
