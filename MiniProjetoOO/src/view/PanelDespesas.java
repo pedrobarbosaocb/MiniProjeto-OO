@@ -17,18 +17,15 @@ public class PanelDespesas extends JPanel implements ActionListener {
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	private static JLabel saudacao = new JLabel("descricao");
-	private static JLabel saudacao1 = new JLabel("amigo1");
-	private static JLabel saudacao2 = new JLabel("exemplo");
-	private static JLabel saudacao3 = new JLabel("exemplo");
+	private static JLabel titulo = new JLabel("Despesas");
 	private static JPanel despesas = new JPanel();
-	private static JPanel despesa = new JPanel();
 	private static JButton add_despesa = new JButton("Adicionar Despesa");
 
 	public PanelDespesas() {
 		setLayout(new BorderLayout());
-
+		
 		removeAll();
+		add(titulo, BorderLayout.NORTH);
 		int n_despesas = 8;
 		despesas.add(new PanelDespesa("Coquinha Gelada", "11,00", "01/09/2023", "Kadu", "Pedro", true ));
 		despesas.add(new PanelDespesa("Suco Verde", "11,00", "01/09/2023", "Kadu", "Pedro", true ));

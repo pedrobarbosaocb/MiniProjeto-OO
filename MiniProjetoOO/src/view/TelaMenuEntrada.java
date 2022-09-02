@@ -26,7 +26,9 @@ public class TelaMenuEntrada extends JFrame implements ActionListener {
 	public static ControleDados dados = new ControleDados();
 
 	public TelaMenuEntrada() {
-
+		
+		
+		
 		login_panel.setLayout(null);// new GridLayout(2,3));
 		login_panel.setSize(10, 10);
 
@@ -59,6 +61,8 @@ public class TelaMenuEntrada extends JFrame implements ActionListener {
 		btn_panel.setLayout(new FlowLayout());
 		btn_panel.add(login_btn);
 		btn_panel.add(cadastro_btn);
+		
+		getRootPane().setDefaultButton(login_btn); // ao clicar enter o login_btn é ativado
 
 		/* definindo posição dos paineis no jframe principal */
 		add(titulo, BorderLayout.NORTH);
