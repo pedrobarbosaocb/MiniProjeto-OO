@@ -27,8 +27,6 @@ public class TelaMenuEntrada extends JFrame implements ActionListener {
 
 	public TelaMenuEntrada() {
 		
-		
-		
 		login_panel.setLayout(null);// new GridLayout(2,3));
 		login_panel.setSize(10, 10);
 

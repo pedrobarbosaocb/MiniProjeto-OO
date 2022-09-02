@@ -33,11 +33,10 @@ public class TelaCadastro extends JDialog implements ActionListener {
 	private static JLabel confirm_senha = new JLabel("Confirmar Senha:");
 	private static JTextField txt_nome = new JTextField(200);
 	private static JTextField txt_email = new JTextField(200);
-	private static JTextField txt_telefone = new JTextField(200);
+	private static JFormattedTextField txt_telefone;
 	private static JFormattedTextField txt_dt_nascimento;
 	private static JTextField txt_senha = new JPasswordField(200);
 	private static JTextField txt_confirm_senha = new JPasswordField(200);
-	private static boolean has_txt_dt_nascimento = false;
 
 	public TelaCadastro() {
 		setModal(true);
@@ -48,18 +47,22 @@ public class TelaCadastro extends JDialog implements ActionListener {
 		info_panel.add(email);
 		info_panel.add(txt_email);
 		info_panel.add(telefone);
-		info_panel.add(txt_telefone);
-		info_panel.add(dt_nascimento);
+		
 
 		try {
+			MaskFormatter formatoTelefone = new MaskFormatter("(##)#####-####");
+			formatoTelefone.setPlaceholderCharacter('_');
+			txt_telefone = new JFormattedTextField(formatoTelefone);
+			info_panel.add(txt_telefone);
+			info_panel.add(dt_nascimento);
+			
 			MaskFormatter formatoData = new MaskFormatter("##/##/####");
-			formatoData.setPlaceholder("_");
+			formatoData.setPlaceholderCharacter('_');
 			txt_dt_nascimento = new JFormattedTextField(formatoData);
 			info_panel.add(txt_dt_nascimento);
 
 		} catch (ParseException err) {
 			System.err.println("Erro na formatação: " + err.getMessage());
-			System.exit(-1);
 		}
 
 		info_panel.add(senha);
