@@ -48,6 +48,9 @@ public class PanelHistorico extends JPanel implements ActionListener {
 
 		if (src == limp_historico) {
 			despesas.removeAll();
+			
+			revalidate();
+			repaint();
 		}
 		
 	}

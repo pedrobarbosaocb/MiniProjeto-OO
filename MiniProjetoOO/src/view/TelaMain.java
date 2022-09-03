@@ -45,15 +45,13 @@ public class TelaMain extends JDialog implements ActionListener {
 		
 		btn_panel.setLayout(new GridLayout(2,0));
 		add(btn_panel, BorderLayout.WEST);
-		center_panel.add(despesas, BorderLayout.CENTER);
-		center_panel.remove(historico);
-		add(center_panel,BorderLayout.CENTER);
 		
 		despesas.setVisible(true);
 		historico.setVisible(false);
 		
-		/*add(historico, BorderLayout.CENTER);
-		add(despesas, BorderLayout.CENTER);*/
+		center_panel.add(historico, BorderLayout.CENTER);
+		center_panel.add(despesas, BorderLayout.CENTER);
+		add(center_panel, BorderLayout.CENTER);
 		
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		double width = screenSize.getWidth();
@@ -72,22 +70,24 @@ public class TelaMain extends JDialog implements ActionListener {
 			System.out.println("showing despesa");
 			historico.setVisible(false);
 			despesas.setVisible(true);
-			center_panel.removeAll();
-			center_panel.add(despesas, BorderLayout.CENTER);
 			
 			despesas_btn.setEnabled(false);
 			hist_btn.setEnabled(true);
+			
+			revalidate();
+			repaint();
 		}
 		
 		if (src == hist_btn) {
 			System.out.println("showing historico");
 			historico.setVisible(true);
 			despesas.setVisible(false);
-			center_panel.removeAll();
-			center_panel.add(historico, BorderLayout.CENTER);
 			
 			hist_btn.setEnabled(false);
 			despesas_btn.setEnabled(true);
+			
+			revalidate();
+			repaint();
 		}
 			
 		
