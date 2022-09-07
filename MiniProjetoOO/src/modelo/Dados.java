@@ -40,9 +40,9 @@ public class Dados {
 		
 		for(int a = 0; a < 10; a++) {
 			if(a % 2 == 0 ) {
-				despesas.get(a).addPagamento(100, FormaPagamento.Pix, "26/05/2000");
+				despesas.get(a).addPagamento(100, FormaPagamento.PIX, "26/05/2000");
 			} else {
-				despesas.get(a).addPagamento(despesas.get(a).getValor(), FormaPagamento.Pix, "26/05/2000");
+				despesas.get(a).addPagamento(despesas.get(a).getValor(), FormaPagamento.PIX, "26/05/2000");
 			}	
 		}
 	}
@@ -146,5 +146,19 @@ public class Dados {
 	
 	public ArrayList<Despesa> getDespesas() {
 		return despesas;
+	}
+	
+	public Despesa getDespesa(int id) {
+		Despesa despesa = despesas.get(0);
+		for(int i = 0; i<despesas.size(); i++) {
+			if(despesas.get(i).getId() == id) {
+				despesa = despesas.get(i);
+			}
+		}
+		return despesa;
+	}
+	
+	public void addDespesa(Despesa despesa) {
+		despesas.add(despesa);
 	}
 }

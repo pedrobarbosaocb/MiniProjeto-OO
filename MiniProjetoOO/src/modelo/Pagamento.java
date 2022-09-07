@@ -11,7 +11,7 @@ package modelo;
 
 public class Pagamento {
 	
-	public enum FormaPagamento{Cartao, Dinheiro, Pix};
+	public enum FormaPagamento{CARTAO, DINHEIRO, PIX};
 	private static int nextId = 0;
 	private final int id;
 	private double valor;

@@ -1,9 +1,16 @@
 package view;
 
 import controle.*;
+import modelo.Amigo;
+import modelo.Pessoa;
+import modelo.Usuario;
+import modelo.Pagamento.FormaPagamento;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import javax.swing.*;
 
 public class TelaMenuEntrada extends JFrame implements ActionListener {
@@ -82,7 +89,28 @@ public class TelaMenuEntrada extends JFrame implements ActionListener {
 		TelaMenuEntrada menu = new TelaMenuEntrada();
 
 		dados.getDados().inserirDados();
+		Usuario user = new Usuario("carlos", "kdu@gmail.com", "26/05/2003", "minhasenhaforte");
+		Amigo migo = new Amigo("nome", "email", "telefonelis");
+		Amigo migo2 = new Amigo("nome2", "email2", "telefoneli2s");
+		Amigo migo3 = new Amigo("nome3", "email3", "telefonelis3");
 		dados.criarUsuario("carlos", "kdu@gmail.com", "26/05/2003", "minhasenhaforte");
+		ArrayList<Pessoa> pessoas = new ArrayList<Pessoa>();
+		pessoas.add(user);
+		pessoas.add(migo);
+		pessoas.add(migo2);
+		pessoas.add(migo3);
+		ArrayList<Double> valores = new ArrayList<Double>();
+		valores.add(50.0);
+		valores.add(20.0);
+		valores.add(20.0);
+		valores.add(10.0);
+		ArrayList<Double> pagos = new ArrayList<Double>();
+		pagos.add(75.0);
+		pagos.add(0.0);
+		pagos.add(25.0);
+		pagos.add(0.0);
+		dados.criarDespesa("teste", 100.0, "20/05/2023", pessoas, pagos, valores);
+		
 
 		login_btn.addActionListener(menu);
 		cadastro_btn.addActionListener(menu);

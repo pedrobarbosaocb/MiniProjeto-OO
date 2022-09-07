@@ -113,5 +113,10 @@ public class Despesa {
 	public boolean isQuitado() {
 		return this.getTotalPago() >= this.valor;
 	}
+	
+	
+	public String toString() {
+		return "titulo:"+titulo+"\r\nvalor:"+valor+"\r\nvecimento:"+vencimento+"\r\ncredor:"+credor.getEmail()+"\r\ndevedor:"+devedor.getEmail();
+	}
 
 }
