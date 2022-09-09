@@ -62,8 +62,13 @@ public class Usuario extends Pessoa {
 	public void setAmigos(ArrayList<Amigo> amigos) {
 		this.amigos = amigos;
 	}
+	
 	public void addAmigo(Amigo amigo) {
 		this.amigos.add(amigo);
+	}
+	
+	public String toString() {
+		return String.format("Id: %d \nNome: %s\nEmail: %s\nAniversario: %s\nSenha: %s\n", id, getNome(), getEmail(), aniversario, senha);
 	}
 
 }

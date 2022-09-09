@@ -52,22 +52,6 @@ public class Dados {
 	}
 	
 	/**
-	 * Método percorre a lista de usuarios e verifica se o id do usuario é igual ao fornecido como parâmetro
-	 * 
-	 * @param id int
-	 * @return usuario com o id igual ao fornecido
-	 */
-	public Usuario getUsuarioPorId(int id) {
-		Usuario usuario = usuarios.get(0);
-		for(int i = 0; i<usuarios.size(); i++) {
-			if(usuarios.get(i).getId() == id) {
-				usuario = usuarios.get(i);
-			}
-		}
-		return usuario;
-	}
-	
-	/**
 	 * Método para adicionar usuario na lista de usuarios
 	 * 
 	 * @param usuario Usuario
@@ -77,16 +61,33 @@ public class Dados {
 	}
 	
 	/**
+	 * Método percorre a lista de usuarios e verifica se o id do usuario é igual ao fornecido como parâmetro
+	 * 
+	 * @param id int
+	 * @return usuario com o id igual ao fornecido, ou null caso não encontre nenhum
+	 */
+	public Usuario getUsuario(int id) {
+		for(Usuario user: usuarios) {
+			if(user.getId() == id) {
+				return user;
+			}
+		}
+		return null;
+	}
+	
+	/**
 	 *Método percorre a lista de usuarios e ao encontrar algum com o id igual ao passado como parâmetro exclui tal usuario
 	 *
 	 * @param id int
 	 * **/
-	public void removerUsuario(int id) {
+	public boolean removerUsuario(int id) {
 		for(int i = 0; i < usuarios.size(); i++) {
 			if(usuarios.get(i).getId() == id) {
 				usuarios.remove(i);
+				return true;
 			}
 		}
+		return false;
 	}
 	
 	/**
@@ -96,7 +97,7 @@ public class Dados {
 	 * @param idAmigo   int
 	 */
 	public void removerAmigoUsuario(int idUsuario, int idAmigo) {
-		Usuario user = getUsuarioPorId(idUsuario);
+		Usuario user = getUsuario(idUsuario);
 		ArrayList<Amigo> amigos = user.getAmigos();
 		for(int i = 0; i < amigos.size(); i++) {
 			if(amigos.get(i).getId() == idAmigo) {
@@ -111,22 +112,6 @@ public class Dados {
 	}
 	
 	/**
-	 * Método percorre a lista de amigos e verifica se o id é igual ao fornecido como parâmetro
-	 * 
-	 * @param id int
-	 * @return amigo com o id igual ao fornecido
-	 */
-	public Amigo getAmigoPorId(int id) {
-		Amigo amigo = amigos.get(0);
-		for(int i = 0; i<usuarios.size(); i++) {
-			if(usuarios.get(i).getId() == id) {
-				amigo = amigos.get(i);
-			}
-		}
-		return amigo;
-	}
-	
-	/**
 	 * Método para adicionar amigo na lista de amigos
 	 * 
 	 * @param amigo Amigo
@@ -136,29 +121,61 @@ public class Dados {
 	}
 	
 	/**
+	 * Método percorre a lista de amigos e verifica se o id do amigo é igual ao fornecido como parâmetro
+	 * 
+	 * @param id int
+	 * @return Amigo com o id igual ao fornecido, ou null caso não encontre nenhum amigo 
+	 */
+	public Amigo getAmigo(int id) {
+		for(int i = 0; i < amigos.size(); i++) {
+			if(amigos.get(i).getId() == id) {
+				return amigos.get(i);
+			}
+		}
+		return null;
+	}
+	
+	/**
 	 * Método percorre a lista de amigos e ao encontrar algum com o id igual ao passado como parâmetro exclui tal amigo
 	 * 
 	 * @param id int
 	 * **/
-	public void removerAmigo(int id) {
-		amigos.remove(id);
+	public boolean removerAmigo(int id) {
+		for(int i = 0; i < amigos.size(); i++) {
+			if(amigos.get(i).getId() == id) {
+				amigos.remove(i);
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	public ArrayList<Despesa> getDespesas() {
 		return despesas;
 	}
 	
-	public Despesa getDespesa(int id) {
-		Despesa despesa = despesas.get(0);
-		for(int i = 0; i<despesas.size(); i++) {
-			if(despesas.get(i).getId() == id) {
-				despesa = despesas.get(i);
-			}
-		}
-		return despesa;
-	}
-	
+	/**
+	 * Método para adicionar despesa na lista de despesas
+	 * 
+	 * @param despesa Despesa
+	 * **/
 	public void addDespesa(Despesa despesa) {
 		despesas.add(despesa);
+	}
+	
+	/**
+	 * Método percorre a lista de despesas e verifica se o id é igual ao fornecido como parâmetro
+	 * 
+	 * @param id int
+	 * @return despesa com o id igual ao fornecido
+	 */
+	public Despesa getDespesa(int id) {
+		Despesa res = getDespesas().get(0);
+		for(Despesa despesa: getDespesas()) {
+			if(despesa.getId() == id) {
+				res = despesa;
+			}
+		}
+		return res;
 	}
 }

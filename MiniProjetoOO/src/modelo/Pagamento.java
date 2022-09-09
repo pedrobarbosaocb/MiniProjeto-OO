@@ -11,6 +11,10 @@ package modelo;
 
 public class Pagamento {
 	
+	/**
+	 *Enum para forma de pagamento que só terá essas 3 opções:
+	 *CARTAO, DINHEIRO, PIX
+	 */
 	public enum FormaPagamento{CARTAO, DINHEIRO, PIX};
 	private static int nextId = 0;
 	private final int id;
@@ -54,5 +58,9 @@ public class Pagamento {
 
 	public Despesa getTransacao() {
 		return despesa;
+	}
+	
+	public String toString() {
+		return String.format("Id: %d \nValor: %.1f\nForma pagamento: %s\nData: %s\nId despesa: %d", id, valor, forma_pagamento, data, despesa.getId());
 	}
 }

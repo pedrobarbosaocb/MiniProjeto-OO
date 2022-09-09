@@ -34,32 +34,30 @@ public class ControleUsuarios {
 	 * Método percorre a lista de usuarios e verifica se o id é igual ao fornecido como parâmetro
 	 * 
 	 * @param id int
-	 * @return Usuario com o id igual ao fornecido
+	 * @return Usuario com o id igual ao fornecido, ou null caso não encontre usuario com esse id
 	 */
-	public Usuario getUsuarioPorId(int id) {
-		Usuario usuario = usuarios.get(0);
-		for(int i = 0; i<usuarios.size(); i++) {
+	public Usuario getUsuario(int id) {
+		for(int i = 0; i < usuarios.size(); i++) {
 			if(usuarios.get(i).getId() == id) {
-				usuario = usuarios.get(i);
+				return usuarios.get(i);
 			}
 		}
-		return usuario;
+		return null;
 	}
 	
 	/**
 	 * Método percorre a lista de usuarios e verifica se o email é igual ao fornecido como parâmetro
 	 * 
 	 * @param email String
-	 * @return Usuario com o email igual ao fornecido
+	 * @return Usuario com o email igual ao fornecido, ou null caso não encontre usuario com esse email
 	 */
-	public Usuario getUsuarioPorEmail(String email) {
-		Usuario usuario = usuarios.get(0);
-		for(int i = 0; i<usuarios.size(); i++) {
+	public Usuario getUsuario(String email) {
+		for(int i = 0; i < usuarios.size(); i++) {
 			if(usuarios.get(i).getEmail().equals(email)) {
-				usuario = usuarios.get(i);
+				return usuarios.get(i);
 			}
 		}
-		return usuario;
+		return null;
 	}
 	
 	/**
@@ -80,7 +78,7 @@ public class ControleUsuarios {
 	 * @return Lista de amigos de um usuario
 	 */
 	public ArrayList<Amigo> getAmigosUsuario(int id) {
-		return getUsuarioPorId(id).getAmigos();
+		return getUsuario(id).getAmigos();
 	}
 	
 	/**
@@ -97,11 +95,11 @@ public class ControleUsuarios {
 	}
 	
 	public ArrayList<Despesa> getDebitosUsuario(int id) {
-		return getUsuarioPorId(id).getDebitos();
+		return getUsuario(id).getDebitos();
 	}
 	
 	public ArrayList<Despesa> getCreditosUsuario(int id) {
-		return getUsuarioPorId(id).getCreditos();
+		return getUsuario(id).getCreditos();
 	}
 	
 	/**
@@ -112,16 +110,14 @@ public class ControleUsuarios {
 	 * @return true caso informações estejam corretas, false caso não
 	 */
 	public boolean verificarUsuario(String email, String senha) {
-		boolean verificado = false;
-		for(int i = 0; i<usuarios.size(); i++) {
-			Usuario user = usuarios.get(i);
+		for(Usuario user: usuarios) {
 			if(user.getEmail().equals(email)) {
 				if(user.getSenha().equals(senha)) {
-					verificado = true;
+					return true;
 				}
 			}
 		}
-		return verificado;
+		return false;
 	}
 	
 	/**
@@ -138,5 +134,22 @@ public class ControleUsuarios {
 		return false;
 	}
 	
-	//public boolean excluirAmigoDeUsuario(int idUsuario, int idAmigo) 
+	/**
+	 * Método para excluir um amigo da lista de amigos de um usuario
+	 * 
+	 * @param idUsuario int
+	 * @param idAmigo   int
+	 * @return true caso consiga excluir, false caso não ache um usuario com este id
+	 * 	ou um amigo com o id fornecido
+	 */
+	public boolean excluirAmigoDeUsuario(int idUsuario, int idAmigo) {
+		Usuario user = getUsuario(idUsuario);
+		for(Amigo amigo: user.getAmigos()) {
+			if(amigo.getId() == idAmigo) {
+				user.getAmigos().remove(amigo);
+				return true;
+			}
+		}
+		return false;
+	}
 }

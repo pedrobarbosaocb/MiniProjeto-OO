@@ -111,7 +111,7 @@ public class TelaMenuEntrada extends JFrame implements ActionListener {
 		pagos.add(0.0);
 		dados.criarDespesa("teste", 100.0, "20/05/2023", pessoas, pagos, valores);
 		
-
+		
 		login_btn.addActionListener(menu);
 		cadastro_btn.addActionListener(menu);
 	}
@@ -124,7 +124,7 @@ public class TelaMenuEntrada extends JFrame implements ActionListener {
 			ControleUsuarios controleUser = new ControleUsuarios(dados);
 			
 			if(controleUser.verificarUsuario(txt_login.getText(), txt_senha.getText())) {
-				controleUser.getUsuarioPorEmail(txt_login.getText());
+				controleUser.getUsuario(txt_login.getText());
 				new TelaMain();
 			} else {
 				JOptionPane.showMessageDialog(null,

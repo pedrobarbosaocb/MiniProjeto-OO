@@ -59,4 +59,8 @@ public class Amigo extends Pessoa {
 	public void addAmigoDe(Usuario user) {
 		this.amigosDe.add(user);
 	}
+	
+	public String toString() {
+		return String.format("Id: %d \nNome: %s\nEmail: %s\nTelefone: %s\n", id, getNome(), getEmail(), telefone);
+	}
 }

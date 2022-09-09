@@ -12,14 +12,11 @@ import modelo.Pagamento.FormaPagamento;
  * @author Carlos Eduardo & Pedro Barbosa
  * @version 1.0
  * 
+ * @see Dados
 **/
 public class ControleDados {
 	private Dados dados = new Dados();
 	private static Usuario usuarioSessao;
-	
-	public ControleDados() {
-		dados.inserirDados();
-	}
 	
 	public Dados getDados() {
 		return dados;
@@ -41,8 +38,22 @@ public class ControleDados {
 		return dados.getAmigos();
 	}
 	
-	public ArrayList<Despesa> getContas() {
+	public ArrayList<Despesa> getDespesas() {
 		return dados.getDespesas();
+	}
+	
+	/**
+	 * Método verifica se algum dos objetos da lista é null, "" ou 0
+	 * @param objeto Object[]
+	 * @return true caso um objeto passado seja null, "" ou 0, e false caso contrário
+	 */
+	public boolean verificarObjetos(Object[] objeto) {
+		for(Object obj: objeto) {
+			if(obj == null) return true;
+			else if(obj.equals("")) return true;
+			else if(obj.equals(0)) return true;
+		}
+		return false;
 	}
 	
 	/**
@@ -52,9 +63,11 @@ public class ControleDados {
 	 * @param niver String
 	 * @param senha String
 	 * @return true caso consiga adicionar o usuario, e false caso receba alguma informação errada
+	 * @see {@link Dados#addUsuario(int)}
 	 */
 	public boolean criarUsuario(String nome, String email, String niver, String senha) {
-		if(nome.length() < 4 || email.length() < 10 || senha.length() <= 6) {
+		Object[] params = {nome, email, niver, senha};
+		if(verificarObjetos(params)) {
 			return false;
 		}
 		Usuario novoUsuario = new Usuario(nome, email, niver, senha);
@@ -70,36 +83,32 @@ public class ControleDados {
 	 * @param niver String
 	 * @param senha String
 	 * @return true caso consiga alterar as informções, e false caso receba alguma informação errada
+	 * @see {@link Dados#getUsuario(int)}
 	 */
 	public boolean editarUsuario(int id, String nome, String email, String niver, String senha) {
-		if(id < 0 || nome.length() < 4 || email.length() < 10 || senha.length() <= 6) {
+		Object[] params = {nome, email, niver, senha};
+		if(verificarObjetos(params) || id < 0) {
 			return false;
 		}
-		try {
-			Usuario user = dados.getUsuarioPorId(id);
-			user.setNome(nome);
-			user.setEmail(email);
-			user.setAniversario(niver);
-			user.setSenha(senha);
-			return true;
-		} catch(Exception err) {
-			return false;
-		}
+		Usuario user = dados.getUsuario(id);
+		if(user == null) return false;
 		
+		user.setNome(nome);
+		user.setEmail(email);
+		user.setAniversario(niver);
+		user.setSenha(senha);
+		return true;
 	}
 	
 	/**
 	 * Exclui um usuario da lista de usuarios
 	 * @param id
 	 * @return true caso consiga excluir o usuario, e false caso não consiga
+	 * @see {@link Dados#removerUsuario(int)}
 	 */
 	public boolean excluirUsuario(int id) {
-		try {
-			dados.removerUsuario(id);
-			return true;
-		} catch(Exception err) {
-			return false;
-		}
+		if(id < 0) return false;
+		return dados.removerUsuario(id);
 	}
 	
 	/**
@@ -109,9 +118,13 @@ public class ControleDados {
 	 * @param email    String
 	 * @param telefone String
 	 * @return true caso consiga adicionar o amigo, e false caso receba alguma informação errada
+	 * @see {@link Amigo#addAmigoDe(Usuario)}
+	 * @see {@link Usuario#addAmigo(Amigo)}
+	 * @see {@link Dados#addAmigo(Amigo)}
 	 */
 	public boolean criarAmigo(Usuario usuario, String nome, String email, String telefone) {
-		if(nome.length() < 4 || email.length() < 10 || telefone.length() <= 11) {
+		Object[] params = {usuario, nome, email, telefone};
+		if(verificarObjetos(params)) {
 			return false;
 		}
 		Amigo amigo = new Amigo(nome, email, telefone);
@@ -127,45 +140,58 @@ public class ControleDados {
 	 * @param email    String
 	 * @param telefone String
 	 * @return true caso consiga alterar as informções, e false caso receba alguma informação errada
+	 * @see {@link Dados#getAmigo(int)}
 	 */
 	public boolean editarAmigo(int id, String nome, String email, String telefone) {
-		if(id < 0 || nome.length() < 4 || email.length() < 10 || telefone.length() <= 11) {
+		Object[] params = {nome, email, telefone};
+		if(verificarObjetos(params)) {
 			return false;
 		}
-		try {
-			Amigo amigo = dados.getAmigoPorId(id);
-			amigo.setNome(nome);
-			amigo.setEmail(email);
-			amigo.setTelefone(telefone);
-			return true;
-		} catch(Exception err) {
-			return false;
-		}
+		
+		Amigo amigo = dados.getAmigo(id);
+		if(amigo == null) return false;
+		amigo.setNome(nome);
+		amigo.setEmail(email);
+		amigo.setTelefone(telefone);
+		return true;
 	}
 	
 	/**
 	 * Exclui um amigo da lista de amigos
 	 * @param id
 	 * @return true caso consiga excluir o usuario, e false caso não consiga
+	 * @see {@link Dados#removerAmigo(int)}
 	 */
 	public boolean excluirAmigo(int id) {
-		try {
-			dados.removerAmigo(id);
-			return true;
-		} catch(Exception err) {
-			return false;
-		}
+		if(id < 0) return false;
+		return dados.removerAmigo(id);
+		
 	}
 	
+	/**
+	 * Método transforma um double de x casas decimais em apenas uma casa decimal
+	 * @param n double
+	 * @return double fornecido com apenas uma casa decimal
+	 */
 	public double casaDecimal(double n) {
 		return Math.round(n*10.0)/10.0;
 	}
 	
+	/**
+	 * Método responsável por criar as despesas entre cada usuario/amigo, recebe o valor total da despesa, a lista de pessoas envolvidas
+	 * e a lista de valores pagos pelas pessoas, divide a despesa igualmente para todos levando em conta o que cada um pagou.
+	 * @param titulo     String
+	 * @param valor      double
+	 * @param vencimento String
+	 * @param pessoas    ArrayList(Pessoa)
+	 * @param valores    ArrayList(Double)
+	 * @return true caso consiga criar as despesas, e false caso haja algum erro
+	 */
 	public boolean criarDespesa(String titulo, double valor, String vencimento, ArrayList<Pessoa> pessoas, 
 			ArrayList<Double> valores) {
 		
-		if(titulo.length() < 3 || valor <= 0 || vencimento.length() < 8 || pessoas.size() <= 0 || valores.size() <= 0
-				|| pessoas.size() != valores.size()) return false;
+		Object[] params = {titulo, valor, vencimento, pessoas.size(), valores.size()};
+		if(verificarObjetos(params) || valor < 0 || pessoas.size() != valores.size()) return false;
 		
 		double valor_pessoa = casaDecimal(valor/pessoas.size());
 		
@@ -200,10 +226,23 @@ public class ControleDados {
 		return true;
 	}
 	
+	/**
+	 * Sobrecarga do método {@link #criarDespesa}, recebe o valor total da despesa, a lista de pessoas envolvidas,
+	 * lista de valores pagos pelas pessoas e a lista de valores que devem ser pagos por cada um. Ou seja, não divide
+	 * igualmente como a {@link #criarDespesa}
+	 * @param titulo     String
+	 * @param valor      double
+	 * @param vencimento String
+	 * @param pessoas    ArrayList(Pessoa)
+	 * @param pagos      ArrayList(Double)
+	 * @param valores    ArrayList(Double)
+	 * @return true caso consiga criar as despesas, e false caso haja algum erro
+	 */
 	public boolean criarDespesa(String titulo, double valor, String vencimento, ArrayList<Pessoa> pessoas, 
 			ArrayList<Double> pagos, ArrayList<Double> valores) {
-		if(titulo.length() < 3 || valor <= 0 || vencimento.length() < 8 || pessoas.size() <= 0 || pagos.size() <= 0 
-				|| valores.size() <= 0 || pessoas.size() != valores.size() || pessoas.size() != pagos.size()) return false;
+		
+		Object[] params = {titulo, valor, vencimento, pessoas.size(), valores.size(), pagos.size()};
+		if(verificarObjetos(params) || valor < 0 || pessoas.size() != valores.size()|| pessoas.size() != pagos.size()) return false;
 		
 		for(int i = 0; i<pessoas.size(); i++) {
 			if(pagos.get(i) <= valores.get(i)) continue;
@@ -234,19 +273,37 @@ public class ControleDados {
 		return true;
 	}
 	
+	/**
+	 * Método para editar as informações de uma despesa, exclui a antiga e cria uma nova com parâmetros recebidos.
+	 * @param id         int
+	 * @param titulo     String
+	 * @param valor      double
+	 * @param vencimento String
+	 * @param pessoas    ArrayList(Pessoa)
+	 * @param pagos      ArrayList(Double)
+	 * @param valores    ArrayList(Double)
+	 * @return true caso consiga, false caso não
+	 */
 	public boolean editarDespesa(int id, String titulo, double valor, String vencimento, ArrayList<Pessoa> pessoas, 
 			ArrayList<Double> pagos, ArrayList<Double> valores) {
-		if(id < 0 || titulo.length() < 3 || valor <= 0 || vencimento.length() < 8 || pessoas.size() <= 0 || valores.size() <= 0
-				|| pessoas.size() != valores.size()) return false;
+		Object[] params = {titulo, valor, vencimento, pessoas.size(), valores.size()};
+		if(verificarObjetos(params) || valor < 0 || pessoas.size() != valores.size()|| pessoas.size() != pagos.size()) return false;
 		
 		excluirDespesa(id);
 		
-		if(pagos.size() == 0) criarDespesa(titulo, valor, vencimento, pessoas, valores);
+		boolean criada = false;
+		if(pagos.size() == 0) criada = criarDespesa(titulo, valor, vencimento, pessoas, valores);
 		
-		if(pagos.size() > 0) criarDespesa(titulo, valor, vencimento, pessoas, pagos, valores);
-		return true;
+		if(pagos.size() > 0) criada = criarDespesa(titulo, valor, vencimento, pessoas, pagos, valores);
+		return criada;
 	}
 	
+	/**
+	 * Método responsável por excluir uma despesa, exclui a despesa das listas de creditos e debitos de cada usuario/amigo
+	 * e depois da lista de despesas.
+	 * @param id int
+	 * @return true caso consiga excluir, e false caso não
+	 */
 	public boolean excluirDespesa(int id) {
 		try {
 			Despesa despesa = dados.getDespesa(id);
@@ -267,6 +324,15 @@ public class ControleDados {
 		}
 	}
 	
+	/**
+	 * Método responsável por criar um pagamento e adicioná-lo na lista de pagamentos da despesa.
+	 * @param despesaId       int
+	 * @param valor           double
+	 * @param forma_pagamento {@link FormaPagamento}
+	 * @param data            String
+	 * @return true caso consiga criar o pagamento, false caso tenha alguma informação errada, faltante ou o valor seja maior
+	 * do que o valor faltante para pagar a despesa
+	 */
 	public boolean realizarPagamento(int despesaId, double valor, String forma_pagamento, String data) {
 		if(!Arrays.stream(FormaPagamento.values()).anyMatch((t) -> t.name().equals(forma_pagamento))) return false;
 		

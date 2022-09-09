@@ -114,9 +114,9 @@ public class Despesa {
 		return this.getTotalPago() >= this.valor;
 	}
 	
-	
 	public String toString() {
-		return "titulo:"+titulo+"\r\nvalor:"+valor+"\r\nvecimento:"+vencimento+"\r\ncredor:"+credor.getEmail()+"\r\ndevedor:"+devedor.getEmail();
+		return String.format("Id: %d \nTitulo: %s\nValor: %.1f\nVencimento: %s\nCredor: %s\nDevedor: %s",
+				id, titulo, valor, vencimento, credor.getEmail(), devedor.getEmail());
 	}
 
 }
