@@ -1,6 +1,5 @@
 package view;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
@@ -10,7 +9,6 @@ import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import modelo.Pessoa;
 
 public class PanelDespesa extends JPanel implements ActionListener {
 
@@ -18,18 +16,19 @@ public class PanelDespesa extends JPanel implements ActionListener {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private static JPanel edit_panel = new JPanel();
-	private static JPanel info_panel = new JPanel();
-	private JButton edit = new JButton("Editar");
+	private JButton edit = new JButton("Ver Detalhes");
 	private String _titulo = "";
 
-	public PanelDespesa(String titulo, String valor, String vencimento, String credor, String devedor, boolean ativa ) {
+	public PanelDespesa(String titulo, String valor, String vencimento, String credor, String[] devedores, boolean ativa ) {
 		removeAll();
 		setLayout(new FlowLayout(FlowLayout.CENTER, 10,20));
 		add(new JLabel(titulo));
 		add(new JLabel(valor));
 		add(new JLabel(credor));
-		add(new JLabel(devedor));
+		
+		for(int i=0;i<devedores.length;i++) {
+			add(new JLabel(devedores[i]));
+		}
 		add(new JLabel(vencimento));
 		
 		_titulo = titulo;
