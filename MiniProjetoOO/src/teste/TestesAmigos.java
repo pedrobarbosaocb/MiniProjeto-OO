@@ -1,6 +1,7 @@
 package teste;
 
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
 
 import java.util.ArrayList;
 
@@ -33,13 +34,24 @@ public class TestesAmigos {
 	void testeCriarAmigoSemParametro() {
 		Usuario user = new Usuario("nome", "email", "01/01/2000", "senha");
 		boolean teste = controleDados.criarAmigo(null, "amigo", "amigo@gmail.com", "(61)91111-9999");
-		assertTrue(!teste);
+		assertFalse(teste);
 		boolean teste2 = controleDados.criarAmigo(user, null, "amigo@gmail.com", "(61)91111-9999");
-		assertTrue(!teste2);
+		assertFalse(teste2);
 		boolean teste3 = controleDados.criarAmigo(user, "amigo", "", "(61)91111-9999");
-		assertTrue(!teste3);
+		assertFalse(teste3);
 		boolean teste4 = controleDados.criarAmigo(user, "amigo", "amigo@gmail.com", null);
-		assertTrue(!teste4);
+		assertFalse(teste4);
+	}
+	
+	@Test 
+	void testeEditarAmigo() {
+		Usuario user = new Usuario("nome", "email", "01/01/2000", "senha");
+		controleDados.criarAmigo(user, "amigo", "amigo@gmail.com", "(61)91111-9999");
+		Amigo amigo = controleDados.getAmigos().get(0);
+		controleDados.editarAmigo(amigo.getId(), "test", "emailTeste", "telefone");
+		assertTrue(amigo.getNome().equals("test"));
+		assertTrue(amigo.getEmail().equals("emailTeste"));
+		assertTrue(amigo.getTelefone().equals("telefone"));
 	}
 	
 	@Test
@@ -92,6 +104,6 @@ public class TestesAmigos {
 		ControleAmigos controleAmigos = new ControleAmigos(controleDados);
 
 		assertTrue(controleAmigos.amigoExiste("amigo@gmail.com"));
-		assertTrue(!controleAmigos.amigoExiste("teste@gmail.com"));
+		assertFalse(controleAmigos.amigoExiste("teste@gmail.com"));
 	}
 }
