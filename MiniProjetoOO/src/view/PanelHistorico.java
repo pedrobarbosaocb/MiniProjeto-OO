@@ -14,8 +14,13 @@ import controle.ControleDados;
 public class PanelHistorico extends JPanel implements ActionListener {
 
 	/**
+	 * Classe que gera a vizualização do painel de historico de despesas
 	 * 
-	 */
+	 * @author Carlos Eduardo & Pedro Barbosa
+	 * @version 1.0
+	 * 
+	 * @see TelaMenuEntrada
+	 **/
 	private static final long serialVersionUID = 1L;
 	private static JPanel despesas = new JPanel();
 	private static JButton limp_historico = new JButton("Limpar Histórico");

@@ -21,27 +21,37 @@ import modelo.Pessoa;
 
 public class PanelDespesas extends JPanel implements ActionListener {
 
+	/**
+	 * Classe que gera a vizualização da tela das despesas presentes na conta do
+	 * usuario logado
+	 * 
+	 * @author Carlos Eduardo & Pedro Barbosa
+	 * @version 1.0
+	 * 
+	 * @see TelaMenuEntrada
+	 **/
+
 	private static final long serialVersionUID = 1L;
 
 	public static JButton refresh_btn = new JButton("Atualizar Despesas");;
 	public static JButton add_despesa = new JButton("Adicionar Despesa");
 	public static JButton pagar_despesa = new JButton("Pagar Despesa");
-	
+
 	private static JPanel despesas_list_panel = new JPanel();
 	private static JPanel north_panel = new JPanel();
-	
+
 	private static JTextField pesquisar_despesa = new JTextField();
 	private static ControleDados _dados;
 	private static JList<String> despesas_list = new JList<String>();
 	private static DefaultListModel<String> listModel1 = new DefaultListModel<String>();
-	
+
 	private static ArrayList<Pessoa> pessoas;
 	private static ArrayList<Despesa> despesas;
 
 	public PanelDespesas(ControleDados dados) {
-		
+
 		despesas = new ArrayList<Despesa>();
-		
+
 		_dados = dados;
 
 		setLayout(new BorderLayout());
@@ -56,7 +66,7 @@ public class PanelDespesas extends JPanel implements ActionListener {
 
 		despesas_list_panel.setLayout(new GridLayout(1, 0));
 
-		Adicionardespesas_list("T");
+		AdicionarDespesas("T");
 
 		add(despesas_list_panel, BorderLayout.CENTER);
 		add(add_despesa, BorderLayout.SOUTH);
@@ -75,20 +85,30 @@ public class PanelDespesas extends JPanel implements ActionListener {
 		}
 
 		if (src == refresh_btn) {
-			Adicionardespesas_list("T");
+			AdicionarDespesas("T");
 		}
 		if (src == pagar_despesa) {
 			new PayDespesa(despesas.get(despesas_list.getSelectedIndex()));
 		}
 	}
 
-	public void removeActionListeners(){
+	/**
+	 * Método que remove os ActionListeners instanciados no panel a fim de evitar
+	 * repeticao
+	 * 
+	 */
+	public void removeActionListeners() {
 		add_despesa.removeActionListener(this);
 		refresh_btn.removeActionListener(this);
 		pagar_despesa.removeActionListener(this);
 	}
-	
-	public void Adicionardespesas_list(String filtro) {
+
+	/**
+	 * Método que adiciona as despesas a listagem
+	 * 
+	 * @param filtro String
+	 */
+	public void AdicionarDespesas(String filtro) {
 		ControleUsuarios controle_user = new ControleUsuarios(_dados);
 		ArrayList<Despesa> debitos_list = controle_user.getDebitosUsuario(ControleDados.getUsuarioSessao().getId());
 		ArrayList<Despesa> creditos_list = controle_user.getCreditosUsuario(ControleDados.getUsuarioSessao().getId());

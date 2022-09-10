@@ -106,7 +106,6 @@ public class TelaMenuEntrada extends JFrame implements ActionListener {
 		if (src == login_btn) {
 
 			ControleUsuarios controleUser = new ControleUsuarios(dados);
-			
 
 			if (controleUser.verificarUsuario(txt_login.getText(), txt_senha.getText())) {
 				initialize(controleUser);
@@ -117,33 +116,36 @@ public class TelaMenuEntrada extends JFrame implements ActionListener {
 								+ "caso não possua uma conta crie uma nova \nclicando no botão \"Criar Conta\".",
 						null, JOptionPane.INFORMATION_MESSAGE);
 			}
-
-			
 		}
 
 		if (src == cadastro_btn) {
 			new TelaCadastro(dados);
 		}
 	}
-	
+
+	/**
+	 * Método que insere registros de despesas e de amigos ao usuario logado
+	 * 
+	 * @param user ControleDados
+	 * 
+	 */
 	public void initialize(ControleUsuarios user) {
 		ControleDados.setUsuarioSessao(user.getUsuario(txt_login.getText()));
-		dados.criarAmigo(ControleDados.getUsuarioSessao(), "Pedro2", "pedrobarbosaocb@gmail.com", "(61)99988-4252");
-		dados.criarAmigo(ControleDados.getUsuarioSessao(), "Pedro22", "pedrobarbosaocb@gmail.com",
-				"(61)99988-4252");
-		
+		dados.criarAmigo(ControleDados.getUsuarioSessao(), "Julia", "julia@gmail.com", "(11)99999-4252");
+		dados.criarAmigo(ControleDados.getUsuarioSessao(), "Beatriz", "beatriz@gmail.com", "(61)99942-4242");
+
 		ArrayList<Pessoa> pessoas = new ArrayList<Pessoa>();
 		ArrayList<Double> valores = new ArrayList<Double>();
-		
+
 		pessoas.add(ControleDados.getUsuarioSessao());
 		pessoas.add(ControleDados.getUsuarioSessao().getAmigos().get(0));
 		pessoas.add(ControleDados.getUsuarioSessao().getAmigos().get(1));
 		valores.add((double) 150);
 		valores.add((double) 100);
 		valores.add((double) 50);
-		
-		for(int i = 1; i < 10; i++) {
-			dados.criarDespesa("DespesaExemplo"+i, (double) 300, i+"/02/2023", pessoas, valores);
+
+		for (int i = 1; i < 10; i++) {
+			dados.criarDespesa("DespesaExemplo" + i, (double) 300, i + "/02/2023", pessoas, valores);
 		}
 	}
 }

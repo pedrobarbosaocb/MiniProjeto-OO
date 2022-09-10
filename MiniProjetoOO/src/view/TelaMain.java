@@ -133,7 +133,7 @@ public class TelaMain extends JDialog implements ActionListener {
 
 		if (src == logout_btn) {
 			despesas.removeActionListeners();
-			
+
 			add_amigo_btn.removeActionListener(this);
 			perfil_btn.removeActionListener(this);
 			logout_btn.removeActionListener(this);

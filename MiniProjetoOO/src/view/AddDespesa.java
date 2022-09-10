@@ -31,8 +31,13 @@ import modelo.Pessoa;
 public class AddDespesa extends JDialog implements ActionListener {
 
 	/**
+	 * Classe que gera a vizualização da tela de registro de uma nova despesa
 	 * 
-	 */
+	 * @author Carlos Eduardo & Pedro Barbosa
+	 * @version 1.0
+	 * 
+	 * @see TelaMenuEntrada
+	 **/
 	private static final long serialVersionUID = 1L;
 
 	private static JPanel btn_panel = new JPanel();
@@ -78,13 +83,13 @@ public class AddDespesa extends JDialog implements ActionListener {
 	private static JTextField txt_titulo = new JTextField();
 	private static JTextField txt_valor_total = new JTextField();
 	private static JTextField txt_dt_vencimento = new JTextField();
-	
+
 	private static double soma_total = 0;
 
 	public AddDespesa(ControleDados dados) {
 		setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 		setModal(true);
-		
+
 		setTitle("Adicionando Despesa");
 
 		_dados = dados;
@@ -98,7 +103,7 @@ public class AddDespesa extends JDialog implements ActionListener {
 
 		amigos_nome.addItem(ControleDados.getUsuarioSessao().getNome());
 		amigos_all.add(ControleDados.getUsuarioSessao());
-		
+
 		for (int i = 0; i < amigos.size(); i++) {
 			amigos_nome.addItem(amigos.get(i));
 			amigos_all.add(amigos_id.get(i));
@@ -127,7 +132,7 @@ public class AddDespesa extends JDialog implements ActionListener {
 		east_panel.setBorder(new EmptyBorder(0, 0, 10, 10));
 		east_panel.add(div_igual);
 		east_panel.add(faltam_panel);
-		
+
 		faltam_panel.setLayout(new FlowLayout());
 		faltam_panel.add(lbl_faltam);
 		faltam_panel.add(faltam);
@@ -173,18 +178,18 @@ public class AddDespesa extends JDialog implements ActionListener {
 		if (src == div_igual) {
 			dividirIgualmente();
 		}
-		
+
 		if (src == cancel_btn) {
 			txt_titulo.setText("");
 			txt_dt_vencimento.setText("");
 			txt_valor_total.setText("");
-			
+
 			listModel1.removeAllElements();
-		    listModel2.removeAllElements();
-		    
-		    amigos_despesa.setModel(listModel1);
+			listModel2.removeAllElements();
+
+			amigos_despesa.setModel(listModel1);
 			valores_list.setModel(listModel2);
-			
+
 			add_btn.removeActionListener(this);
 			div_igual.removeActionListener(this);
 			cancel_btn.removeActionListener(this);
@@ -199,14 +204,13 @@ public class AddDespesa extends JDialog implements ActionListener {
 
 		if (src == save_btn) {
 
-			if (_dados.criarDespesa(txt_titulo.getText(), Double.parseDouble(txt_valor_total.getText()), txt_dt_vencimento.getText(), pessoas,
-					valores)) {
+			if (_dados.criarDespesa(txt_titulo.getText(), Double.parseDouble(txt_valor_total.getText()),
+					txt_dt_vencimento.getText(), pessoas, valores)) {
 				JOptionPane.showMessageDialog(null, "Despesa gerada com sucesso!", null,
 						JOptionPane.INFORMATION_MESSAGE);
 				cancel_btn.doClick();
 			} else {
-				JOptionPane.showMessageDialog(null, "Falha ao gerar despesa!", null,
-						JOptionPane.INFORMATION_MESSAGE);
+				JOptionPane.showMessageDialog(null, "Falha ao gerar despesa!", null, JOptionPane.INFORMATION_MESSAGE);
 			}
 		}
 
@@ -214,15 +218,15 @@ public class AddDespesa extends JDialog implements ActionListener {
 			if (verificaIsNumero(txt_add_valor.getText()) && verificaIsNumero(txt_valor_total.getText())) {
 				double valor_total = Double.valueOf(txt_valor_total.getText());
 				double valor_add = Double.valueOf(txt_add_valor.getText());
-				if(valor_total >= valor_add) {
-					
-					if(verificaAmigoLista(amigos_all.get(amigos_nome.getSelectedIndex()))) {
+				if (valor_total >= valor_add) {
+
+					if (verificaAmigoLista(amigos_all.get(amigos_nome.getSelectedIndex()))) {
 						soma_total = soma_total + Double.valueOf(txt_add_valor.getText());
 						faltam.setText("" + (Double.valueOf(txt_valor_total.getText()) - soma_total));
-						
+
 						pessoas.add(amigos_all.get(amigos_nome.getSelectedIndex()));
 						valores.add(Double.valueOf(txt_add_valor.getText()));
-						
+
 						listModel1.addElement(amigos_nome.getSelectedItem().toString());
 						listModel2.addElement(txt_add_valor.getText());
 
@@ -236,21 +240,27 @@ public class AddDespesa extends JDialog implements ActionListener {
 					JOptionPane.showMessageDialog(null, "O valor inserido é maior que o valor total da despesa!", null,
 							JOptionPane.INFORMATION_MESSAGE);
 				}
-			} 
+			}
 		}
 	}
-	
+
+	/**
+	 * Método que divide o valor total da dispesa de forma igual entre as pessoas
+	 * adicionadas
+	 * 
+	 * @param labels JLabels[]
+	 */
 	public void dividirIgualmente() {
 		double valor_total = Double.valueOf(txt_valor_total.getText());
-		valor_total = valor_total/(pessoas.size()-1);
-		
+		valor_total = valor_total / (pessoas.size() - 1);
+
 		ArrayList<Double> valores_new = valores;
-		
-	    listModel1.removeAllElements();
-	    
-	    listModel2.removeAllElements();
-		
-		for (int i=0; i < pessoas.size(); i++) {
+
+		listModel1.removeAllElements();
+
+		listModel2.removeAllElements();
+
+		for (int i = 0; i < pessoas.size(); i++) {
 			listModel1.addElement(pessoas.get(i).getNome());
 			valores_new.add(valor_total);
 			listModel2.addElement(String.format("%.2f", valor_total));
@@ -262,28 +272,39 @@ public class AddDespesa extends JDialog implements ActionListener {
 		revalidate();
 		repaint();
 	}
-	
+
+	/**
+	 * Método que altera cor dos campos selecionados para vermelho
+	 * 
+	 * @param valor String
+	 * 
+	 * @return boolean
+	 */
 	public boolean verificaIsNumero(String valor) {
-		if(valor.isEmpty()) {
-			JOptionPane.showMessageDialog(null, "Preencha os campos vazios!", null,
-					JOptionPane.INFORMATION_MESSAGE);
+		if (valor.isEmpty()) {
+			JOptionPane.showMessageDialog(null, "Preencha os campos vazios!", null, JOptionPane.INFORMATION_MESSAGE);
 			return false;
 		} else {
 			try {
 				Double.valueOf(valor);
-			} catch(Exception e) {
-				JOptionPane.showMessageDialog(null, "Insira um número válido!", null,
-						JOptionPane.INFORMATION_MESSAGE);
+			} catch (Exception e) {
+				JOptionPane.showMessageDialog(null, "Insira um número válido!", null, JOptionPane.INFORMATION_MESSAGE);
 				return false;
 			}
 		}
-		return true;		
+		return true;
 	}
-	
+
+	/**
+	 * Método que verifica se a pessoa adicionada já está presente na lista
+	 * 
+	 * @param amigo Pessoa
+	 * 
+	 * @return boolean
+	 */
 	public boolean verificaAmigoLista(Pessoa amigo) {
-		if(pessoas.contains(amigo)) {
-			JOptionPane.showMessageDialog(null, "Pessoa já inserida!", null,
-					JOptionPane.INFORMATION_MESSAGE);
+		if (pessoas.contains(amigo)) {
+			JOptionPane.showMessageDialog(null, "Pessoa já inserida!", null, JOptionPane.INFORMATION_MESSAGE);
 			return false;
 		}
 		return true;

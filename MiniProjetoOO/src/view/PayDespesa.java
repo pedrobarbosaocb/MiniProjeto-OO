@@ -23,8 +23,13 @@ import modelo.Usuario;
 public class PayDespesa extends JDialog implements ActionListener {
 
 	/**
+	 * Classe que gera a vizualização da tela de pagamento de uma despesa
 	 * 
-	 */
+	 * @author Carlos Eduardo & Pedro Barbosa
+	 * @version 1.0
+	 * 
+	 * @see TelaMenuEntrada
+	 **/
 	private static final long serialVersionUID = 1L;
 	private static ControleDados _dados;
 	private static JPanel btn_panel = new JPanel();
