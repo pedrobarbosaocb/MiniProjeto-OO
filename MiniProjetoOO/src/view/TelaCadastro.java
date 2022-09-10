@@ -55,6 +55,9 @@ public class TelaCadastro extends JDialog implements ActionListener {
 	/**
 	 * Construtor TelaCadastro
 	 * 
+	 * Gera a visualização do JDialog de registro de um novo usuario aos dados do
+	 * sistema
+	 * 
 	 * @param dados ControleDados
 	 **/
 	public TelaCadastro(ControleDados dados) {

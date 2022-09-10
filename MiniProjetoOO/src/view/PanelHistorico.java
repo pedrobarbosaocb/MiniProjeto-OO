@@ -46,6 +46,9 @@ public class PanelHistorico extends JPanel implements ActionListener {
 	/**
 	 * Construtor PanelHistorico
 	 * 
+	 * Gera a visualização do painel de Historico, o qual possui todos os registros
+	 * de despesas já quitados
+	 * 
 	 * @param dados ControleDados
 	 **/
 	public PanelHistorico(ControleDados dados) {

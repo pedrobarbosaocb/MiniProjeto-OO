@@ -21,8 +21,8 @@ import controle.ControleUsuarios;
 import modelo.Amigo;
 
 /**
- * Classe que gera a vizualização da tela dos presentes na conta do
- * usuario logado
+ * Classe que gera a vizualização da tela dos presentes na conta do usuario
+ * logado
  * 
  * @author Carlos Eduardo & Pedro Barbosa
  * @version 1.0
@@ -31,7 +31,6 @@ import modelo.Amigo;
  **/
 
 public class PanelAmigos extends JPanel implements ActionListener {
-
 
 	private static final long serialVersionUID = 1L;
 
@@ -54,6 +53,9 @@ public class PanelAmigos extends JPanel implements ActionListener {
 
 	/**
 	 * Construtor PanelAmigos
+	 * 
+	 * Gera a visualização do painel que possui e gerencia os amigos do usuario da
+	 * sessao
 	 * 
 	 * @param dados ControleDados
 	 **/

@@ -32,7 +32,6 @@ import modelo.Despesa;
 
 public class PanelDespesas extends JPanel implements ActionListener {
 
-
 	private static final long serialVersionUID = 1L;
 
 	public static JButton refresh_btn = new JButton("Atualizar");;
@@ -56,6 +55,9 @@ public class PanelDespesas extends JPanel implements ActionListener {
 	/**
 	 * Construtor PanelDespesas
 	 * 
+	 * Gera a visualização do painel que contém e gerencia as despesas presentes nos
+	 * dados do usuario da sessao
+	 * 
 	 * @param dados ControleDados
 	 **/
 	public PanelDespesas(ControleDados dados) {
@@ -78,7 +80,6 @@ public class PanelDespesas extends JPanel implements ActionListener {
 		north_panel.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
 		north_panel.add(pagar_despesa);
 		north_panel.add(remove_despesa);
-		// north_panel.add(refresh_btn);
 		add(north_panel, BorderLayout.NORTH);
 		add(pesquisar_despesa);
 
@@ -146,7 +147,7 @@ public class PanelDespesas extends JPanel implements ActionListener {
 	}
 
 	/**
-	 * Método que adiciona as despesas a listagem
+	 * Método que adiciona as despesas com relação ao filtro na listagem
 	 * 
 	 * @param filtro String
 	 */

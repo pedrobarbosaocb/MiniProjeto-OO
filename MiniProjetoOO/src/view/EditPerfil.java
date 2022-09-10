@@ -51,6 +51,8 @@ public class EditPerfil extends JDialog implements ActionListener {
 	/**
 	 * Construtor EditPerfil
 	 * 
+	 * Gera a visualização do JDialog de edição dos parametros do usuario da sessao
+	 * 
 	 * @param dados ControleDados
 	 **/
 	public EditPerfil(ControleDados dados) {

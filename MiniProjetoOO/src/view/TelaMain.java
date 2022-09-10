@@ -52,6 +52,10 @@ public class TelaMain extends JDialog implements ActionListener {
 	/**
 	 * Construtor TelaMain
 	 * 
+	 * Gera a visualização da tela seguinte ao login do sistema, apresentando as
+	 * principais telas e funcionalidades do sistema, com base nos dados do atual
+	 * usuario da sessao.
+	 * 
 	 * @param dados ControleDados
 	 **/
 	public TelaMain(ControleDados dados) {
@@ -156,6 +160,12 @@ public class TelaMain extends JDialog implements ActionListener {
 		}
 	}
 
+	/**
+	 * Método no qual tira a visualização dos paineis do centro do JDialog e
+	 * retornando a visualização do painel indicado pelo int painel
+	 * 
+	 * @param painel int
+	 **/
 	public void mostrarPainel(int painel) {
 		center_panel.remove(despesas);
 		center_panel.remove(historico);

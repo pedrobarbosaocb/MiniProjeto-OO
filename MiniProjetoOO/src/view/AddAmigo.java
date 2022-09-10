@@ -29,7 +29,7 @@ import controle.ControleDados;
  * @author Carlos Eduardo & Pedro Barbosa
  * @version 1.0
  * 
- * @see TelaMenuEntrada
+ * @see AddAmigo
  **/
 
 public class AddAmigo extends JDialog implements ActionListener {
@@ -52,6 +52,9 @@ public class AddAmigo extends JDialog implements ActionListener {
 
 	/**
 	 * Construtor AddAmigo
+	 * 
+	 * Gera a visualização do JDialog do registro de amigos aos dados do usuario da
+	 * sessao
 	 * 
 	 * @param dados ControleDados
 	 **/

@@ -64,6 +64,9 @@ public class PayDespesa extends JDialog implements ActionListener {
 	/**
 	 * Construtor PayDespesa
 	 * 
+	 * Gera a visualização do JDialog de pagamento das despesas, o qual gera o
+	 * pagamento da despesa inserida como parametro
+	 * 
 	 * @param controleDados ControleDados
 	 * @param despesa       Despesa
 	 **/

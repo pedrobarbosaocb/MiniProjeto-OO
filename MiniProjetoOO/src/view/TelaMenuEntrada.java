@@ -15,7 +15,6 @@ import javax.swing.*;
  * @author Carlos Eduardo & Pedro Barbosa
  * @version 1.0
  * 
- * @see TelaMenuEntrada
  **/
 
 public class TelaMenuEntrada extends JFrame implements ActionListener {
@@ -38,6 +37,10 @@ public class TelaMenuEntrada extends JFrame implements ActionListener {
 
 	/**
 	 * Construtor TelaMenuEntrada
+	 * 
+	 * Gera a visualização do JFrame inicial juntamente com a tela de login que
+	 * proporciona tanto o ingresso de um usuario a priori cadastrado e do registro
+	 * de um novo usuario
 	 * 
 	 **/
 	public TelaMenuEntrada() {
@@ -93,6 +96,11 @@ public class TelaMenuEntrada extends JFrame implements ActionListener {
 
 	}
 
+	/**
+	 * Método que dá start ao programa
+	 * 
+	 * @param args String(String)
+	 **/
 	public static void main(String[] args) {
 
 		TelaMenuEntrada menu = new TelaMenuEntrada();
@@ -104,6 +112,7 @@ public class TelaMenuEntrada extends JFrame implements ActionListener {
 		cadastro_btn.addActionListener(menu);
 	}
 
+	@Override
 	public void actionPerformed(ActionEvent e) {
 		Object src = e.getSource();
 

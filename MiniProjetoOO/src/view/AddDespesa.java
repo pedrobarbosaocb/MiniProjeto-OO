@@ -51,7 +51,7 @@ public class AddDespesa extends JDialog implements ActionListener {
 	private static JPanel list_panel = new JPanel();
 	private static JPanel east_panel = new JPanel();
 	private static JPanel faltam_panel = new JPanel();
-	
+
 	private static JButton cancel_btn = new JButton("Cancelar");
 	private static JButton gerar_btn = new JButton("Gerar Despesa");
 	private static JButton add_btn = new JButton("Adicionar");
@@ -96,6 +96,9 @@ public class AddDespesa extends JDialog implements ActionListener {
 
 	/**
 	 * Construtor AddDespesa
+	 * 
+	 * Gera a visualização do JDialog de adição de uma nova despesa aos dados do
+	 * usuario da sessao
 	 * 
 	 * @param dados ControleDados
 	 **/
@@ -347,7 +350,7 @@ public class AddDespesa extends JDialog implements ActionListener {
 	 * 
 	 * @param valor String
 	 * 
-	 * @return boolean
+	 * @return true se for um numero false se a string não for um numero
 	 */
 	public boolean verificaIsNumero(String valor) {
 		if (valor.isEmpty()) {
@@ -382,7 +385,6 @@ public class AddDespesa extends JDialog implements ActionListener {
 	/**
 	 * Método que atualiza a Jlist que dá vizualiação aos amigos adicionados a
 	 * despesa
-	 * 
 	 * 
 	 */
 	public void atualizarLista() {
