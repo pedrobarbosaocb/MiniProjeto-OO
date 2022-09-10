@@ -114,7 +114,7 @@ public class TelaMenuEntrada extends JFrame implements ActionListener {
 			 * , null, JOptionPane.INFORMATION_MESSAGE); }
 			 */
 
-			ControleDados.setUsuarioSessao(controleUser.getUsuarioPorEmail("kdu@gmail.com"));
+			ControleDados.setUsuarioSessao(controleUser.getUsuario("kdu@gmail.com"));
 			
 			dados.criarAmigo(ControleDados.getUsuarioSessao(), "Pedro2", "pedrobarbosaocb@gmail.com", "(61)99988-4252");
 			dados.criarAmigo(ControleDados.getUsuarioSessao(), "Pedro22", "pedrobarbosaocb@gmail.com", "(61)99988-4252");

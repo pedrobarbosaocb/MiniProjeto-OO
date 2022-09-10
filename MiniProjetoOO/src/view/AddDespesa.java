@@ -66,8 +66,8 @@ public class AddDespesa extends JDialog implements ActionListener {
 	private static JComboBox<String> amigos_nome = new JComboBox<String>();
 	private static JList<String> valores_list = new JList<String>();
 	private static JList<String> amigos_despesa = new JList<String>();
-	private DefaultListModel<String> listModel1 = new DefaultListModel<String>();
-	private DefaultListModel<String> listModel2 = new DefaultListModel<String>();
+	private static DefaultListModel<String> listModel1 = new DefaultListModel<String>();
+	private static DefaultListModel<String> listModel2 = new DefaultListModel<String>();
 
 	private static JLabel titulo = new JLabel("Título da Despesa");
 	private static JLabel valor_total = new JLabel("Valor Total");
@@ -79,7 +79,7 @@ public class AddDespesa extends JDialog implements ActionListener {
 	private static JTextField txt_valor_total = new JTextField();
 	private static JTextField txt_dt_vencimento = new JTextField();
 	
-	private double soma_total = 0;
+	private static double soma_total = 0;
 
 	public AddDespesa(ControleDados dados) {
 		setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);

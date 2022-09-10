@@ -26,6 +26,7 @@ public class PanelDespesas extends JPanel implements ActionListener {
 	private static JLabel titulo = new JLabel("Despesas");
 	private static JPanel despesas_panel = new JPanel();
 	private static JButton add_despesa = new JButton("Adicionar Despesa");
+	private static JButton refresh_despesa = new JButton("Recarregar");
 	private static JTextField pesquisar_despesa = new JTextField();
 	private static ControleDados _dados;
 	private static JList<String> despesas = new JList<String>();
@@ -47,11 +48,13 @@ public class PanelDespesas extends JPanel implements ActionListener {
 		despesas_panel.setLayout(new GridLayout(1,0));
 
 		AdicionarDespesas("T");
-		
 
 		add(despesas_panel, BorderLayout.CENTER);
 		add(add_despesa, BorderLayout.SOUTH);
+		add(refresh_despesa, BorderLayout.EAST);
+		
 		add_despesa.addActionListener(this);
+		refresh_despesa.addActionListener(this);
 	}
 
 	@Override
@@ -61,20 +64,40 @@ public class PanelDespesas extends JPanel implements ActionListener {
 		if (src == add_despesa) {
 			new AddDespesa(_dados);
 		}
+		
+		if (src == refresh_despesa) {
+			AdicionarDespesas("T");
+		}
 	}
 
 	public void AdicionarDespesas(String filtro) {
 		ControleUsuarios controle_user = new ControleUsuarios(_dados);
-		ArrayList<Despesa> despesas_list = controle_user.getDebitosUsuario(ControleDados.getUsuarioSessao().getId());
+		ArrayList<Despesa> debitos_list = controle_user.getDebitosUsuario(ControleDados.getUsuarioSessao().getId());
+		ArrayList<Despesa> creditos_list = controle_user.getCreditosUsuario(ControleDados.getUsuarioSessao().getId());
 		
-		despesas_list.addAll(controle_user.getCreditosUsuario(ControleDados.getUsuarioSessao().getId()));
+		System.out.println(controle_user.getCreditosUsuario(ControleDados.getUsuarioSessao().getId()));
+		System.out.println(controle_user.getDebitosUsuario(ControleDados.getUsuarioSessao().getId()));
+		listModel1.removeAllElements();
 		
-		listModel1.addElement("Teste");
-		for (int i = 0; i < despesas_list.size() - 1; i++) {
-				listModel1.addElement(despesas_list.get(i).getTitulo());
+		for (int i = 0; i < debitos_list.size(); i++) {
+				listModel1.addElement( "DEBITO " + debitos_list.get(i).getTitulo() + " - " 
+										+ debitos_list.get(i).getTotalPago() + " - "
+										+ debitos_list.get(i).getValor() + " - "
+										+ debitos_list.get(i).getCredor().getNome());
 		}
 		
-		despesas.setModel(listModel1);
+		for (int i = 0; i < creditos_list.size(); i++) {
+			listModel1.addElement( "CREDITO " + creditos_list.get(i).getTitulo() + " - " 
+									+ creditos_list.get(i).getTotalPago() + " - "
+									+ creditos_list.get(i).getValor() + " - "
+									+ creditos_list.get(i).getDevedor().getNome());
+	}
+		
+		despesas.setModel(listModel1);		
+		
 		despesas_panel.add(despesas);
+		
+		revalidate();
+		repaint();
 	}
 }

@@ -43,6 +43,7 @@ public class TelaMain extends JDialog implements ActionListener {
 	private static JButton hist_btn = new JButton("Histórico");
 	private static JButton logout_btn = new JButton("Logout");
 	private static JButton perfil_btn = new JButton("Editar Perfil");
+	private static JButton add_amigo_btn = new JButton("Adicionar Amigo");
 
 	private static ControleDados _dados;
 
@@ -75,16 +76,18 @@ public class TelaMain extends JDialog implements ActionListener {
 		btn_panel.setBorder(new EmptyBorder(10,10,10,10));
 		btn_panel.add(despesas_btn);
 		btn_panel.add(hist_btn);
+		btn_panel.add(add_amigo_btn);
 
 		despesas_btn.setEnabled(false);
 		hist_btn.setEnabled(true);
 
-		btn_panel.setLayout(new GridLayout(2, 0));
+		btn_panel.setLayout(new GridLayout(3, 0));
 
 
 		center_panel.setLayout(new GridLayout());
 		center_panel.add(despesas);
 
+		add_amigo_btn.addActionListener(this);
 		update_btn.addActionListener(this);
 		logout_btn.addActionListener(this);
 		despesas_btn.addActionListener(this);
@@ -133,6 +136,7 @@ public class TelaMain extends JDialog implements ActionListener {
 
 		if (src == logout_btn) {
 
+			add_amigo_btn.removeActionListener(this);
 			update_btn.removeActionListener(this);
 			perfil_btn.removeActionListener(this);
 			logout_btn.removeActionListener(this);
@@ -147,6 +151,10 @@ public class TelaMain extends JDialog implements ActionListener {
 
 		if (src == perfil_btn) {
 			new EditPerfil(_dados);
+		}
+		
+		if (src == add_amigo_btn) {
+			new AddAmigo(_dados);
 		}
 
 		if (src == update_btn) {
