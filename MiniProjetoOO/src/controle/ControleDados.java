@@ -190,8 +190,8 @@ public class ControleDados {
 	public boolean criarDespesa(String titulo, double valor, String vencimento, ArrayList<Pessoa> pessoas, 
 			ArrayList<Double> valores) {
 		
-		Object[] params = {titulo, valor, vencimento, pessoas.size(), valores.size()};
-		if(verificarObjetos(params) || valor < 0 || pessoas.size() != valores.size()) return false;
+		Object[] params = {titulo, valor, vencimento, pessoas, valores};
+		if(verificarObjetos(params) || valor <= 0 || pessoas.size() != valores.size()) return false;
 		
 		double valor_pessoa = casaDecimal(valor/pessoas.size());
 		
@@ -204,9 +204,10 @@ public class ControleDados {
 				double resto = casaDecimal(valores.get(i) - valor_pessoa);
 
 				if(resto > valor_pessoa) {
-					valores.set(i, resto);
-					valores.set(j, casaDecimal(valor_pessoa-valores.get(j)));
-					Despesa despesa = new Despesa(titulo, valores.get(j), vencimento, pessoas.get(i), pessoas.get(j));
+					double val = casaDecimal(valor_pessoa-valores.get(j));
+					valores.set(i, valores.get(i)-val);
+					valores.set(j, val+valores.get(j) >= valor_pessoa ? valor_pessoa : val);
+					Despesa despesa = new Despesa(titulo, val, vencimento, pessoas.get(i), pessoas.get(j));
 					dados.addDespesa(despesa);
 					pessoas.get(i).addCredito(despesa);
 					pessoas.get(j).addDebito(despesa);
@@ -241,14 +242,14 @@ public class ControleDados {
 	public boolean criarDespesa(String titulo, double valor, String vencimento, ArrayList<Pessoa> pessoas, 
 			ArrayList<Double> pagos, ArrayList<Double> valores) {
 		
-		Object[] params = {titulo, valor, vencimento, pessoas.size(), valores.size(), pagos.size()};
-		if(verificarObjetos(params) || valor < 0 || pessoas.size() != valores.size()|| pessoas.size() != pagos.size()) return false;
+		Object[] params = {titulo, valor, vencimento, pessoas, valores, pagos};
+		if(verificarObjetos(params) || valor <= 0 || pessoas.size() != valores.size()|| pessoas.size() != pagos.size()) return false;
 		
 		for(int i = 0; i<pessoas.size(); i++) {
 			if(pagos.get(i) <= valores.get(i)) continue;
 			
 			for(int j = 0; j<pessoas.size(); j++) {
-				if(i == j || pagos.get(j) >= valores.get(j)) continue;
+				if(i == j || pagos.get(j) >= valores.get(j) || pagos.get(i) == valores.get(i)) continue;
 				
 				double resto = casaDecimal(pagos.get(i)-valores.get(i)) + casaDecimal(pagos.get(j)-valores.get(j));
 				double dif = casaDecimal(pagos.get(i)-valores.get(i)-resto);
@@ -262,8 +263,9 @@ public class ControleDados {
 					pessoas.get(j).addDebito(despesa);
 				} else if(resto <= 0) {
 					pagos.set(i, valores.get(i));
-					pagos.set(j, resto == 0 ? casaDecimal(valores.get(j)-dif) : Math.abs(resto));
-					Despesa despesa = new Despesa(titulo, pagos.get(j), vencimento, pessoas.get(i), pessoas.get(j));
+					double val = dif+resto;
+					pagos.set(j, resto == 0 ? valores.get(j) : val);
+					Despesa despesa = new Despesa(titulo, val, vencimento, pessoas.get(i), pessoas.get(j));
 					dados.addDespesa(despesa);
 					pessoas.get(i).addCredito(despesa);
 					pessoas.get(j).addDebito(despesa);
@@ -286,7 +288,7 @@ public class ControleDados {
 	 */
 	public boolean editarDespesa(int id, String titulo, double valor, String vencimento, ArrayList<Pessoa> pessoas, 
 			ArrayList<Double> pagos, ArrayList<Double> valores) {
-		Object[] params = {titulo, valor, vencimento, pessoas.size(), valores.size()};
+		Object[] params = {titulo, valor, vencimento, pessoas, valores};
 		if(verificarObjetos(params) || valor < 0 || pessoas.size() != valores.size()|| pessoas.size() != pagos.size()) return false;
 		
 		excluirDespesa(id);
@@ -305,8 +307,8 @@ public class ControleDados {
 	 * @return true caso consiga excluir, e false caso não
 	 */
 	public boolean excluirDespesa(int id) {
-		try {
-			Despesa despesa = dados.getDespesa(id);
+		Despesa despesa = dados.getDespesa(id);
+		if(despesa != null) {
 			for(int i = 0; i < dados.getUsuarios().size(); i++) {
 				Usuario usuario = dados.getUsuarios().get(i);
 				usuario.getCreditos().remove(despesa);
@@ -318,10 +320,8 @@ public class ControleDados {
 				amigo.getDebitos().remove(despesa);
 			}
 			dados.getDespesas().remove(despesa);
-			return true;
-		} catch(Exception err) {
-			return false;
-		}
+			return true;	
+		} else return false;
 	}
 	
 	/**

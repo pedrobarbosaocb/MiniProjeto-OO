@@ -32,7 +32,7 @@ public class Dados {
 			amigo.addAmigoDe(user);
 			amigos.add(amigo);
 			user.addAmigo(amigo);
-			Despesa despesa = new Despesa("transação"+contador, (contador*100)/2, "26/05/2000", user, user.getAmigos().get(0));
+			Despesa despesa = new Despesa("Despesa"+contador, (contador*100)/2, "26/05/2000", user, user.getAmigos().get(0));
 			despesas.add(despesa);
 			user.addCredito(despesa);
 			amigo.addDebito(despesa);
@@ -170,12 +170,11 @@ public class Dados {
 	 * @return despesa com o id igual ao fornecido
 	 */
 	public Despesa getDespesa(int id) {
-		Despesa res = getDespesas().get(0);
 		for(Despesa despesa: getDespesas()) {
 			if(despesa.getId() == id) {
-				res = despesa;
+				return despesa;
 			}
 		}
-		return res;
+		return null;
 	}
 }

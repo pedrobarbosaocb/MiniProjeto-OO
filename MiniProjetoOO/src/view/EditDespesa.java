@@ -18,9 +18,8 @@ public class EditDespesa extends JDialog implements ActionListener {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
 	private static JButton cancel_btn = new JButton("Cancelar");
-	private static JButton save_btn = new JButton("Realizar Pagamento");
+	private static JButton save_btn = new JButton("Salvar");
 	private static JPanel btn_panel = new JPanel();
 	
 	public EditDespesa(String teste) {
@@ -35,9 +34,6 @@ public class EditDespesa extends JDialog implements ActionListener {
 		btn_panel.add(cancel_btn);
 		btn_panel.add(save_btn);
 		
-		cancel_btn.addActionListener(this);
-		save_btn.addActionListener(this);
-		
 		add(btn_panel, BorderLayout.SOUTH);		
 
 		setBounds((int) (width / 2) - 200, (int) (height / 2) - 125, 400, 250);
@@ -46,12 +42,7 @@ public class EditDespesa extends JDialog implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		Object src = e.getSource();
-		
-		if (src == cancel_btn) {
-			setVisible(false);
-			dispose();
-		}
+		// TODO Auto-generated method stub
 		
 	}
 
