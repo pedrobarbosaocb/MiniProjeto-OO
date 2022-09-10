@@ -15,14 +15,22 @@ import javax.swing.*;
 
 public class TelaMenuEntrada extends JFrame implements ActionListener {
 
+	/**
+	 * Classe que gera a vizualização da tela de entrada do sistema
+	 * 
+	 * @author Carlos Eduardo & Pedro Barbosa
+	 * @version 1.0
+	 * 
+	 * @see TelaMenuEntrada
+	**/
+	
 	private static final long serialVersionUID = 1L;
-
-	private static JLabel titulo = new JLabel("Bem vinda(o) ao melhor auxiliador de divisão de despesas");
 
 	private static JPanel login_panel = new JPanel();
 	private static JPanel btn_panel = new JPanel();
-
-	private static JLabel login = new JLabel("Usuário");
+	
+	private static JLabel titulo = new JLabel("Bem vinda(o) ao melhor auxiliador de divisão de despesas");
+	private static JLabel login = new JLabel("Email");
 	private static JLabel senha = new JLabel("Senha");
 	private static JTextField txt_login = new JTextField();
 	private static JTextField txt_senha = new JPasswordField();
@@ -33,6 +41,8 @@ public class TelaMenuEntrada extends JFrame implements ActionListener {
 	public static ControleDados dados = new ControleDados();
 
 	public TelaMenuEntrada() {
+		
+		setTitle("Divisor de Despesas");
 		
 		login_panel.setLayout(null);// new GridLayout(2,3));
 		login_panel.setSize(10, 10);
@@ -56,7 +66,6 @@ public class TelaMenuEntrada extends JFrame implements ActionListener {
 
 		titulo.setFont(new Font("Arial", Font.BOLD, 12));
 		titulo.setSize(150, 30);
-		
 
 		/* adicionando os botões */
 
@@ -66,7 +75,7 @@ public class TelaMenuEntrada extends JFrame implements ActionListener {
 		btn_panel.setLayout(new FlowLayout());
 		btn_panel.add(login_btn);
 		btn_panel.add(cadastro_btn);
-		
+
 		getRootPane().setDefaultButton(login_btn); // ao clicar enter o login_btn é ativado
 
 		/* definindo posição dos paineis no jframe principal */
@@ -89,8 +98,9 @@ public class TelaMenuEntrada extends JFrame implements ActionListener {
 		TelaMenuEntrada menu = new TelaMenuEntrada();
 
 		dados.getDados().inserirDados();
+		dados.criarUsuario("carlos", "kdu@gmail.com", "26/05/2003", "minhasenhaforte");
 		
-		login_btn.addActionListener(menu);
+		login_btn.addActionListener(menu); 
 		cadastro_btn.addActionListener(menu);
 	}
 
@@ -98,17 +108,25 @@ public class TelaMenuEntrada extends JFrame implements ActionListener {
 		Object src = e.getSource();
 
 		if (src == login_btn) {
-			
+
 			ControleUsuarios controleUser = new ControleUsuarios(dados);
+
+			/*
+			 * if(controleUser.verificarUsuario(txt_login.getText(), txt_senha.getText())) {
+			 * dados.setUsuarioSessao(controleUser.getUsuarioPorEmail(txt_login.getText()));
+			 * new TelaMain(dados.getUsuarioSessao()); } else {
+			 * JOptionPane.showMessageDialog(null,
+			 * "O nome de usuário ou a senha estão incorretos\n" +
+			 * "caso não possua uma conta crie uma nova \nclicando no botão \"Criar Conta\"."
+			 * , null, JOptionPane.INFORMATION_MESSAGE); }
+			 */
+
+			ControleDados.setUsuarioSessao(controleUser.getUsuario("kdu@gmail.com"));
 			
-			if(controleUser.verificarUsuario(txt_login.getText(), txt_senha.getText())) {
-				controleUser.getUsuario(txt_login.getText());
-				new TelaMain();
-			} else {
-				JOptionPane.showMessageDialog(null,
-						"O nome de usuário ou a senha estão incorretos\n" + "caso não possua uma conta crie uma nova \nclicando no botão \"Criar Conta\".",
-						null, JOptionPane.INFORMATION_MESSAGE);
-			}
+			dados.criarAmigo(ControleDados.getUsuarioSessao(), "Pedro2", "pedrobarbosaocb@gmail.com", "(61)99988-4252");
+			dados.criarAmigo(ControleDados.getUsuarioSessao(), "Pedro22", "pedrobarbosaocb@gmail.com", "(61)99988-4252");
+			
+			new TelaMain(dados);
 		}
 
 		if (src == cadastro_btn) {

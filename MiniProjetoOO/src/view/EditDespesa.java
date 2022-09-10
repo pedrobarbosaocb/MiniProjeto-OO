@@ -12,6 +12,8 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import controle.ControleDados;
+
 public class EditDespesa extends JDialog implements ActionListener {
 
 	/**
@@ -21,10 +23,14 @@ public class EditDespesa extends JDialog implements ActionListener {
 	private static JButton cancel_btn = new JButton("Cancelar");
 	private static JButton save_btn = new JButton("Salvar");
 	private static JPanel btn_panel = new JPanel();
+	private static ControleDados _dados;
+	private static int _id_despesa;
 	
-	public EditDespesa(String teste) {
+	public EditDespesa(ControleDados dados, int id_despesa) {
+		_id_despesa = id_despesa;
+		_dados = dados;
 		setModal(true);
-		add(new JLabel(teste));
+		add(new JLabel("titulo"));
 		
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		double width = screenSize.getWidth();
@@ -42,8 +48,11 @@ public class EditDespesa extends JDialog implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
+		Object src = e.getSource();
 		
+		if (src == cancel_btn) {
+			setVisible(false);
+			dispose();
+		}
 	}
-
 }
