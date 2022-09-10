@@ -45,6 +45,8 @@ public class AddAmigo extends JDialog implements ActionListener {
 		_dados = dados;
 		
 		Usuario current_user = ControleDados.getUsuarioSessao();
+		
+		setTitle("Registrando amigo");
 
 		setModal(true);
 		setLayout(new BorderLayout());

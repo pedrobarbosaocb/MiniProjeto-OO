@@ -1,9 +1,12 @@
 package view;
 
 import controle.*;
+import modelo.Pessoa;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
+
 import javax.swing.*;
 
 public class TelaMenuEntrada extends JFrame implements ActionListener {
@@ -15,13 +18,13 @@ public class TelaMenuEntrada extends JFrame implements ActionListener {
 	 * @version 1.0
 	 * 
 	 * @see TelaMenuEntrada
-	**/
-	
+	 **/
+
 	private static final long serialVersionUID = 1L;
 
 	private static JPanel login_panel = new JPanel();
 	private static JPanel btn_panel = new JPanel();
-	
+
 	private static JLabel titulo = new JLabel("Bem vinda(o) ao melhor auxiliador de divisão de despesas");
 	private static JLabel login = new JLabel("Email");
 	private static JLabel senha = new JLabel("Senha");
@@ -34,9 +37,9 @@ public class TelaMenuEntrada extends JFrame implements ActionListener {
 	public static ControleDados dados = new ControleDados();
 
 	public TelaMenuEntrada() {
-		
+
 		setTitle("Divisor de Despesas");
-		
+
 		login_panel.setLayout(null);// new GridLayout(2,3));
 		login_panel.setSize(10, 10);
 
@@ -92,8 +95,8 @@ public class TelaMenuEntrada extends JFrame implements ActionListener {
 
 		dados.getDados().inserirDados();
 		dados.criarUsuario("carlos", "kdu@gmail.com", "26/05/2003", "minhasenhaforte");
-		
-		login_btn.addActionListener(menu); 
+
+		login_btn.addActionListener(menu);
 		cadastro_btn.addActionListener(menu);
 	}
 
@@ -103,27 +106,44 @@ public class TelaMenuEntrada extends JFrame implements ActionListener {
 		if (src == login_btn) {
 
 			ControleUsuarios controleUser = new ControleUsuarios(dados);
-
-			/*
-			 * if(controleUser.verificarUsuario(txt_login.getText(), txt_senha.getText())) {
-			 * dados.setUsuarioSessao(controleUser.getUsuarioPorEmail(txt_login.getText()));
-			 * new TelaMain(dados.getUsuarioSessao()); } else {
-			 * JOptionPane.showMessageDialog(null,
-			 * "O nome de usuário ou a senha estão incorretos\n" +
-			 * "caso não possua uma conta crie uma nova \nclicando no botão \"Criar Conta\"."
-			 * , null, JOptionPane.INFORMATION_MESSAGE); }
-			 */
-
-			ControleDados.setUsuarioSessao(controleUser.getUsuario("kdu@gmail.com"));
 			
-			dados.criarAmigo(ControleDados.getUsuarioSessao(), "Pedro2", "pedrobarbosaocb@gmail.com", "(61)99988-4252");
-			dados.criarAmigo(ControleDados.getUsuarioSessao(), "Pedro22", "pedrobarbosaocb@gmail.com", "(61)99988-4252");
+
+			if (controleUser.verificarUsuario(txt_login.getText(), txt_senha.getText())) {
+				initialize(controleUser);
+				new TelaMain(dados);
+			} else {
+				JOptionPane.showMessageDialog(null,
+						"O nome de usuário ou a senha estão incorretos\n"
+								+ "caso não possua uma conta crie uma nova \nclicando no botão \"Criar Conta\".",
+						null, JOptionPane.INFORMATION_MESSAGE);
+			}
+
 			
-			new TelaMain(dados);
 		}
 
 		if (src == cadastro_btn) {
 			new TelaCadastro(dados);
+		}
+	}
+	
+	public void initialize(ControleUsuarios user) {
+		ControleDados.setUsuarioSessao(user.getUsuario(txt_login.getText()));
+		dados.criarAmigo(ControleDados.getUsuarioSessao(), "Pedro2", "pedrobarbosaocb@gmail.com", "(61)99988-4252");
+		dados.criarAmigo(ControleDados.getUsuarioSessao(), "Pedro22", "pedrobarbosaocb@gmail.com",
+				"(61)99988-4252");
+		
+		ArrayList<Pessoa> pessoas = new ArrayList<Pessoa>();
+		ArrayList<Double> valores = new ArrayList<Double>();
+		
+		pessoas.add(ControleDados.getUsuarioSessao());
+		pessoas.add(ControleDados.getUsuarioSessao().getAmigos().get(0));
+		pessoas.add(ControleDados.getUsuarioSessao().getAmigos().get(1));
+		valores.add((double) 150);
+		valores.add((double) 100);
+		valores.add((double) 50);
+		
+		for(int i = 1; i < 10; i++) {
+			dados.criarDespesa("DespesaExemplo"+i, (double) 300, i+"/02/2023", pessoas, valores);
 		}
 	}
 }

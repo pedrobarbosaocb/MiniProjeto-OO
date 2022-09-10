@@ -17,6 +17,7 @@ import javax.swing.border.EmptyBorder;
 
 import controle.ControleDados;
 import controle.ControleUsuarios;
+import modelo.Usuario;
 
 public class TelaMain extends JDialog implements ActionListener {
 
@@ -38,7 +39,6 @@ public class TelaMain extends JDialog implements ActionListener {
 	private static JPanel user_btn_panel = new JPanel();
 	private static JPanel center_panel = new JPanel();
 
-	private static JButton update_btn = new JButton("Atualizar");
 	private static JButton despesas_btn = new JButton("Despesas");
 	private static JButton hist_btn = new JButton("Histórico");
 	private static JButton logout_btn = new JButton("Logout");
@@ -52,28 +52,27 @@ public class TelaMain extends JDialog implements ActionListener {
 
 	public TelaMain(ControleDados dados) {
 		setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-		
+
 		setTitle("Divisor de Despesas");
 
 		_dados = dados;
 
-		center_panel.setBorder(new EmptyBorder(10,10,10,10));
+		center_panel.setBorder(new EmptyBorder(10, 10, 10, 10));
 		historico = new PanelHistorico(_dados);
 		despesas = new PanelDespesas(_dados);
 
 		setModal(true);
 
 		user.setText("Usuário logado: " + ControleDados.getUsuarioSessao().getNome());
-		user_panel.setBorder(new EmptyBorder(10,10,10,10));
+		user_panel.setBorder(new EmptyBorder(10, 10, 0, 10));
 		user_panel.setLayout(new BorderLayout());
 		user_btn_panel.setLayout(new FlowLayout(FlowLayout.RIGHT));
 		user_panel.add(user, BorderLayout.WEST);
-		user_btn_panel.add(update_btn);
 		user_btn_panel.add(perfil_btn);
 		user_btn_panel.add(logout_btn);
 		user_panel.add(user_btn_panel, BorderLayout.CENTER);
 
-		btn_panel.setBorder(new EmptyBorder(10,10,10,10));
+		btn_panel.setBorder(new EmptyBorder(10, 10, 10, 0));
 		btn_panel.add(despesas_btn);
 		btn_panel.add(hist_btn);
 		btn_panel.add(add_amigo_btn);
@@ -83,12 +82,10 @@ public class TelaMain extends JDialog implements ActionListener {
 
 		btn_panel.setLayout(new GridLayout(3, 0));
 
-
 		center_panel.setLayout(new GridLayout());
 		center_panel.add(despesas);
 
 		add_amigo_btn.addActionListener(this);
-		update_btn.addActionListener(this);
 		logout_btn.addActionListener(this);
 		despesas_btn.addActionListener(this);
 		hist_btn.addActionListener(this);
@@ -135,14 +132,14 @@ public class TelaMain extends JDialog implements ActionListener {
 		}
 
 		if (src == logout_btn) {
-
+			despesas.removeActionListeners();
+			
 			add_amigo_btn.removeActionListener(this);
-			update_btn.removeActionListener(this);
 			perfil_btn.removeActionListener(this);
 			logout_btn.removeActionListener(this);
 			despesas_btn.removeActionListener(this);
 			hist_btn.removeActionListener(this);
-			
+
 			center_panel.removeAll();
 
 			setVisible(false);
@@ -152,19 +149,9 @@ public class TelaMain extends JDialog implements ActionListener {
 		if (src == perfil_btn) {
 			new EditPerfil(_dados);
 		}
-		
+
 		if (src == add_amigo_btn) {
 			new AddAmigo(_dados);
-		}
-
-		if (src == update_btn) {
-			ControleUsuarios controle_user = new ControleUsuarios(_dados);
-			
-			System.out.println(controle_user.getCreditosUsuario(ControleDados.getUsuarioSessao().getId()));
-			System.out.println(controle_user.getDebitosUsuario(ControleDados.getUsuarioSessao().getId()));
-			
-			logout_btn.doClick();
-			new TelaMain(_dados);
 		}
 	}
 }
