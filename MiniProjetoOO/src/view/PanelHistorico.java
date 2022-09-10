@@ -15,7 +15,7 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import controle.ControleContas;
+import controle.ControleDespesas;
 import controle.ControleDados;
 import controle.ControleUsuarios;
 import modelo.Despesa;

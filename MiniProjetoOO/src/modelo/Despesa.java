@@ -17,6 +17,7 @@ import modelo.Pagamento.FormaPagamento;
 public class Despesa {
 
 	private static int nextId = 0;
+	private static int nextIdConta = 0;
 	private final int id;
 	private String titulo;
 	private double valor;
@@ -24,6 +25,7 @@ public class Despesa {
 	private Pessoa credor;
 	private Pessoa devedor;
 	private List<Pagamento> pagamentos;
+	private int idConta;
 
 	/**
 	 * Construtor Despesa
@@ -35,14 +37,15 @@ public class Despesa {
 	 * @param devedor    Pessoa
 	 * 
 	 * **/
-	public Despesa(String titulo, double valor, String vencimento, Pessoa credor, Pessoa devedor) {
-		this.id = nextId++;
+	public Despesa(String titulo, double valor, String vencimento, Pessoa credor, Pessoa devedor, int idConta) {
+		id = nextId++;
 		this.titulo = titulo;
 		this.valor = valor;
 		this.vencimento = vencimento;
 		this.credor = credor;
 		this.devedor = devedor;
 		this.pagamentos = new ArrayList<Pagamento>();
+		this.idConta = idConta;
 	}
 
 	public int getId() {
@@ -81,6 +84,18 @@ public class Despesa {
 		return devedor;
 	}
 	
+	public int getIdConta() {
+		return idConta;
+	}
+
+	public void setIdConta(int idConta) {
+		this.idConta = idConta;
+	}
+	
+	public static int getNextIdConta() {
+		return nextIdConta++;
+	}
+
 	/** 
 	 * Método adiciona um pagamento na lista de pagamentos da despesa
 	 * 

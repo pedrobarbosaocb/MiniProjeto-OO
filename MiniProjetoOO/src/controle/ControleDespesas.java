@@ -3,6 +3,7 @@ package controle;
 import java.util.ArrayList;
 
 import modelo.Despesa;
+import modelo.Pessoa;
 
 /**
  * Classe que realiza algumas operações de busca na lista de Despesas
@@ -71,5 +72,22 @@ public class ControleDespesas {
 		return despesas_usuarios;
 	}
 	
-	
+	/**
+	 * Método percorre a lista de despesas proucura pelas despesas relacionadas e cria uma lista das pessoas envolvidas
+	 * @param idConta int
+	 * @return lista de pessoas envolvidas em uma conta
+	 */
+	public ArrayList<Pessoa> getPessoasConta(int idConta) {
+		ArrayList<Pessoa> pessoas = new ArrayList<Pessoa>();
+		for(Despesa despesa: despesas) {
+			if(despesa.getIdConta() == idConta) {
+				if(!pessoas.contains(despesa.getCredor())) {
+					pessoas.add(despesa.getCredor());
+				} else if(!pessoas.contains(despesa.getDevedor())) {
+					pessoas.add(despesa.getDevedor());
+				}
+			}
+		}
+		return pessoas;
+	}
 }

@@ -195,6 +195,7 @@ public class ControleDados {
 		
 		double valor_pessoa = casaDecimal(valor/pessoas.size());
 		
+		int idConta = Despesa.getNextIdConta(); 
 		for(int i = 0; i<pessoas.size(); i++) {
 			if(valores.get(i) <= valor_pessoa) continue;
 			
@@ -207,7 +208,7 @@ public class ControleDados {
 					double val = casaDecimal(valor_pessoa-valores.get(j));
 					valores.set(i, valores.get(i)-val);
 					valores.set(j, val+valores.get(j) >= valor_pessoa ? valor_pessoa : val);
-					Despesa despesa = new Despesa(titulo, val, vencimento, pessoas.get(i), pessoas.get(j));
+					Despesa despesa = new Despesa(titulo, val, vencimento, pessoas.get(i), pessoas.get(j), idConta);
 					dados.addDespesa(despesa);
 					pessoas.get(i).addCredito(despesa);
 					pessoas.get(j).addDebito(despesa);
@@ -216,7 +217,7 @@ public class ControleDados {
 					valores.set(i, valor_pessoa);
 					double val = casaDecimal(valores.get(j)+resto);
 					valores.set(j, val >= valor_pessoa ? valor_pessoa : val);
-					Despesa despesa = new Despesa(titulo, resto, vencimento, pessoas.get(i), pessoas.get(j));
+					Despesa despesa = new Despesa(titulo, resto, vencimento, pessoas.get(i), pessoas.get(j), idConta);
 					dados.addDespesa(despesa);
 					pessoas.get(i).addCredito(despesa);
 					pessoas.get(j).addDebito(despesa);
@@ -245,6 +246,7 @@ public class ControleDados {
 		Object[] params = {titulo, valor, vencimento, pessoas, valores, pagos};
 		if(verificarObjetos(params) || valor <= 0 || pessoas.size() != valores.size()|| pessoas.size() != pagos.size()) return false;
 		
+		int idConta = Despesa.getNextIdConta();
 		for(int i = 0; i<pessoas.size(); i++) {
 			if(pagos.get(i) <= valores.get(i)) continue;
 			
@@ -257,7 +259,7 @@ public class ControleDados {
 				if(resto > 0) {
 					pagos.set(i, casaDecimal(pagos.get(i)-dif));
 					pagos.set(j, valores.get(j));
-					Despesa despesa = new Despesa(titulo, dif, vencimento, pessoas.get(i), pessoas.get(j));
+					Despesa despesa = new Despesa(titulo, dif, vencimento, pessoas.get(i), pessoas.get(j), idConta);
 					dados.addDespesa(despesa);
 					pessoas.get(i).addCredito(despesa);
 					pessoas.get(j).addDebito(despesa);
@@ -265,7 +267,7 @@ public class ControleDados {
 					pagos.set(i, valores.get(i));
 					double val = dif+resto;
 					pagos.set(j, resto == 0 ? valores.get(j) : val);
-					Despesa despesa = new Despesa(titulo, val, vencimento, pessoas.get(i), pessoas.get(j));
+					Despesa despesa = new Despesa(titulo, val, vencimento, pessoas.get(i), pessoas.get(j), idConta);
 					dados.addDespesa(despesa);
 					pessoas.get(i).addCredito(despesa);
 					pessoas.get(j).addDebito(despesa);
@@ -286,12 +288,12 @@ public class ControleDados {
 	 * @param valores    ArrayList(Double)
 	 * @return true caso consiga, false caso não
 	 */
-	public boolean editarDespesa(int id, String titulo, double valor, String vencimento, ArrayList<Pessoa> pessoas, 
+	public boolean editarDespesa(int idConta, String titulo, double valor, String vencimento, ArrayList<Pessoa> pessoas, 
 			ArrayList<Double> pagos, ArrayList<Double> valores) {
 		Object[] params = {titulo, valor, vencimento, pessoas, valores};
 		if(verificarObjetos(params) || valor < 0 || pessoas.size() != valores.size()|| pessoas.size() != pagos.size()) return false;
 		
-		excluirDespesa(id);
+		excluirDespesa(idConta);
 		
 		boolean criada = false;
 		if(pagos.size() == 0) criada = criarDespesa(titulo, valor, vencimento, pessoas, valores);
@@ -307,21 +309,19 @@ public class ControleDados {
 	 * @return true caso consiga excluir, e false caso não
 	 */
 	public boolean excluirDespesa(int id) {
-		Despesa despesa = dados.getDespesa(id);
-		if(despesa != null) {
-			for(int i = 0; i < dados.getUsuarios().size(); i++) {
-				Usuario usuario = dados.getUsuarios().get(i);
+		ArrayList<Despesa> despesas = dados.getDespesasConta(id);
+		for(Despesa despesa: despesas) {
+			for(Usuario usuario: dados.getUsuarios()) {
 				usuario.getCreditos().remove(despesa);
 				usuario.getDebitos().remove(despesa);
 			}
-			for(int i = 0; i < dados.getAmigos().size(); i++) {
-				Amigo amigo = dados.getAmigos().get(i);
+			for(Amigo amigo: dados.getAmigos()) {
 				amigo.getCreditos().remove(despesa);
 				amigo.getDebitos().remove(despesa);
 			}
-			dados.getDespesas().remove(despesa);
-			return true;	
-		} else return false;
+			dados.getDespesas().remove(despesa);	
+		}
+		return true;
 	}
 	
 	/**

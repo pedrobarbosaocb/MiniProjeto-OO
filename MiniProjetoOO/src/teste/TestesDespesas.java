@@ -115,9 +115,7 @@ public class TestesDespesas {
 		criarDados();
 		controleDados.criarDespesa("Titulo", 100, "12/12/2022", pessoas, valores);
 		Despesa despesa1 = controleDados.getDespesas().get(0);
-		Despesa despesa2 = controleDados.getDespesas().get(1);
-		controleDados.excluirDespesa(despesa1.getId());
-		controleDados.excluirDespesa(despesa2.getId());
+		controleDados.excluirDespesa(despesa1.getIdConta());
 		assertTrue(controleDados.getDespesas().size() == 0);
 	}
 	

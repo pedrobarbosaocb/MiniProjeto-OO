@@ -32,7 +32,7 @@ public class Dados {
 			amigo.addAmigoDe(user);
 			amigos.add(amigo);
 			user.addAmigo(amigo);
-			Despesa despesa = new Despesa("Despesa"+contador, (contador*100)/2, "26/05/2000", user, user.getAmigos().get(0));
+			Despesa despesa = new Despesa("Despesa"+contador, (contador*100)/2, "26/05/2000", user, user.getAmigos().get(0), contador);
 			despesas.add(despesa);
 			user.addCredito(despesa);
 			amigo.addDebito(despesa);
@@ -176,5 +176,20 @@ public class Dados {
 			}
 		}
 		return null;
+	}
+	
+	/**
+	 * Método recebe o id referente à conta e busca todas as despesas geradas à partir dessa conta
+	 * @param id int
+	 * @return lista de despesas relacionadas
+	 */
+	public ArrayList<Despesa> getDespesasConta(int id) {
+		ArrayList<Despesa> res = new ArrayList<Despesa>();
+		for(Despesa despesa: getDespesas()) {
+			if(despesa.getIdConta() == id) {
+				res.add(despesa);
+			}
+		}
+		return res;
 	}
 }
