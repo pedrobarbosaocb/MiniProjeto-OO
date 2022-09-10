@@ -7,6 +7,7 @@ import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
 import java.util.ArrayList;
 
 import javax.swing.BoxLayout;
@@ -14,6 +15,7 @@ import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
+import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
@@ -22,6 +24,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 import javax.swing.border.EmptyBorder;
+import javax.swing.text.MaskFormatter;
 
 import controle.ControleDados;
 import controle.ControleUsuarios;
@@ -85,14 +88,23 @@ public class AddDespesa extends JDialog implements ActionListener {
 	private static JLabel valor_igual = new JLabel("");
 
 	private static JTextField txt_titulo = new JTextField();
-	private static JTextField txt_valor_total = new JTextField();
-	private static JTextField txt_dt_vencimento = new JTextField();
+	private static JFormattedTextField txt_valor_total = new JFormattedTextField();
+	private static JFormattedTextField txt_dt_vencimento;
 
 	private static double soma_total = 0;
 
 	public AddDespesa(ControleDados dados) {
 		setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 		setModal(true);
+		
+		MaskFormatter formatoData;
+		try {
+			formatoData = new MaskFormatter("##/##/####");
+			formatoData.setPlaceholderCharacter('_');
+			txt_dt_vencimento = new JFormattedTextField(formatoData);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}		
 
 		setTitle("Adicionando Despesa");
 

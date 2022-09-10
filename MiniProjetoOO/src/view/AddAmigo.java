@@ -7,14 +7,17 @@ import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
+import javax.swing.text.MaskFormatter;
 
 import controle.ControleDados;
 import modelo.Usuario;
@@ -44,7 +47,7 @@ public class AddAmigo extends JDialog implements ActionListener {
 
 	private static JTextField txt_nome = new JTextField(20);
 	private static JTextField txt_email = new JTextField(20);
-	private static JTextField txt_telefone = new JTextField(20);
+	private static JFormattedTextField txt_telefone;
 
 	public AddAmigo(ControleDados dados) {
 		_dados = dados;
@@ -55,6 +58,15 @@ public class AddAmigo extends JDialog implements ActionListener {
 
 		setModal(true);
 		setLayout(new BorderLayout());
+		
+		MaskFormatter formatoTelefone;
+		try {
+			formatoTelefone = new MaskFormatter("(##)#####-####");
+			formatoTelefone.setPlaceholderCharacter('_');
+			txt_telefone = new JFormattedTextField(formatoTelefone);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}	
 
 		panel_main.setLayout(new GridLayout(4, 2));
 		panel_main.setBorder(new EmptyBorder(20, 10, 20, 10));
