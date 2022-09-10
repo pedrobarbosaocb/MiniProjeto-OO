@@ -20,17 +20,18 @@ import controle.ControleDados;
 import controle.ControleUsuarios;
 import modelo.Despesa;
 
+/**
+ * Classe que gera a vizualização da tela das despesas presentes na conta do
+ * usuario logado
+ * 
+ * @author Carlos Eduardo & Pedro Barbosa
+ * @version 1.0
+ * 
+ * @see TelaMenuEntrada
+ **/
+
 public class PanelDespesas extends JPanel implements ActionListener {
 
-	/**
-	 * Classe que gera a vizualização da tela das despesas presentes na conta do
-	 * usuario logado
-	 * 
-	 * @author Carlos Eduardo & Pedro Barbosa
-	 * @version 1.0
-	 * 
-	 * @see TelaMenuEntrada
-	 **/
 
 	private static final long serialVersionUID = 1L;
 
@@ -182,8 +183,10 @@ public class PanelDespesas extends JPanel implements ActionListener {
 
 		if (creditos_list.size() == 0 && debitos_list.size() == 0) {
 			pagar_despesa.setEnabled(false);
+			remove_despesa.setEnabled(false);
 		} else {
 			pagar_despesa.setEnabled(true);
+			remove_despesa.setEnabled(true);
 		}
 
 		despesas_list.setModel(listModel1);

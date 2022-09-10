@@ -20,17 +20,18 @@ import controle.ControleDados;
 import controle.ControleUsuarios;
 import modelo.Amigo;
 
+/**
+ * Classe que gera a vizualização da tela dos presentes na conta do
+ * usuario logado
+ * 
+ * @author Carlos Eduardo & Pedro Barbosa
+ * @version 1.0
+ * 
+ * @see TelaMenuEntrada
+ **/
+
 public class PanelAmigos extends JPanel implements ActionListener {
 
-	/**
-	 * Classe que gera a vizualização da tela das despesas presentes na conta do
-	 * usuario logado
-	 * 
-	 * @author Carlos Eduardo & Pedro Barbosa
-	 * @version 1.0
-	 * 
-	 * @see TelaMenuEntrada
-	 **/
 
 	private static final long serialVersionUID = 1L;
 
@@ -109,7 +110,7 @@ public class PanelAmigos extends JPanel implements ActionListener {
 				new EditAmigo(_dados, amigos.get(amigos_list.getSelectedIndex()));
 				AdicionarAmigos("");
 			} else {
-				JOptionPane.showMessageDialog(null, "Selecione o amigo que você deseja editar!", null,
+				JOptionPane.showMessageDialog(null, "Selecione o amigo que você deseja remover!", null,
 						JOptionPane.INFORMATION_MESSAGE);
 			}
 		}
@@ -170,8 +171,10 @@ public class PanelAmigos extends JPanel implements ActionListener {
 
 		if (amigos_list_got.size() == 0) {
 			edit_amigo.setEnabled(false);
+			remove_amigo.setEnabled(false);
 		} else {
 			edit_amigo.setEnabled(true);
+			remove_amigo.setEnabled(true);
 		}
 
 		amigos_list.setModel(listModel1);

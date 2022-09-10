@@ -135,8 +135,8 @@ public class TelaMenuEntrada extends JFrame implements ActionListener {
 	 */
 	public void initialize(ControleUsuarios user) {
 		ControleDados.setUsuarioSessao(user.getUsuario(txt_login.getText()));
-		dados.criarAmigo(ControleDados.getUsuarioSessao(), "Julia", "julia@gmail.com", "(11)99999-4252");
-		dados.criarAmigo(ControleDados.getUsuarioSessao(), "Beatriz", "beatriz@gmail.com", "(61)99942-4242");
+		dados.criarAmigo(ControleDados.getUsuarioSessao(), "Julia", "julia@gmail.com", "(11)12345-1234");
+		dados.criarAmigo(ControleDados.getUsuarioSessao(), "Beatriz", "beatriz@gmail.com", "(11)91111-1111");
 
 		ArrayList<Pessoa> pessoas = new ArrayList<Pessoa>();
 		ArrayList<Double> valores = new ArrayList<Double>();

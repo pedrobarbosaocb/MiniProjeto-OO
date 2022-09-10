@@ -146,6 +146,8 @@ public class TelaMain extends JDialog implements ActionListener {
 
 		if (src == perfil_btn) {
 			new EditPerfil(_dados);
+			logout_btn.doClick();
+			new TelaMain(_dados);
 		}
 
 		if (src == amigos_btn) {
