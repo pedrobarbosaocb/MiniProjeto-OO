@@ -1,14 +1,5 @@
 <!-- Improved compatibility of back to top link: See: https://github.com/othneildrew/Best-README-Template/pull/73 -->
 <a name="readme-top"></a>
-<!--
-*** Thanks for checking out the Best-README-Template. If you have a suggestion
-*** that would make this better, please fork the repo and create a pull request
-*** or simply open an issue with the tag "enhancement".
-*** Don't forget to give the project a star!
-*** Thanks again! Now go create something AMAZING! :D
--->
-
-
 
 <!-- PROJECT SHIELDS -->
 <!--
@@ -71,6 +62,7 @@
 ### Feito com
 
 * [![Java][Java.com]][Java-url]
+* [![Eclipse][Eclipse.com]][Eclipse-url]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -114,7 +106,7 @@ Don't forget to give the project a star! Thanks again!
 <!-- CONTACT -->
 ## Contatos
 
-Carlos Eduardo - [@twitter_handle](https://twitter.com/twitter_handle) - email@email_client.com
+Carlos Eduardo - [@twitter_handle](https://twitter.com/) - carlos.e.souza2653@gmail.com
 
 Pedro Barbosa - [@twitter_handle](https://twitter.com/pedrobarbosaocb) - pedrobarbosaocb@gmail.com
 
@@ -142,3 +134,5 @@ Link do Projeto: [https://github.com/pedrobarbosaocb/MiniProjeto-OO](https://git
 [product-screenshot]: images/screenshot.png
 [Java.com]: https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=java&logoColor=white
 [Java-url]: https://www.java.com
+[Eclipse.com]: https://img.shields.io/badge/Eclipse-FE7A16.svg?style=for-the-badge&logo=Eclipse&logoColor=white
+[Eclipse-url]: https://www.eclipse.org/
