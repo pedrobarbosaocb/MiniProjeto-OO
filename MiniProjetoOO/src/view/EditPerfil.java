@@ -8,7 +8,6 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
@@ -20,16 +19,17 @@ import javax.swing.border.EmptyBorder;
 import controle.ControleDados;
 import modelo.Usuario;
 
+/**
+ * Classe que gera a vizualização da tela de edicao do perfil do usuario logado
+ * 
+ * @author Carlos Eduardo & Pedro Barbosa
+ * @version 1.0
+ * 
+ * @see TelaMenuEntrada
+ **/
+
 public class EditPerfil extends JDialog implements ActionListener {
 
-	/**
-	 * Classe que gera a vizualização da tela de edicao do perfil do usuario logado
-	 * 
-	 * @author Carlos Eduardo & Pedro Barbosa
-	 * @version 1.0
-	 * 
-	 * @see TelaMenuEntrada
-	 **/
 	private static final long serialVersionUID = 1L;
 	private static ControleDados _dados;
 	private static JPanel btn_panel = new JPanel();
@@ -48,6 +48,11 @@ public class EditPerfil extends JDialog implements ActionListener {
 	private static JTextField txt_dt_nascimento = new JTextField(20);
 	private static JTextField txt_senha = new JTextField(20);
 
+	/**
+	 * Construtor EditPerfil
+	 * 
+	 * @param dados ControleDados
+	 **/
 	public EditPerfil(ControleDados dados) {
 		_dados = dados;
 

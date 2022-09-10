@@ -7,20 +7,19 @@ import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.text.ParseException;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
-import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 import javax.swing.border.EmptyBorder;
-import javax.swing.text.MaskFormatter;
 
 import controle.ControleDados;
+import controle.ControleUsuarios;
+import modelo.Amigo;
 
 /**
  * Classe que gera a vizualização da tela de registro de um novo amigo ao
@@ -32,7 +31,7 @@ import controle.ControleDados;
  * @see TelaMenuEntrada
  **/
 
-public class AddAmigo extends JDialog implements ActionListener {
+public class EditAmigo extends JDialog implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
 	private static ControleDados _dados;
@@ -48,42 +47,39 @@ public class AddAmigo extends JDialog implements ActionListener {
 
 	private static JTextField txt_nome = new JTextField(20);
 	private static JTextField txt_email = new JTextField(20);
-	private static JFormattedTextField txt_telefone;
+	private static JTextField txt_telefone = new JTextField(20);
+
+	private static Amigo amigo;
 
 	/**
-	 * Construtor AddAmigo
+	 * Construtor EditAmigo
 	 * 
 	 * @param dados ControleDados
+	 * @param amigo Amigo
 	 **/
-	public AddAmigo(ControleDados dados) {
-		setModal(true);
-
+	public EditAmigo(ControleDados dados, Amigo amigo) {
 		setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 
+		EditAmigo.amigo = amigo;
 		_dados = dados;
 
 		setTitle("Registrando amigo");
 
+		setModal(true);
 		setLayout(new BorderLayout());
-
-		MaskFormatter formatoTelefone;
-		try {
-			formatoTelefone = new MaskFormatter("(##)#####-####");
-			formatoTelefone.setPlaceholderCharacter('_');
-			txt_telefone = new JFormattedTextField(formatoTelefone);
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
 
 		panel_main.setLayout(new GridLayout(4, 2));
 		panel_main.setBorder(new EmptyBorder(20, 10, 20, 10));
 
 		panel_main.add(nome);
 		panel_main.add(txt_nome);
+		txt_nome.setText(amigo.getNome());
 		panel_main.add(email);
 		panel_main.add(txt_email);
+		txt_email.setText(amigo.getEmail());
 		panel_main.add(telefone);
 		panel_main.add(txt_telefone);
+		txt_telefone.setText(amigo.getTelefone());
 
 		add(panel_main, BorderLayout.CENTER);
 
@@ -111,7 +107,9 @@ public class AddAmigo extends JDialog implements ActionListener {
 		if (src == save_btn) {
 			if (_dados.criarAmigo(ControleDados.getUsuarioSessao(), txt_nome.getText(), txt_email.getText(),
 					txt_telefone.getText())) {
-				JOptionPane.showMessageDialog(null, "Amigo cadastrado com sucesso!", null,
+				ControleUsuarios user = new ControleUsuarios(_dados);
+				user.excluirAmigoDeUsuario(ControleDados.getUsuarioSessao().getId(), amigo.getId());
+				JOptionPane.showMessageDialog(null, "Amigo atualizado com sucesso!", null,
 						JOptionPane.INFORMATION_MESSAGE);
 
 				save_btn.removeActionListener(this);
@@ -120,8 +118,7 @@ public class AddAmigo extends JDialog implements ActionListener {
 				setVisible(false);
 				dispose();
 			} else {
-				JOptionPane.showMessageDialog(null, "Erro ao atualizar usuario!", null,
-						JOptionPane.INFORMATION_MESSAGE);
+				JOptionPane.showMessageDialog(null, "Erro ao atualizar amigo!", null, JOptionPane.INFORMATION_MESSAGE);
 
 				revalidate();
 				repaint();

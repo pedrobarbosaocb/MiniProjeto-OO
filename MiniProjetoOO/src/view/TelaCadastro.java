@@ -19,16 +19,16 @@ import javax.swing.text.MaskFormatter;
 
 import controle.ControleDados;
 
-public class TelaCadastro extends JDialog implements ActionListener {
+/**
+ * Classe que gera a vizualização da tela de cadastro
+ * 
+ * @author Carlos Eduardo & Pedro Barbosa
+ * @version 1.0
+ * 
+ * @see TelaCadastro
+ **/
 
-	/**
-	 * Classe que gera a vizualização da tela de cadastro
-	 * 
-	 * @author Carlos Eduardo & Pedro Barbosa
-	 * @version 1.0
-	 * 
-	 * @see TelaCadastro
-	 **/
+public class TelaCadastro extends JDialog implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
 
@@ -52,6 +52,11 @@ public class TelaCadastro extends JDialog implements ActionListener {
 
 	private static ControleDados _dados;
 
+	/**
+	 * Construtor TelaCadastro
+	 * 
+	 * @param dados ControleDados
+	 **/
 	public TelaCadastro(ControleDados dados) {
 		setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 
@@ -111,7 +116,6 @@ public class TelaCadastro extends JDialog implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		Object src = e.getSource();
 		if (src == cancel_btn) {
-			System.out.println("opa");
 			setVisible(false);
 			dispose();
 		}

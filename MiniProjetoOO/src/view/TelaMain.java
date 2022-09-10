@@ -16,19 +16,17 @@ import javax.swing.WindowConstants;
 import javax.swing.border.EmptyBorder;
 
 import controle.ControleDados;
-import controle.ControleUsuarios;
-import modelo.Usuario;
+
+/**
+ * Classe que gera a vizualização da tela principal
+ * 
+ * @author Carlos Eduardo & Pedro Barbosa
+ * @version 1.0
+ * 
+ * @see TelaMain
+ **/
 
 public class TelaMain extends JDialog implements ActionListener {
-
-	/**
-	 * Classe que gera a vizualização da tela principal
-	 * 
-	 * @author Carlos Eduardo & Pedro Barbosa
-	 * @version 1.0
-	 * 
-	 * @see TelaMain
-	 **/
 
 	private static final long serialVersionUID = 1L;
 
@@ -43,13 +41,19 @@ public class TelaMain extends JDialog implements ActionListener {
 	private static JButton hist_btn = new JButton("Histórico");
 	private static JButton logout_btn = new JButton("Logout");
 	private static JButton perfil_btn = new JButton("Editar Perfil");
-	private static JButton add_amigo_btn = new JButton("Adicionar Amigo");
+	private static JButton amigos_btn = new JButton("Amigos");
 
 	private static ControleDados _dados;
 
-	private static PanelHistorico historico;
-	private static PanelDespesas despesas;
+	public static PanelHistorico historico;
+	public static PanelDespesas despesas;
+	public static PanelAmigos amigos;
 
+	/**
+	 * Construtor TelaMain
+	 * 
+	 * @param dados ControleDados
+	 **/
 	public TelaMain(ControleDados dados) {
 		setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 
@@ -60,6 +64,7 @@ public class TelaMain extends JDialog implements ActionListener {
 		center_panel.setBorder(new EmptyBorder(10, 10, 10, 10));
 		historico = new PanelHistorico(_dados);
 		despesas = new PanelDespesas(_dados);
+		amigos = new PanelAmigos(_dados);
 
 		setModal(true);
 
@@ -75,7 +80,7 @@ public class TelaMain extends JDialog implements ActionListener {
 		btn_panel.setBorder(new EmptyBorder(10, 10, 10, 0));
 		btn_panel.add(despesas_btn);
 		btn_panel.add(hist_btn);
-		btn_panel.add(add_amigo_btn);
+		btn_panel.add(amigos_btn);
 
 		despesas_btn.setEnabled(false);
 		hist_btn.setEnabled(true);
@@ -84,8 +89,10 @@ public class TelaMain extends JDialog implements ActionListener {
 
 		center_panel.setLayout(new GridLayout());
 		center_panel.add(despesas);
+		center_panel.add(historico);
+		center_panel.add(amigos);
 
-		add_amigo_btn.addActionListener(this);
+		amigos_btn.addActionListener(this);
 		logout_btn.addActionListener(this);
 		despesas_btn.addActionListener(this);
 		hist_btn.addActionListener(this);
@@ -94,6 +101,8 @@ public class TelaMain extends JDialog implements ActionListener {
 		add(user_panel, BorderLayout.NORTH);
 		add(center_panel, BorderLayout.CENTER);
 		add(btn_panel, BorderLayout.WEST);
+
+		mostrarPainel(0);
 
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		double width = screenSize.getWidth();
@@ -109,33 +118,21 @@ public class TelaMain extends JDialog implements ActionListener {
 		Object src = e.getSource();
 
 		if (src == despesas_btn) {
-			System.out.println("showing despesa");
-			center_panel.remove(historico);
-			center_panel.add(despesas);
-
-			despesas_btn.setEnabled(false);
-			hist_btn.setEnabled(true);
-
-			revalidate();
-			repaint();
+			mostrarPainel(0);
 		}
 
 		if (src == hist_btn) {
-			System.out.println("showing historico");
-			center_panel.remove(despesas);
-			center_panel.add(historico);
-			hist_btn.setEnabled(false);
-			despesas_btn.setEnabled(true);
+			mostrarPainel(1);
 
-			revalidate();
-			repaint();
+			historico.AdicionarDespesas("");
+
 		}
 
 		if (src == logout_btn) {
 			historico.removeActionListeners();
 			despesas.removeActionListeners();
 
-			add_amigo_btn.removeActionListener(this);
+			amigos_btn.removeActionListener(this);
 			perfil_btn.removeActionListener(this);
 			logout_btn.removeActionListener(this);
 			despesas_btn.removeActionListener(this);
@@ -151,8 +148,47 @@ public class TelaMain extends JDialog implements ActionListener {
 			new EditPerfil(_dados);
 		}
 
-		if (src == add_amigo_btn) {
-			new AddAmigo(_dados);
+		if (src == amigos_btn) {
+			mostrarPainel(2);
+			amigos.AdicionarAmigos("");
 		}
+	}
+
+	public void mostrarPainel(int painel) {
+		center_panel.remove(despesas);
+		center_panel.remove(historico);
+		center_panel.remove(amigos);
+
+		hist_btn.setEnabled(false);
+		despesas_btn.setEnabled(false);
+		amigos_btn.setEnabled(false);
+
+		switch (painel) {
+		case 0:
+			center_panel.add(despesas);
+
+			hist_btn.setEnabled(true);
+			despesas_btn.setEnabled(false);
+			amigos_btn.setEnabled(true);
+			break;
+		case 1:
+			center_panel.add(historico);
+
+			hist_btn.setEnabled(false);
+			despesas_btn.setEnabled(true);
+			amigos_btn.setEnabled(true);
+			break;
+		case 2:
+			center_panel.add(amigos);
+
+			hist_btn.setEnabled(true);
+			despesas_btn.setEnabled(true);
+			amigos_btn.setEnabled(false);
+			break;
+		}
+
+		revalidate();
+		repaint();
+
 	}
 }

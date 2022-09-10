@@ -9,16 +9,16 @@ import java.util.ArrayList;
 
 import javax.swing.*;
 
-public class TelaMenuEntrada extends JFrame implements ActionListener {
+/**
+ * Classe que gera a vizualização da tela de entrada do sistema
+ * 
+ * @author Carlos Eduardo & Pedro Barbosa
+ * @version 1.0
+ * 
+ * @see TelaMenuEntrada
+ **/
 
-	/**
-	 * Classe que gera a vizualização da tela de entrada do sistema
-	 * 
-	 * @author Carlos Eduardo & Pedro Barbosa
-	 * @version 1.0
-	 * 
-	 * @see TelaMenuEntrada
-	 **/
+public class TelaMenuEntrada extends JFrame implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
 
@@ -36,6 +36,10 @@ public class TelaMenuEntrada extends JFrame implements ActionListener {
 
 	public static ControleDados dados = new ControleDados();
 
+	/**
+	 * Construtor TelaMenuEntrada
+	 * 
+	 **/
 	public TelaMenuEntrada() {
 
 		setTitle("Divisor de Despesas");

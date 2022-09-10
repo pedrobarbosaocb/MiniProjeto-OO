@@ -1,7 +1,6 @@
 package view;
 
 import java.awt.BorderLayout;
-import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -10,28 +9,24 @@ import java.util.ArrayList;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
-import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 
-import controle.ControleDespesas;
 import controle.ControleDados;
-import controle.ControleUsuarios;
+import controle.ControleDespesas;
 import modelo.Despesa;
-import modelo.Pessoa;
+
+/**
+ * Classe que gera a vizualização da tela de todas as despesas ligadas ao
+ * usuario logado
+ * 
+ * @author Carlos Eduardo & Pedro Barbosa
+ * @version 1.0
+ * 
+ * @see TelaMenuEntrada
+ **/
 
 public class PanelHistorico extends JPanel implements ActionListener {
-
-	/**
-	 * Classe que gera a vizualização da tela de todas as despesas ligadas ao
-	 * usuario logado
-	 * 
-	 * @author Carlos Eduardo & Pedro Barbosa
-	 * @version 1.0
-	 * 
-	 * @see TelaMenuEntrada
-	 **/
 
 	private static final long serialVersionUID = 1L;
 
@@ -42,14 +37,17 @@ public class PanelHistorico extends JPanel implements ActionListener {
 	private static JPanel despesas_list_panel = new JPanel();
 	private static JPanel north_panel = new JPanel();
 
-	private static JTextField pesquisar_despesa = new JTextField();
 	private static ControleDados _dados;
 	private static JList<String> despesas_list = new JList<String>();
 	private static DefaultListModel<String> listModel1 = new DefaultListModel<String>();
 
-	private static ArrayList<Pessoa> pessoas;
 	private static ArrayList<Despesa> despesas;
 
+	/**
+	 * Construtor PanelHistorico
+	 * 
+	 * @param dados ControleDados
+	 **/
 	public PanelHistorico(ControleDados dados) {
 
 		despesas = new ArrayList<Despesa>();
@@ -61,13 +59,11 @@ public class PanelHistorico extends JPanel implements ActionListener {
 		removeAll();
 
 		north_panel.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
-		north_panel.add(refresh_btn);
 		add(north_panel, BorderLayout.NORTH);
-		add(pesquisar_despesa);
 
 		despesas_list_panel.setLayout(new GridLayout(1, 0));
 
-		AdicionarDespesas("T");
+		AdicionarDespesas("");
 
 		add(despesas_list_panel, BorderLayout.CENTER);
 
@@ -79,7 +75,7 @@ public class PanelHistorico extends JPanel implements ActionListener {
 		Object src = e.getSource();
 
 		if (src == refresh_btn) {
-			AdicionarDespesas("T"); //o filtro ainda sera implementado
+			AdicionarDespesas("T"); // o filtro ainda sera implementado
 		}
 	}
 
@@ -98,19 +94,22 @@ public class PanelHistorico extends JPanel implements ActionListener {
 	 * @param filtro String
 	 */
 	public void AdicionarDespesas(String filtro) {
-		ControleUsuarios controle_user = new ControleUsuarios(_dados);
-		//ControleContas controle_conta = new ControleContas(_dados);
-		//ArrayList<Despesa> debitos_list = controle_conta.getContasPorUsuario(ControleDados.getUsuarioSessao().getEmail());
-		//ArrayList<Despesa> creditos_list = controle_user.getCreditosUsuario(ControleDados.getUsuarioSessao().getId());
+		ControleDespesas controle_despesas = new ControleDespesas(_dados);
+
+		ArrayList<Despesa> despesas_all_list = controle_despesas
+				.getDespesasEmail(ControleDados.getUsuarioSessao().getEmail());
 
 		listModel1.removeAllElements();
 
-		/*for (int i = 0; i < debitos_list.size(); i++) {
-			listModel1.addElement(
-					"--> " + debitos_list.get(i).getTitulo() + " - " + debitos_list.get(i).getTotalPago() + " - "
-							+ debitos_list.get(i).getValor() + " - " + debitos_list.get(i).getCredor().getNome());
-			despesas.add(debitos_list.get(i));
-		}*/
+		for (int i = 0; i < despesas_all_list.size(); i++) {
+			if (despesas_all_list.get(i).isQuitado()) {
+				listModel1.addElement(" --> " + despesas_all_list.get(i).getTitulo() + " - "
+						+ despesas_all_list.get(i).getDevedor().getNome() + " pagou R$ "
+						+ String.format("%.2f", despesas_all_list.get(i).getTotalPago()) + " a "
+						+ despesas_all_list.get(i).getCredor().getNome());
+				despesas.add(despesas_all_list.get(i));
+			}
+		}
 
 		despesas_list.setModel(listModel1);
 
