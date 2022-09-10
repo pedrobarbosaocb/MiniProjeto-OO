@@ -9,7 +9,7 @@ import modelo.Usuario;
 /**
  * Classe que realiza algumas operações de busca na lista de usuarios
  * 
- * @author Carlos Eduardo & Pedro Barbosa
+ * @author Carlos Eduardo and Pedro Barbosa
  * @version 1.0
  * 
  * @see ControleDados

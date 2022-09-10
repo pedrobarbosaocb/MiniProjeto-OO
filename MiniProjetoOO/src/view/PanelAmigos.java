@@ -24,7 +24,7 @@ import modelo.Amigo;
  * Classe que gera a vizualização da tela dos presentes na conta do usuario
  * logado
  * 
- * @author Carlos Eduardo & Pedro Barbosa
+ * @author Carlos Eduardo and Pedro Barbosa
  * @version 1.0
  * 
  * @see TelaMenuEntrada
@@ -124,11 +124,11 @@ public class PanelAmigos extends JPanel implements ActionListener {
 		if (src == remove_amigo) {
 			if (!amigos_list.isSelectionEmpty()) {
 				ControleUsuarios user = new ControleUsuarios(_dados);
-				for (int i = 0; i < amigos.size(); i++) {
+				for (Amigo amigo: amigos) {
 					if (user.excluirAmigoDeUsuario(ControleDados.getUsuarioSessao().getId(),
 							amigos.get(amigos_list.getSelectedIndex()).getId())) {
-						amigos.remove(i);
-						break;
+							amigos.remove(amigo);
+							break;
 					}
 				}
 				AdicionarAmigos("");

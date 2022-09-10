@@ -1,18 +1,17 @@
 package view;
 
 import controle.*;
-import modelo.Pessoa;
+import modelo.Usuario;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.util.ArrayList;
 
 import javax.swing.*;
 
 /**
  * Classe que gera a vizualização da tela de entrada do sistema
  * 
- * @author Carlos Eduardo & Pedro Barbosa
+ * @author Carlos Eduardo and Pedro Barbosa
  * @version 1.0
  * 
  **/
@@ -106,8 +105,7 @@ public class TelaMenuEntrada extends JFrame implements ActionListener {
 		TelaMenuEntrada menu = new TelaMenuEntrada();
 
 		dados.getDados().inserirDados();
-		dados.criarUsuario("carlos", "kdu@gmail.com", "26/05/2003", "minhasenhaforte");
-
+		
 		login_btn.addActionListener(menu);
 		cadastro_btn.addActionListener(menu);
 	}
@@ -121,7 +119,8 @@ public class TelaMenuEntrada extends JFrame implements ActionListener {
 			ControleUsuarios controleUser = new ControleUsuarios(dados);
 
 			if (controleUser.verificarUsuario(txt_login.getText(), txt_senha.getText())) {
-				initialize(controleUser);
+				Usuario user = controleUser.getUsuario(txt_login.getText());
+				ControleDados.setUsuarioSessao(user);
 				new TelaMain(dados);
 			} else {
 				JOptionPane.showMessageDialog(null,
@@ -133,32 +132,6 @@ public class TelaMenuEntrada extends JFrame implements ActionListener {
 
 		if (src == cadastro_btn) {
 			new TelaCadastro(dados);
-		}
-	}
-
-	/**
-	 * Método que insere registros de despesas e de amigos ao usuario logado
-	 * 
-	 * @param user ControleDados
-	 * 
-	 */
-	public void initialize(ControleUsuarios user) {
-		ControleDados.setUsuarioSessao(user.getUsuario(txt_login.getText()));
-		dados.criarAmigo(ControleDados.getUsuarioSessao(), "Julia", "julia@gmail.com", "(11)12345-1234");
-		dados.criarAmigo(ControleDados.getUsuarioSessao(), "Beatriz", "beatriz@gmail.com", "(11)91111-1111");
-
-		ArrayList<Pessoa> pessoas = new ArrayList<Pessoa>();
-		ArrayList<Double> valores = new ArrayList<Double>();
-
-		pessoas.add(ControleDados.getUsuarioSessao());
-		pessoas.add(ControleDados.getUsuarioSessao().getAmigos().get(0));
-		pessoas.add(ControleDados.getUsuarioSessao().getAmigos().get(1));
-		valores.add((double) 150);
-		valores.add((double) 100);
-		valores.add((double) 50);
-
-		for (int i = 1; i < 10; i++) {
-			dados.criarDespesa("DespesaExemplo" + i, (double) 300, i + "/02/2023", pessoas, valores);
 		}
 	}
 }

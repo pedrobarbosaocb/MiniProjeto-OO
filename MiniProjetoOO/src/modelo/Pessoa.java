@@ -5,7 +5,7 @@ import java.util.ArrayList;
 /**
  * Classe abstrata para que seus atributos e métodos possam ser utilizados por outras clases
  * 
- * @author Carlos Eduardo & Pedro Barbosa
+ * @author Carlos Eduardo and Pedro Barbosa
  * @version 1.0
  * 
  * @see Amigo

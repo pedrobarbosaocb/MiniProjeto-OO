@@ -22,7 +22,7 @@ import modelo.Usuario;
 /**
  * Classe que gera a vizualização da tela de edicao do perfil do usuario logado
  * 
- * @author Carlos Eduardo & Pedro Barbosa
+ * @author Carlos Eduardo and Pedro Barbosa
  * @version 1.0
  * 
  * @see TelaMenuEntrada

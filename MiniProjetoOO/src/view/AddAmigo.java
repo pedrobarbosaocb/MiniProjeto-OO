@@ -26,7 +26,7 @@ import controle.ControleDados;
  * Classe que gera a vizualização da tela de registro de um novo amigo ao
  * sistema do usuario logado
  * 
- * @author Carlos Eduardo & Pedro Barbosa
+ * @author Carlos Eduardo and Pedro Barbosa
  * @version 1.0
  * 
  * @see AddAmigo
@@ -117,11 +117,7 @@ public class AddAmigo extends JDialog implements ActionListener {
 				JOptionPane.showMessageDialog(null, "Amigo cadastrado com sucesso!", null,
 						JOptionPane.INFORMATION_MESSAGE);
 
-				save_btn.removeActionListener(this);
-				cancel_btn.removeActionListener(this);
-
-				setVisible(false);
-				dispose();
+				cancel_btn.doClick();
 			} else {
 				JOptionPane.showMessageDialog(null, "Erro ao atualizar usuario!", null,
 						JOptionPane.INFORMATION_MESSAGE);

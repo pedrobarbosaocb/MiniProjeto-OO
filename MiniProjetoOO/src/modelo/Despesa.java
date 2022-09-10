@@ -8,7 +8,7 @@ import modelo.Pagamento.FormaPagamento;
 /**
  * Classe responsável por armazenar informações de uma despesa e suas operações
  * 
- * @author Carlos Eduardo & Pedro Barbosa
+ * @author Carlos Eduardo and Pedro Barbosa
  * @version 1.0
  * 
  * @see Pagamento
@@ -35,6 +35,7 @@ public class Despesa {
 	 * @param vencimento String
 	 * @param credor     Pessoa
 	 * @param devedor    Pessoa
+	 * @param idConta    int
 	 * 
 	 * **/
 	public Despesa(String titulo, double valor, String vencimento, Pessoa credor, Pessoa devedor, int idConta) {

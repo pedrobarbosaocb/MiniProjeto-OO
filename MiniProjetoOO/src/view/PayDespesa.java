@@ -28,7 +28,7 @@ import modelo.Pagamento.FormaPagamento;
 /**
  * Classe que gera a vizualização da tela de pagamento de uma despesa
  * 
- * @author Carlos Eduardo & Pedro Barbosa
+ * @author Carlos Eduardo and Pedro Barbosa
  * @version 1.0
  * 
  * @see TelaMenuEntrada
@@ -67,8 +67,8 @@ public class PayDespesa extends JDialog implements ActionListener {
 	 * Gera a visualização do JDialog de pagamento das despesas, o qual gera o
 	 * pagamento da despesa inserida como parametro
 	 * 
-	 * @param controleDados ControleDados
-	 * @param despesa       Despesa
+	 * @param dados   ControleDados
+	 * @param despesa Despesa
 	 **/
 	public PayDespesa(ControleDados dados, Despesa despesa) {
 		_dados = dados;

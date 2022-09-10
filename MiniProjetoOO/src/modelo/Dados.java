@@ -8,7 +8,7 @@ import modelo.Pagamento.FormaPagamento;
  * Classe funciona como um banco de dados para armazenas as informações as listas das principais
  * clases da aplicação
  * 
- * @author Carlos Eduardo & Pedro Barbosa
+ * @author Carlos Eduardo and Pedro Barbosa
  * @version 1.0
 **/
 
@@ -79,6 +79,7 @@ public class Dados {
 	 *Método percorre a lista de usuarios e ao encontrar algum com o id igual ao passado como parâmetro exclui tal usuario
 	 *
 	 * @param id int
+	 * @return true caso consiga remover o usuario com id fornecido, e false caso contrario
 	 * **/
 	public boolean removerUsuario(int id) {
 		for(int i = 0; i < usuarios.size(); i++) {
@@ -139,6 +140,7 @@ public class Dados {
 	 * Método percorre a lista de amigos e ao encontrar algum com o id igual ao passado como parâmetro exclui tal amigo
 	 * 
 	 * @param id int
+	 * @return true caso consiga remover o amigo com o id fornecido, false caso não
 	 * **/
 	public boolean removerAmigo(int id) {
 		for(int i = 0; i < amigos.size(); i++) {

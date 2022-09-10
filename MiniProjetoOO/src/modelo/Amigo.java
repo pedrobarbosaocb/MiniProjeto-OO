@@ -5,7 +5,7 @@ import java.util.ArrayList;
 /**
  * Classe armazena informações de um amigo de usuario e que extende a classe @Pessoa
  * 
- * @author Carlos Eduardo & Pedro Barbosa
+ * @author Carlos Eduardo and Pedro Barbosa
  * @version 1.0
  * 
  * @see Pessoa
@@ -25,8 +25,6 @@ public class Amigo extends Pessoa {
 	 * @param nome     String
 	 * @param email    String
 	 * @param telefone String
-	 * 
-	 * @apiNote atributo amigosDe é um ArrayList<Usuario> para armazenar os usuarios que possuem este amigo como amigo
 	 * **/
 	public Amigo(String nome, String email, String telefone) {
 		super(nome, email);

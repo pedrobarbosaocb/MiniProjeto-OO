@@ -24,7 +24,7 @@ import modelo.Despesa;
  * Classe que gera a vizualização da tela das despesas presentes na conta do
  * usuario logado
  * 
- * @author Carlos Eduardo & Pedro Barbosa
+ * @author Carlos Eduardo and Pedro Barbosa
  * @version 1.0
  * 
  * @see TelaMenuEntrada

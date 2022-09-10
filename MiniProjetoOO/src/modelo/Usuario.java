@@ -5,7 +5,7 @@ import java.util.ArrayList;
 /**
  * Classe responsável por armazenar informações de um usuario e suas operações, extende a classe @Pessoa
  * 
- * @author Carlos Eduardo & Pedro Barbosa
+ * @author Carlos Eduardo and Pedro Barbosa
  * @version 1.0
  * 
  * @see Pessoa

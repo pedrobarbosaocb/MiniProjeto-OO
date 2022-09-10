@@ -20,7 +20,7 @@ import controle.ControleDados;
 /**
  * Classe que gera a vizualização da tela principal
  * 
- * @author Carlos Eduardo & Pedro Barbosa
+ * @author Carlos Eduardo and Pedro Barbosa
  * @version 1.0
  * 
  * @see TelaMain

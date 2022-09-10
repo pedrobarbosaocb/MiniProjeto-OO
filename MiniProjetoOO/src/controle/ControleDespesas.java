@@ -8,7 +8,7 @@ import modelo.Pessoa;
 /**
  * Classe que realiza algumas operações de busca na lista de Despesas
  * 
- * @author Carlos Eduardo & Pedro Barbosa
+ * @author Carlos Eduardo and Pedro Barbosa
  * @version 1.0
  * 
  * @see ControleDados

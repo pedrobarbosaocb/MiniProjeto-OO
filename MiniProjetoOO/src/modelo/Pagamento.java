@@ -3,7 +3,7 @@ package modelo;
 /**
  * Classe responsável por armazenar informações de um pagamento e suas operações
  * 
- * @author Carlos Eduardo & Pedro Barbosa
+ * @author Carlos Eduardo and Pedro Barbosa
  * @version 1.0
  * 
  * @see Despesa

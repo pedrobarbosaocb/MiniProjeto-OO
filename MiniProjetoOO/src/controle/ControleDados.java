@@ -9,7 +9,7 @@ import modelo.Pagamento.FormaPagamento;
 /**
  * Classe que realiza a intermediação entre a view e os dados no modelo com operações CRUD
  * 
- * @author Carlos Eduardo & Pedro Barbosa
+ * @author Carlos Eduardo and Pedro Barbosa
  * @version 1.0
  * 
  * @see Dados
@@ -43,6 +43,32 @@ public class ControleDados {
 	}
 	
 	/**
+	 * Método que insere registros de despesas e de amigos ao usuario logado
+	 * 
+	 * @param user ControleDados
+	 * 
+	 */
+	public void initialize(ControleUsuarios user) {
+		ControleDados.setUsuarioSessao(user.getUsuario(0));
+//		criarAmigo(ControleDados.getUsuarioSessao(), "Julia", "julia@gmail.com", "(11)12345-1234");
+//		criarAmigo(ControleDados.getUsuarioSessao(), "Beatriz", "beatriz@gmail.com", "(11)91111-1111");
+//
+//		ArrayList<Pessoa> pessoas = new ArrayList<Pessoa>();
+//		ArrayList<Double> valores = new ArrayList<Double>();
+//
+//		pessoas.add(ControleDados.getUsuarioSessao());
+//		pessoas.add(ControleDados.getUsuarioSessao().getAmigos().get(0));
+//		pessoas.add(ControleDados.getUsuarioSessao().getAmigos().get(1));
+//		valores.add((double) 150);
+//		valores.add((double) 100);
+//		valores.add((double) 50);
+//
+//		for (int i = 1; i < 10; i++) {
+//			criarDespesa("DespesaExemplo" + i, (double) 300, i + "/02/2023", pessoas, valores);
+//		}
+	}
+	
+	/**
 	 * Método verifica se algum dos objetos da lista é null, "" ou 0
 	 * @param objeto Object[]
 	 * @return true caso um objeto passado seja null, "" ou 0, e false caso contrário
@@ -63,7 +89,6 @@ public class ControleDados {
 	 * @param niver String
 	 * @param senha String
 	 * @return true caso consiga adicionar o usuario, e false caso receba alguma informação errada
-	 * @see {@link Dados#addUsuario(int)}
 	 */
 	public boolean criarUsuario(String nome, String email, String niver, String senha) {
 		Object[] params = {nome, email, niver, senha};
@@ -83,7 +108,6 @@ public class ControleDados {
 	 * @param niver String
 	 * @param senha String
 	 * @return true caso consiga alterar as informções, e false caso receba alguma informação errada
-	 * @see {@link Dados#getUsuario(int)}
 	 */
 	public boolean editarUsuario(int id, String nome, String email, String niver, String senha) {
 		Object[] params = {nome, email, niver, senha};
@@ -102,9 +126,8 @@ public class ControleDados {
 	
 	/**
 	 * Exclui um usuario da lista de usuarios
-	 * @param id
+	 * @param id int
 	 * @return true caso consiga excluir o usuario, e false caso não consiga
-	 * @see {@link Dados#removerUsuario(int)}
 	 */
 	public boolean excluirUsuario(int id) {
 		if(id < 0) return false;
@@ -117,10 +140,7 @@ public class ControleDados {
 	 * @param nome     String
 	 * @param email    String
 	 * @param telefone String
-	 * @return true caso consiga adicionar o amigo, e false caso receba alguma informação errada
-	 * @see {@link Amigo#addAmigoDe(Usuario)}
-	 * @see {@link Usuario#addAmigo(Amigo)}
-	 * @see {@link Dados#addAmigo(Amigo)}
+	 * @return true caso consiga adicionar o amigo, e false caso receba alguma informação errada}
 	 */
 	public boolean criarAmigo(Usuario usuario, String nome, String email, String telefone) {
 		Object[] params = {usuario, nome, email, telefone};
@@ -140,7 +160,6 @@ public class ControleDados {
 	 * @param email    String
 	 * @param telefone String
 	 * @return true caso consiga alterar as informções, e false caso receba alguma informação errada
-	 * @see {@link Dados#getAmigo(int)}
 	 */
 	public boolean editarAmigo(int id, String nome, String email, String telefone) {
 		Object[] params = {nome, email, telefone};
@@ -160,7 +179,6 @@ public class ControleDados {
 	 * Exclui um amigo da lista de amigos
 	 * @param id
 	 * @return true caso consiga excluir o usuario, e false caso não consiga
-	 * @see {@link Dados#removerAmigo(int)}
 	 */
 	public boolean excluirAmigo(int id) {
 		if(id < 0) return false;
@@ -279,7 +297,7 @@ public class ControleDados {
 	
 	/**
 	 * Método para editar as informações de uma despesa, exclui a antiga e cria uma nova com parâmetros recebidos.
-	 * @param id         int
+	 * @param idConta         int
 	 * @param titulo     String
 	 * @param valor      double
 	 * @param vencimento String
