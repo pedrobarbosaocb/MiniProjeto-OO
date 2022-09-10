@@ -48,13 +48,15 @@ public class AddDespesa extends JDialog implements ActionListener {
 	private static JPanel list_panel = new JPanel();
 	private static JPanel east_panel = new JPanel();
 	private static JPanel faltam_panel = new JPanel();
-
+	private static JPanel valor_panel = new JPanel()
+;
 	private static JButton cancel_btn = new JButton("Cancelar");
 	private static JButton save_btn = new JButton("Gerar Despesa");
 	private static JButton add_btn = new JButton("Adicionar");
 	private static JButton div_igual = new JButton("Dividir Igualmente");
 
 	private static JTextField txt_add_valor = new JTextField();
+	private static JLabel add_valor = new JLabel("Valor");
 
 	private static JLabel valor = new JLabel("Valor");
 
@@ -79,6 +81,8 @@ public class AddDespesa extends JDialog implements ActionListener {
 	private static JLabel dt_vencimento = new JLabel("Data de Vencimento");
 	private static JLabel lbl_faltam = new JLabel("Faltam");
 	private static JLabel faltam = new JLabel("");
+	private static JLabel lbl_valor_igual = new JLabel("Valor para cada");
+	private static JLabel valor_igual = new JLabel("");
 
 	private static JTextField txt_titulo = new JTextField();
 	private static JTextField txt_valor_total = new JTextField();
@@ -109,10 +113,11 @@ public class AddDespesa extends JDialog implements ActionListener {
 			amigos_all.add(amigos_id.get(i));
 		}
 
-		north_panel.setLayout(new FlowLayout(FlowLayout.LEFT));
+		north_panel.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 10));
 		txt_add_valor.setPreferredSize(new Dimension(50, 27));
 		amigos_nome.setPreferredSize(new Dimension(250, 27));
 		north_panel.add(amigos_nome);
+		txt_add_valor.setBorder(new EmptyBorder(0,10,0,10));
 		north_panel.add(txt_add_valor);
 		north_panel.add(add_btn);
 
@@ -133,9 +138,11 @@ public class AddDespesa extends JDialog implements ActionListener {
 		east_panel.add(div_igual);
 		east_panel.add(faltam_panel);
 
-		faltam_panel.setLayout(new FlowLayout());
+		faltam_panel.setLayout(new BoxLayout(faltam_panel, BoxLayout.Y_AXIS));
 		faltam_panel.add(lbl_faltam);
 		faltam_panel.add(faltam);
+		faltam_panel.add(lbl_valor_igual);
+		faltam_panel.add(valor_igual);
 
 		north_panel2.setBorder(new EmptyBorder(10, 10, 0, 10));
 		north_panel2.setLayout(new GridLayout(3, 4, 10, 5));
@@ -183,6 +190,7 @@ public class AddDespesa extends JDialog implements ActionListener {
 			txt_titulo.setText("");
 			txt_dt_vencimento.setText("");
 			txt_valor_total.setText("");
+			txt_add_valor.setText("");
 
 			listModel1.removeAllElements();
 			listModel2.removeAllElements();
@@ -251,26 +259,31 @@ public class AddDespesa extends JDialog implements ActionListener {
 	 * @param labels JLabels[]
 	 */
 	public void dividirIgualmente() {
-		double valor_total = Double.valueOf(txt_valor_total.getText());
-		valor_total = valor_total / (pessoas.size() - 1);
+		if (verificaIsNumero(txt_add_valor.getText()) && verificaIsNumero(txt_valor_total.getText())) {
+			double valor_total = Double.valueOf(txt_valor_total.getText());
+			valor_total = valor_total / (pessoas.size());
+			
+			valor_igual.setText(""+valor_total);
 
-		ArrayList<Double> valores_new = valores;
+			/*ArrayList<Double> valores_new = valores;
 
-		listModel1.removeAllElements();
+			listModel1.removeAllElements();
 
-		listModel2.removeAllElements();
+			listModel2.removeAllElements();
 
-		for (int i = 0; i < pessoas.size(); i++) {
-			listModel1.addElement(pessoas.get(i).getNome());
-			valores_new.add(valor_total);
-			listModel2.addElement(String.format("%.2f", valor_total));
+			for (int i = 0; i < pessoas.size(); i++) {
+				listModel1.addElement(pessoas.get(i).getNome());
+				valores_new.add(valor_total);
+				listModel2.addElement(String.format("%.2f", valor_total));
+			}
+
+			amigos_despesa.setModel(listModel1);
+			valores_list.setModel(listModel2);
+			*/
+			
+			revalidate();
+			repaint();
 		}
-
-		amigos_despesa.setModel(listModel1);
-		valores_list.setModel(listModel2);
-
-		revalidate();
-		repaint();
 	}
 
 	/**

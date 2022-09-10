@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -42,17 +43,24 @@ public class PayDespesa extends JDialog implements ActionListener {
 	private static JLabel devedor = new JLabel("Devedor");
 	private static JLabel credor = new JLabel("Credor");
 	private static JLabel pagar = new JLabel("Valor a pagar");
+	private static JLabel lbl_forma_pagto = new JLabel("Forma de Pagamento");
 
 	private static JLabel txt_devedor = new JLabel("");
 	private static JLabel txt_credor = new JLabel("");
 	private static JTextField txt_pagar = new JTextField(20);
+	
+	private static JComboBox<String> forma_pagto = new JComboBox<String>();
 
 	public PayDespesa(Despesa despesa) {
 		setModal(true);
 		txt_devedor.setText(despesa.getDevedor().getNome());
 		txt_credor.setText(despesa.getCredor().getNome());
+		
+		forma_pagto.addItem("Pix");
+		forma_pagto.addItem("Débito");
+		forma_pagto.addItem("Crédito");
 
-		center_panel.setLayout(new GridLayout(3, 2));
+		center_panel.setLayout(new GridLayout(4, 2, 10, 10));
 		center_panel.setBorder(new EmptyBorder(10, 10, 10, 10));
 		center_panel.add(devedor);
 		center_panel.add(txt_devedor);
@@ -60,6 +68,8 @@ public class PayDespesa extends JDialog implements ActionListener {
 		center_panel.add(txt_credor);
 		center_panel.add(pagar);
 		center_panel.add(txt_pagar);
+		center_panel.add(lbl_forma_pagto);
+		center_panel.add(forma_pagto);
 
 		add(center_panel, BorderLayout.CENTER);
 

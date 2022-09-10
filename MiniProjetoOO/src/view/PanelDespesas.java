@@ -119,14 +119,14 @@ public class PanelDespesas extends JPanel implements ActionListener {
 
 		for (int i = 0; i < debitos_list.size(); i++) {
 			listModel1.addElement(
-					"DEBITO " + debitos_list.get(i).getTitulo() + " - " + debitos_list.get(i).getTotalPago() + " - "
+					"DEBITO --> " + debitos_list.get(i).getTitulo() + " - " + debitos_list.get(i).getTotalPago() + " - "
 							+ debitos_list.get(i).getValor() + " - " + debitos_list.get(i).getCredor().getNome());
 			despesas.add(debitos_list.get(i));
 		}
 
 		for (int i = 0; i < creditos_list.size(); i++) {
 			listModel1.addElement(
-					"CREDITO " + creditos_list.get(i).getTitulo() + " - " + creditos_list.get(i).getTotalPago() + " - "
+					"CREDITO --> " + creditos_list.get(i).getTitulo() + " - " + creditos_list.get(i).getTotalPago() + " - "
 							+ creditos_list.get(i).getValor() + " - " + creditos_list.get(i).getDevedor().getNome());
 			despesas.add(creditos_list.get(i));
 		}
