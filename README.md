@@ -37,14 +37,12 @@
 <h3 align="center">MiniProjeto-OO</h3>
 
   <p align="center">
-    This project is an application which helps friends sharing their expenses.
+    Esse projeto baseia-se em uma aplicação que auxilia divisão de despesas entre amigos
     <br />
-    <a href="https://github.com/pedrobarbosaocb/MiniProjeto-OO"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/pedrobarbosaocb/MiniProjeto-OO"><strong>Explore os nossos docs »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/pedrobarbosaocb/MiniProjeto-OO">View Demo</a>
-    ·
-    <a href="https://github.com/pedrobarbosaocb/MiniProjeto-OO/issues">Report Bug</a>
+    <a href="https://github.com/pedrobarbosaocb/MiniProjeto-OO/issues">Reportar Bug</a>
     ·
     <a href="https://github.com/pedrobarbosaocb/MiniProjeto-OO/issues">Request Feature</a>
   </p>
@@ -54,107 +52,45 @@
 
 <!-- TABLE OF CONTENTS -->
 <details>
-  <summary>Table of Contents</summary>
+  <summary>Sumário</summary>
   <ol>
     <li>
-      <a href="https://github.com/pedrobarbosaocb/MiniProjeto-OO">About the project</a>
+      <a href="https://github.com/pedrobarbosaocb/MiniProjeto-OO">Sobre o projeto</a>
       <ul>
-        <li><a href="#built-with">Built With</a></li>
+        <li><a href="#feito-com">Feito com</a></li>
       </ul>
     </li>
-    <li>
-      <a href="#getting-started">Getting Started</a>
-      <ul>
-        <li><a href="#prerequisites">Prerequisites</a></li>
-        <li><a href="#installation">Installation</a></li>
-      </ul>
-    </li>
-    <li><a href="#usage">Usage</a></li>
-    <li><a href="#roadmap">Roadmap</a></li>
-    <li><a href="#contributing">Contributing</a></li>
-    <li><a href="#license">License</a></li>
-    <li><a href="#contact">Contact</a></li>
-    <li><a href="#acknowledgments">Acknowledgments</a></li>
+    <li><a href="#utilização">Utilização</a></li>
+    <li><a href="#contribuições">Contribuições</a></li>
+    <li><a href="#contatos">Contatos</a></li>
   </ol>
 </details>
 
 
 
-<!-- ABOUT THE PROJECT -->
-## About The Project
-
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
-
-### Built With
+### Feito com
 
 * [![Java][Java.com]][Java-url]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
-
-<!-- GETTING STARTED -->
-## Getting Started
-
-This is an example of how you may give instructions on setting up your project locally.
-To get a local copy up and running follow these simple example steps.
-
-### Prerequisites
-
-This is an example of how to list things you need to use the software and how to install them.
-* java
-
-### Installation
-
-1. Get a free API Key at [https://example.com](https://example.com)
-2. Clone the repo
-   ```sh
-   git clone https://github.com/github_username/repo_name.git
-   ```
-3. Install NPM packages
-   ```sh
-   npm install
-   ```
-4. Enter your API in `config.js`
-   ```js
-   const API_KEY = 'ENTER YOUR API';
-   ```
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
-
 <!-- USAGE EXAMPLES -->
-## Usage
+## Utilização
 
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
+Em muitos momentos de vivência social nós nos encontramos na situação de estar dividindo uma despesa, seja uma simples conta em um bar até mesmo inscrições mensais de aplicativos de streaming. Com isso, nosso projeto visa auxiliar você a se organizar com essas despesas, por meio do controle dos débitos e créditos com os amigos adicionados às despesas. Personalize cada despesa de acordo com a sua necessidade! (e caso tenha sugestões de mudanças, sinta-se a vontade para nos contactar) 
 
-_For more examples, please refer to the [Documentation](https://example.com)_
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
-
-<!-- ROADMAP -->
-## Roadmap
-
-- [ ] Feature 1
-- [ ] Feature 2
-- [ ] Feature 3
-    - [ ] Nested Feature
-
-See the [open issues](https://github.com/github_username/repo_name/issues) for a full list of proposed features (and known issues).
+_Visite as [Documentações](https://github.com/pedrobarbosaocb/MiniProjeto-OO)_
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+
+
 
 
 
 <!-- CONTRIBUTING -->
-## Contributing
+## Contribuições
 
 Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
 
@@ -171,36 +107,21 @@ Don't forget to give the project a star! Thanks again!
 
 
 
-<!-- LICENSE -->
-## License
 
-Distributed under the MIT License. See `LICENSE.txt` for more information.
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
 
 <!-- CONTACT -->
-## Contact
+## Contatos
 
 Carlos Eduardo - [@twitter_handle](https://twitter.com/twitter_handle) - email@email_client.com
 
 Pedro Barbosa - [@twitter_handle](https://twitter.com/pedrobarbosaocb) - pedrobarbosaocb@gmail.com
 
-Project Link: [https://github.com/github_username/repo_name](https://github.com/github_username/repo_name)
+Link do Projeto: [https://github.com/pedrobarbosaocb/MiniProjeto-OO](https://github.com/pedrobarbosaocb/MiniProjeto-OO)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-
-
-<!-- ACKNOWLEDGMENTS -->
-## Acknowledgments
-
-* []()
-* []()
-* []()
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
 
