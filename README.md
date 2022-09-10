@@ -14,7 +14,6 @@
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
 [![MIT License][license-shield]][license-url]
-[![LinkedIn][linkedin-shield]][linkedin-url]
 
 
 
@@ -106,11 +105,13 @@ Don't forget to give the project a star! Thanks again!
 <!-- CONTACT -->
 ## Contatos
 
-Carlos Eduardo - [@twitter_handle](https://twitter.com/) - carlos.e.souza2653@gmail.com
+Carlos Eduardo 
+* [![Linkedin][linkedin-shield]](https://www.linkedin.com/in/carlos-e-souza2653/)
+* [![Gmail][Gmail]](carlos.e.souza2653@gmail.com)
 
-Pedro Barbosa - [@twitter_handle](https://twitter.com/pedrobarbosaocb) - pedrobarbosaocb@gmail.com
-
-Link do Projeto: [https://github.com/pedrobarbosaocb/MiniProjeto-OO](https://github.com/pedrobarbosaocb/MiniProjeto-OO)
+Pedro Barbosa
+* [![Linkedin][linkedin-shield]](https://www.linkedin.com/in/pedrobarbosaocb/)
+* [![Gmail][Gmail]](pedrobarbosaocb@gmail.com)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -136,3 +137,4 @@ Link do Projeto: [https://github.com/pedrobarbosaocb/MiniProjeto-OO](https://git
 [Java-url]: https://www.java.com
 [Eclipse.com]: https://img.shields.io/badge/Eclipse-FE7A16.svg?style=for-the-badge&logo=Eclipse&logoColor=white
 [Eclipse-url]: https://www.eclipse.org/
+[Gmail]: https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white
