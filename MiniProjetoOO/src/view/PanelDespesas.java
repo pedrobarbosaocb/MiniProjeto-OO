@@ -108,11 +108,11 @@ public class PanelDespesas extends JPanel implements ActionListener {
 		Object src = e.getSource();
 
 		if (src == add_despesa_igual) {
-			new AddDespesaPersonalizada(_dados);
+			new AddDespesa(_dados);
 		}
 		
 		if (src == add_despesa) {
-			new AddDespesa(_dados);
+			new AddDespesaPersonalizada(_dados);
 		}
 
 		if (src == search_btn) {
