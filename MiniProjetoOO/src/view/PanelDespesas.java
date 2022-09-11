@@ -35,7 +35,8 @@ public class PanelDespesas extends JPanel implements ActionListener {
 	private static final long serialVersionUID = 1L;
 
 	public static JButton refresh_btn = new JButton("Atualizar");;
-	public static JButton add_despesa = new JButton("Nova Despesa");
+	public static JButton add_despesa = new JButton("Criar Despesa Personalizada");
+	public static JButton add_despesa_igual = new JButton("Criar Despesa Divisão Equalitária");
 	public static JButton remove_despesa = new JButton("Remover Despesa");
 	public static JButton pagar_despesa = new JButton("Realizar Pagamento");
 	public static JTextField search = new JTextField(20);
@@ -44,6 +45,7 @@ public class PanelDespesas extends JPanel implements ActionListener {
 
 	private static JPanel despesas_list_panel = new JPanel();
 	private static JPanel north_panel = new JPanel();
+	private static JPanel south_panel = new JPanel();
 
 	private static JTextField pesquisar_despesa = new JTextField(20);
 	private static ControleDados _dados;
@@ -88,10 +90,14 @@ public class PanelDespesas extends JPanel implements ActionListener {
 		AdicionarDespesas("");
 
 		add(despesas_list_panel, BorderLayout.CENTER);
-		add(add_despesa, BorderLayout.SOUTH);
+		south_panel.setLayout(new GridLayout(1,2));
+		south_panel.add(add_despesa);
+		south_panel.add(add_despesa_igual);
+		add(south_panel, BorderLayout.SOUTH);
 
 		search_btn.addActionListener(this);
 		add_despesa.addActionListener(this);
+		add_despesa_igual.addActionListener(this);
 		remove_despesa.addActionListener(this);
 		refresh_btn.addActionListener(this);
 		pagar_despesa.addActionListener(this);
@@ -101,6 +107,10 @@ public class PanelDespesas extends JPanel implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		Object src = e.getSource();
 
+		if (src == add_despesa_igual) {
+			new AddDespesaPersonalizada(_dados);
+		}
+		
 		if (src == add_despesa) {
 			new AddDespesa(_dados);
 		}

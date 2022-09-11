@@ -3,6 +3,7 @@ package view;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -39,7 +40,7 @@ import modelo.Pessoa;
  * @see TelaMenuEntrada
  **/
 
-public class AddDespesa extends JDialog implements ActionListener {
+public class AddDespesaPersonalizada extends JDialog implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
 
@@ -49,8 +50,10 @@ public class AddDespesa extends JDialog implements ActionListener {
 	private static JPanel main_north_panel = new JPanel();
 	private static JPanel center_panel = new JPanel();
 	private static JPanel list_panel = new JPanel();
+	private static JPanel list_main_panel = new JPanel();
 	private static JPanel east_panel = new JPanel();
 	private static JPanel faltam_panel = new JPanel();
+	private static JPanel label_panel = new JPanel();
 
 	private static JButton cancel_btn = new JButton("Cancelar");
 	private static JButton gerar_btn = new JButton("Gerar Despesa");
@@ -58,14 +61,15 @@ public class AddDespesa extends JDialog implements ActionListener {
 	private static JButton div_btn = new JButton("Dividir Igualmente");
 	private static JButton edit_btn = new JButton("Editar valor");
 	private static JButton remove_btn = new JButton("Remover amigo");
-	private static JButton gerar_igual_btn = new JButton("Dividir Igualmente");
 
 	private static JTextField txt_add_valor = new JTextField();
+	private static JTextField txt_add_valor_pago = new JTextField();
 	private static int screen_height = 550;
 	private static int screen_width = 650;
 
 	private ArrayList<Pessoa> pessoas = new ArrayList<Pessoa>();
 	private ArrayList<Pessoa> amigos_all = new ArrayList<Pessoa>();
+	private ArrayList<Double> valores_pagos = new ArrayList<Double>();
 	private ArrayList<Double> valores = new ArrayList<Double>();
 	private static ArrayList<String> amigos;
 	private static ArrayList<Amigo> amigos_id;
@@ -75,10 +79,12 @@ public class AddDespesa extends JDialog implements ActionListener {
 
 	private static JComboBox<String> amigos_nome = new JComboBox<String>();
 
+	private static JList<String> valores_pagos_list = new JList<String>();
 	private static JList<String> valores_list = new JList<String>();
 	private static JList<String> amigos_despesa = new JList<String>();
 	private static DefaultListModel<String> listModel1 = new DefaultListModel<String>();
 	private static DefaultListModel<String> listModel2 = new DefaultListModel<String>();
+	private static DefaultListModel<String> listModel3 = new DefaultListModel<String>();
 
 	private static JLabel titulo = new JLabel("Título da Despesa");
 	private static JLabel valor_total = new JLabel("Valor Total");
@@ -87,22 +93,26 @@ public class AddDespesa extends JDialog implements ActionListener {
 	private static JLabel faltam = new JLabel("");
 	private static JLabel lbl_valor_igual = new JLabel("Valor para cada");
 	private static JLabel valor_igual = new JLabel("");
+	private static JLabel nome_amigo = new JLabel("Nome amigo");
+	private static JLabel valor_na_hora = new JLabel("Valor pago");
+	private static JLabel valor_deve = new JLabel("Deve");
 
 	private static JTextField txt_titulo = new JTextField();
 	private static JFormattedTextField txt_valor_total = new JFormattedTextField();
 	private static JFormattedTextField txt_dt_vencimento;
 
 	private static double soma_total = 0;
+	private static double soma_total2 = 0;
 
 	/**
-	 * Construtor AddDespesa
+	 * Construtor AddDespesaPersonalizada
 	 * 
 	 * Gera a visualização do JDialog de adição de uma nova despesa aos dados do
 	 * usuario da sessao
 	 * 
 	 * @param dados ControleDados
 	 **/
-	public AddDespesa(ControleDados dados) {
+	public AddDespesaPersonalizada(ControleDados dados) {
 		setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 
 		setModal(true);
@@ -140,10 +150,14 @@ public class AddDespesa extends JDialog implements ActionListener {
 		txt_add_valor.setText("00.0");
 		txt_add_valor.setPreferredSize(new Dimension(50, 27));
 		txt_add_valor.setBorder(new EmptyBorder(0, 10, 0, 10));
+		txt_add_valor_pago.setText("00.0");
+		txt_add_valor_pago.setPreferredSize(new Dimension(50, 27));
+		txt_add_valor_pago.setBorder(new EmptyBorder(0, 10, 0, 10));
 		amigos_nome.setPreferredSize(new Dimension(200, 27));
 
 		north_panel.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 10));
 		north_panel.add(amigos_nome);
+		north_panel.add(txt_add_valor_pago);
 		north_panel.add(txt_add_valor);
 		north_panel.add(add_btn);
 		north_panel.add(remove_btn);
@@ -152,13 +166,24 @@ public class AddDespesa extends JDialog implements ActionListener {
 		btn_panel.add(cancel_btn);
 		btn_panel.add(gerar_btn);
 
+		label_panel.setLayout(new GridLayout(1, 3));
+		label_panel.setFont(new Font(Font.MONOSPACED, Font.BOLD, 5));
+		label_panel.add(nome_amigo);
+		label_panel.add(valor_na_hora);
+		label_panel.add(valor_deve);
+
 		center_panel.setBorder(new EmptyBorder(0, 10, 10, 10));
 		center_panel.setLayout(new BorderLayout());
-		center_panel.add(list_panel, BorderLayout.CENTER);
+		center_panel.add(list_main_panel, BorderLayout.CENTER);
 
-		list_panel.setLayout(new GridLayout(1, 2));
+		list_panel.setLayout(new GridLayout(1, 3));
 		list_panel.add(amigos_despesa);
+		list_panel.add(valores_pagos_list);
 		list_panel.add(valores_list);
+
+		list_main_panel.setLayout(new BorderLayout());
+		list_main_panel.add(label_panel, BorderLayout.NORTH);
+		list_main_panel.add(list_panel, BorderLayout.CENTER);
 
 		east_panel.setLayout(new GridLayout(4, 0));
 		east_panel.setBorder(new EmptyBorder(0, 0, 10, 10));
@@ -191,7 +216,6 @@ public class AddDespesa extends JDialog implements ActionListener {
 
 		edit_btn.addActionListener(this);
 		remove_btn.addActionListener(this);
-		div_btn.addActionListener(this);
 		add_btn.addActionListener(this);
 		cancel_btn.addActionListener(this);
 		gerar_btn.addActionListener(this);
@@ -210,22 +234,19 @@ public class AddDespesa extends JDialog implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		Object src = e.getSource();
 
-		if (src == edit_btn) {
-
-		}
 		if (src == remove_btn) {
 			if (!amigos_despesa.isSelectionEmpty()) {
 				for (int i = 0; i < pessoas.size(); i++) {
 					if (pessoas.get(i).getNome().equals(amigos_despesa.getSelectedValue())) {
+						soma_total = soma_total - valores_pagos.get(i);
 						pessoas.remove(i);
+						valores.remove(i);
+						valores_pagos.remove(i);
 						i--;
 					}
 				}
 				atualizarLista();
 			}
-		}
-		if (src == div_btn) {
-			dividirIgualmente();
 		}
 
 		if (src == cancel_btn) {
@@ -235,12 +256,15 @@ public class AddDespesa extends JDialog implements ActionListener {
 			txt_dt_vencimento.setText("");
 			txt_valor_total.setText("");
 			txt_add_valor.setText("");
+			txt_add_valor_pago.setText("");
 
 			listModel1.removeAllElements();
 			listModel2.removeAllElements();
+			listModel3.removeAllElements();
 
 			amigos_despesa.setModel(listModel1);
 			valores_list.setModel(listModel2);
+			valores_pagos_list.setModel(listModel3);
 
 			txt_panel.removeAll();
 
@@ -258,38 +282,25 @@ public class AddDespesa extends JDialog implements ActionListener {
 			dispose();
 		}
 
-		if (src == gerar_igual_btn) {
-			try {
-				valores.clear();
-				for (int i = 0; i < pessoas.size(); i++) {
-					valores.add(Double.valueOf(valor_igual.getText()));
-				}
-				if (_dados.criarDespesa(txt_titulo.getText(), Double.parseDouble(txt_valor_total.getText()),
-						txt_dt_vencimento.getText(), pessoas, valores)) {
-					JOptionPane.showMessageDialog(null, "Despesa gerada com sucesso!", null,
-							JOptionPane.INFORMATION_MESSAGE);
-					cancel_btn.doClick();
-				} else {
-					JOptionPane.showMessageDialog(null, "Falha ao gerar despesa!", null,
-							JOptionPane.INFORMATION_MESSAGE);
-				}
-			} catch (Exception err) {
-				JOptionPane.showMessageDialog(null, "Falha ao gerar despesa!", null, JOptionPane.INFORMATION_MESSAGE);
-			}
-		}
-
 		if (src == gerar_btn) {
 
 			try {
-				if (_dados.criarDespesa(txt_titulo.getText(), Double.parseDouble(txt_valor_total.getText()),
-						txt_dt_vencimento.getText(), pessoas, valores)) {
-					JOptionPane.showMessageDialog(null, "Despesa gerada com sucesso!", null,
-							JOptionPane.INFORMATION_MESSAGE);
-					cancel_btn.doClick();
+				if (valores.size() > 0 || valores_pagos.size() > 0 || pessoas.size() > 0) {
+					if (_dados.criarDespesa(txt_titulo.getText(), Double.parseDouble(txt_valor_total.getText()),
+							txt_dt_vencimento.getText(), pessoas, valores_pagos, valores)) {
+						JOptionPane.showMessageDialog(null, "Despesa gerada com sucesso!", null,
+								JOptionPane.INFORMATION_MESSAGE);
+						cancel_btn.doClick();
+					} else {
+						JOptionPane.showMessageDialog(null, "Falha ao gerar despesa!", null,
+								JOptionPane.INFORMATION_MESSAGE);
+					}
 				} else {
-					JOptionPane.showMessageDialog(null, "Falha ao gerar despesa!", null,
+					System.out.println(valores.size() + " " + valores_pagos.size() + " " + pessoas.size());
+					JOptionPane.showMessageDialog(null, "Adicione valores para gerar a despesa!", null,
 							JOptionPane.INFORMATION_MESSAGE);
 				}
+					
 			} catch (Exception err) {
 				JOptionPane.showMessageDialog(null, "Falha ao gerar despesa!", null, JOptionPane.INFORMATION_MESSAGE);
 			}
@@ -297,50 +308,32 @@ public class AddDespesa extends JDialog implements ActionListener {
 		}
 
 		if (src == add_btn) {
-			if (verificaIsNumero(txt_add_valor.getText()) && verificaIsNumero(txt_valor_total.getText())) {
+			if (verificaIsNumero(txt_add_valor_pago.getText()) && verificaIsNumero(txt_add_valor.getText())
+					&& verificaIsNumero(txt_valor_total.getText())) {
 
 				double valor_total = Double.valueOf(txt_valor_total.getText());
+				double valor_pago = Double.valueOf(txt_add_valor_pago.getText());
 				double valor_add = Double.valueOf(txt_add_valor.getText());
 
-				if (valor_total >= valor_add && (soma_total + valor_add) <= valor_total) {
-
+				if ((soma_total + valor_pago) <= valor_total || (soma_total2 + valor_add) <= valor_total) {
 					if (verificaAmigoLista(amigos_all.get(amigos_nome.getSelectedIndex()))) {
+						soma_total = soma_total + valor_pago;
+						soma_total2 = soma_total2 + valor_add;
 
-						soma_total = soma_total + Double.valueOf(txt_add_valor.getText());
-						faltam.setText("" + (Double.valueOf(txt_valor_total.getText()) - soma_total));
-
-						pessoas.add(amigos_all.get(amigos_nome.getSelectedIndex()));
 						valores.add(Double.valueOf(txt_add_valor.getText()));
+						valores_pagos.add(Double.valueOf(txt_add_valor_pago.getText()));
+						pessoas.add(amigos_all.get(amigos_nome.getSelectedIndex()));
 
 						atualizarLista();
-
-						div_btn.doClick();
+					} else {
+						JOptionPane.showMessageDialog(null, "Falha ao adicionar valor!", null,
+								JOptionPane.INFORMATION_MESSAGE);
 					}
-
 				} else {
-
-					JOptionPane.showMessageDialog(null, "O valor inserido excede o valor total da despesa!", null,
+					JOptionPane.showMessageDialog(null, "Valor superior a despesa!", null,
 							JOptionPane.INFORMATION_MESSAGE);
-
 				}
 			}
-		}
-	}
-
-	/**
-	 * Método que divide o valor total da dispesa de forma igual entre as pessoas
-	 * adicionadas
-	 * 
-	 */
-	public void dividirIgualmente() {
-		if (verificaIsNumero(txt_add_valor.getText()) && verificaIsNumero(txt_valor_total.getText())) {
-			double valor_total = Double.valueOf(txt_valor_total.getText());
-			valor_total = valor_total / (pessoas.size());
-
-			valor_igual.setText("" + valor_total);
-
-			revalidate();
-			repaint();
 		}
 	}
 
@@ -389,14 +382,17 @@ public class AddDespesa extends JDialog implements ActionListener {
 	public void atualizarLista() {
 		listModel1.removeAllElements();
 		listModel2.removeAllElements();
+		listModel3.removeAllElements();
 
 		for (int i = 0; i < pessoas.size(); i++) {
 			listModel1.addElement(pessoas.get(i).getNome());
 			listModel2.addElement("" + valores.get(i));
+			listModel3.addElement("" + valores_pagos.get(i));
 		}
 
 		amigos_despesa.setModel(listModel1);
 		valores_list.setModel(listModel2);
+		valores_pagos_list.setModel(listModel3);
 
 		revalidate();
 		repaint();

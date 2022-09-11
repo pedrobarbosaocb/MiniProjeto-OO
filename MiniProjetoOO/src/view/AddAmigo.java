@@ -129,6 +129,9 @@ public class AddAmigo extends JDialog implements ActionListener {
 
 		if (src == cancel_btn) {
 			panel_main.removeAll();
+			
+			txt_nome.setText("");
+			txt_email.setText("");
 
 			save_btn.removeActionListener(this);
 			cancel_btn.removeActionListener(this);
