@@ -337,7 +337,7 @@ public class AddDespesa extends JDialog implements ActionListener {
 			double valor_total = Double.valueOf(txt_valor_total.getText());
 			valor_total = valor_total / (pessoas.size());
 
-			valor_igual.setText("" + valor_total);
+			valor_igual.setText(String.format("%.2f", valor_total));
 
 			revalidate();
 			repaint();

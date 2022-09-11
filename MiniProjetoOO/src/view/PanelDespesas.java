@@ -125,8 +125,12 @@ public class PanelDespesas extends JPanel implements ActionListener {
 
 		if (src == remove_despesa) {
 			if (!despesas_list.isSelectionEmpty()) {
-				_dados.excluirDespesa(despesas.get(despesas_list.getSelectedIndex()).getIdConta());
-				AdicionarDespesas("");
+				int op = JOptionPane.showConfirmDialog(north_panel, "Tem certeza que deseja excluir todas as despesas relacionadas com: "
+						+despesas.get(despesas_list.getSelectedIndex()).getTitulo());
+				if(op == 0) {
+					_dados.excluirDespesa(despesas.get(despesas_list.getSelectedIndex()).getIdConta());
+					AdicionarDespesas("");	
+				}
 			} else {
 				JOptionPane.showMessageDialog(null, "Selecione a despesa que voce deseja remover!", null,
 						JOptionPane.INFORMATION_MESSAGE);
@@ -165,6 +169,7 @@ public class PanelDespesas extends JPanel implements ActionListener {
 		ControleUsuarios controle_user = new ControleUsuarios(_dados);
 		ArrayList<Despesa> debitos_list = controle_user.getDebitosUsuario(ControleDados.getUsuarioSessao().getId());
 		ArrayList<Despesa> creditos_list = controle_user.getCreditosUsuario(ControleDados.getUsuarioSessao().getId());
+		despesas.clear();
 
 		listModel1.removeAllElements();
 

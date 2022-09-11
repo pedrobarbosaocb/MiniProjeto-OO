@@ -105,6 +105,7 @@ public class TelaMenuEntrada extends JFrame implements ActionListener {
 		TelaMenuEntrada menu = new TelaMenuEntrada();
 
 		dados.getDados().inserirDados();
+		dados.criarDados();
 		
 		login_btn.addActionListener(menu);
 		cadastro_btn.addActionListener(menu);

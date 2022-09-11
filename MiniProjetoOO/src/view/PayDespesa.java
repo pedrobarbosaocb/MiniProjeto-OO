@@ -167,6 +167,7 @@ public class PayDespesa extends JDialog implements ActionListener {
 
 			save_btn.removeActionListener(this);
 			cancel_btn.removeActionListener(this);
+			forma_pagto_cbb.removeAllItems();
 
 			setVisible(false);
 			dispose();

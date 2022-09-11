@@ -43,30 +43,32 @@ public class ControleDados {
 	}
 	
 	/**
-	 * Método que insere registros de despesas e de amigos ao usuario logado
-	 * 
-	 * @param user ControleDados
-	 * 
+	 * Método cria usuario, adiciona amigos e cria despesas entre eles, para inicializarmos com valores
 	 */
-	public void initialize(ControleUsuarios user) {
-		ControleDados.setUsuarioSessao(user.getUsuario(0));
-//		criarAmigo(ControleDados.getUsuarioSessao(), "Julia", "julia@gmail.com", "(11)12345-1234");
-//		criarAmigo(ControleDados.getUsuarioSessao(), "Beatriz", "beatriz@gmail.com", "(11)91111-1111");
-//
-//		ArrayList<Pessoa> pessoas = new ArrayList<Pessoa>();
-//		ArrayList<Double> valores = new ArrayList<Double>();
-//
-//		pessoas.add(ControleDados.getUsuarioSessao());
-//		pessoas.add(ControleDados.getUsuarioSessao().getAmigos().get(0));
-//		pessoas.add(ControleDados.getUsuarioSessao().getAmigos().get(1));
-//		valores.add((double) 150);
-//		valores.add((double) 100);
-//		valores.add((double) 50);
-//
-//		for (int i = 1; i < 10; i++) {
-//			criarDespesa("DespesaExemplo" + i, (double) 300, i + "/02/2023", pessoas, valores);
-//		}
+	public void criarDados() {
+		criarUsuario("dados", "dados@gmail.com", "01/01/2000", "senha");
+		ControleUsuarios controle = new ControleUsuarios(this);
+		Usuario usuario = controle.getUsuario("dados@gmail.com");
+		criarAmigo(usuario, "Pedro", "pedro@gmail.com", "(61)99999-9999");
+		criarAmigo(usuario, "Barbosa", "barba@gmail.com", "(61)99999-9999");
+		criarAmigo(usuario, "Carlos", "carlos@gmail.com", "(61)99999-9999");
+		ArrayList<Pessoa> pessoas = new ArrayList<Pessoa>();
+		pessoas.add(usuario);
+		for(Amigo amigo: usuario.getAmigos()) pessoas.add(amigo);
+		ArrayList<Double> valores = new ArrayList<Double>();
+		valores.add(80.0);
+		valores.add(10.0);
+		valores.add(10.0);
+		valores.add(0.0);
+		criarDespesa("Titulo", 100, "24/12/2022", pessoas, valores);
+		ArrayList<Double> pagos = new ArrayList<Double>();
+		pagos.add(30.0);
+		pagos.add(40.0);
+		pagos.add(10.0);
+		pagos.add(20.0);
+		criarDespesa("Teste", 100, "24/12/2022", pessoas, pagos, valores);
 	}
+	
 	
 	/**
 	 * Método verifica se algum dos objetos da lista é null, "" ou 0
